@@ -1,0 +1,195 @@
+﻿if GetLocale() == "esES" or GetLocale() == "esMX" then
+	-- translated by mrglmrgl
+	-- based on esMX client
+
+	-- General
+	DuffedUIConfigUILocalization.general = "General"
+	DuffedUIConfigUILocalization.generalautoscale = "Autoajustar Escala IU"
+	DuffedUIConfigUILocalization.generaloverridelowtohigh = "Usar entorno de Alta resolución en una resolución menor"
+	DuffedUIConfigUILocalization.generalmultisampleprotect = "Protección de multimuestreo"
+	DuffedUIConfigUILocalization.generaluiscale = "Escala de IU (si autoajustar escala está desactivado)"
+	DuffedUIConfigUILocalization.generalbackdropcolor = "Establece el color predeterminado de fondo de los paneles"
+	DuffedUIConfigUILocalization.generalbordercolor = "Establece el color predeterminado de bordes de los paneles"
+	DuffedUIConfigUILocalization.generalblizzardreskin = "Ajusta los marcos de Blizzard para que coincidan visualmente con DuffedUI"
+
+	-- Placas de Nombre
+	DuffedUIConfigUILocalization.nameplate = "Placas de Nombre"
+	DuffedUIConfigUILocalization.nameplateenable = "Activar Placas de nombre"
+	DuffedUIConfigUILocalization.nameplateenhancethreat = "Activar función de amenaza, se ajusta automáticamente en base al rol"
+	DuffedUIConfigUILocalization.nameplateshowhealth = "Mostrar Salud en Placas de Nombre"
+	DuffedUIConfigUILocalization.nameplatecombat = "Solo Mostrar Placas de Nombre enemigas en combate"
+	DuffedUIConfigUILocalization.nameplategoodcolor = "Color para nivel de amenaza bueno, varia dependiendo del rol (tanque  o daño/sanador)"
+	DuffedUIConfigUILocalization.nameplatebadcolor = "Color para nivel de amenaza malo, varía dependiendo del rol (tanque  o daño/sanador)"
+	DuffedUIConfigUILocalization.nameplatetransitioncolor = "Color para aumentando/disminuyendo nivel de amenaza"
+
+	-- Vendedor
+	DuffedUIConfigUILocalization.merchant = "Vendedor"
+	DuffedUIConfigUILocalization.merchantsellgrays = "Vender automáticamente los objetos grises"
+	DuffedUIConfigUILocalization.merchantautorepair = "Reparar objetos automáticamente"
+	DuffedUIConfigUILocalization.merchantsellmisc = "Vender automáticamente objetos definidos (basura no grises)"
+
+	-- Mochila
+	DuffedUIConfigUILocalization.bags = "Mochila "
+	DuffedUIConfigUILocalization.bagsenable = "Activar Mochila 'todo en uno'"
+
+	-- Textos de Datos
+	DuffedUIConfigUILocalization.datatext = "Textos de Datos"
+	DuffedUIConfigUILocalization.datatexttime24 = "Mostrar hora en formato 24h"
+	DuffedUIConfigUILocalization.datatextlocaltime = "Usar Hora Local en lugar de Hora del Servidor"
+	DuffedUIConfigUILocalization.datatextbattleground = "Activar estadísticas de campos de batalla"
+	DuffedUIConfigUILocalization.datatexthps_text = "Posición para 'Sanación por segundo', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextguild = "Posición para 'Clan', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatext_arp = "Posición para 'Penetración de Armadura', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextsystem = "Posición para 'Uso de Memoria', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextbags = "Posición para 'Inventario', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextfontsize = "Tamaño de fuente para Textos de Datos"
+	DuffedUIConfigUILocalization.datatextfps_ms = "Posición para 'Latencia e Imágenes por Segundo', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextarmor = "Posición para 'Armadura', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextavd = "Posición para 'Evasión', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextpower = "Posición para 'Poder' (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatexthaste = "Posición para 'Celeridad', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextfriends = "Posición para 'Amigos', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextwowtime = "Posición para 'Reloj', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextgold = "Posición para 'Oro', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextdps_text = "Posición para 'Daño por Segundo', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextcrit = "Posición para '% de Crit', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextdur = "Posición para 'Durabilidad', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextcurrency = "Posición para 'Monedas', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextmicromenu = "Posición para 'Micro Menu', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatexthit = "Posición para 'Índice de Golpe', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextmastery = "Posición para 'Maestría', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatexttalent = "Posición para 'Mostrar Especialidad', (0 para deshabilitar)"
+	DuffedUIConfigUILocalization.datatextcalltoarms = "Posición para 'Llamamiento a las Armas y Mazmorras', (0 para deshabilitar)"
+
+
+	-- Marcos de Unidades
+	DuffedUIConfigUILocalization.unitframes = "Marcos de Unidades"
+	DuffedUIConfigUILocalization.unitframescombatfeedback = "Información de Combate en Jugador y Objetivo"
+	DuffedUIConfigUILocalization.unitframesrunebar = "Activar barra de runas para el Caballero de la Muerte"
+	DuffedUIConfigUILocalization.unitframesauratimer = "Activar temporizador en auras"
+	DuffedUIConfigUILocalization.unitframestotembar = "Activar barra de totems para Chamán"
+	DuffedUIConfigUILocalization.unitframesshowtotalhpmp = "Mostrar totales de Salud/Poder"
+	DuffedUIConfigUILocalization.unitframesshowplayerinparty = "Mostrarte a tí mismo en el grupo"
+	DuffedUIConfigUILocalization.unitframesraidunitdebuffwatch = "Activar monitor de auras de JcE (Cuadrícula solamente)"
+	DuffedUIConfigUILocalization.unitframesunitcastbar = "Activar barra de lanzamiento"
+	DuffedUIConfigUILocalization.unitframestargetauras = "Activar auras de Objetivo"
+	DuffedUIConfigUILocalization.unitframessaveperchar = "Almacenar posición por personaje de marcos de unidades"
+	DuffedUIConfigUILocalization.unitframesplayeraggro = "Activar 'Mostrar Agro' en tí mismo"
+	DuffedUIConfigUILocalization.unitframesshowsmooth = "Activar barras fluidas"
+	DuffedUIConfigUILocalization.unitframescharportrait = "Activar retratos en Jugador y Objetivo"
+	DuffedUIConfigUILocalization.unitframesenable = "Activar los Marcos de Unidades de DuffedUI"
+	DuffedUIConfigUILocalization.unitframestargetpowerpvponly = "Activar 'Mostrar Poder en enemigo solamente'"
+	DuffedUIConfigUILocalization.unitframesgridonly = "Activar modo de Cuadrícula solamente para Entorno de Sanador"
+	DuffedUIConfigUILocalization.unitframeshealcomm = "Activar healcomm"
+	DuffedUIConfigUILocalization.unitframesfocusdebuff = "Activar 'Mostrar Prejuicios en Foco'"
+	DuffedUIConfigUILocalization.unitframesaggro = "Activar 'Mostrar Agro en Grupo/Banda'"
+	DuffedUIConfigUILocalization.unitframesshowboss = "Activar Marcos de Unidad de Jefes"
+	DuffedUIConfigUILocalization.unitframesenemyhcolor = "Colorear la barra de salud por hostilidad (para JcJ)"
+	DuffedUIConfigUILocalization.unitframesgridhealthvertical = "Mostrar barra de salud vertical para entorno de cuadrícula"
+	DuffedUIConfigUILocalization.unitframesshowsymbols = "Mostrar símbolos en grupo/banda"
+	DuffedUIConfigUILocalization.unitframesthreatbar = "Activa Barra de Amenaza"
+	DuffedUIConfigUILocalization.unitframesshowrange = "Activa 'Modo de transparencia por distancia en grupo/banda"
+	DuffedUIConfigUILocalization.unitframesfocus = "Activa objetivo de foco"
+	DuffedUIConfigUILocalization.unitframescblatency = "Activa latencia en barra de lanzamiento"
+	DuffedUIConfigUILocalization.unitframescbicons = "Mostrar íconos en barra de lanzamiento"
+	DuffedUIConfigUILocalization.unitframesplayerauras = "Activa un modo alterno de auras para jugador"
+	DuffedUIConfigUILocalization.unitframesauratextscale = "Escala de tamaño de texto en auras"
+	DuffedUIConfigUILocalization.unitframesgridscale = "Escala de Cuadrícula"
+	DuffedUIConfigUILocalization.unitframesmanahigh = "Indicador de Maná Alto (Para Cazadores)"
+	DuffedUIConfigUILocalization.unitframeslowThreshold = "Indicador de Maná Bajo (Todas las clases que usan Maná)"
+	DuffedUIConfigUILocalization.unitframesraidalphaoor = "Transparencia en unidad de grupo/banda fuera de rango"
+	DuffedUIConfigUILocalization.unitframesmaintank = "Activar Tanque Principal"
+	DuffedUIConfigUILocalization.unitframesmainassist = "Activar Asistente Principal"
+	DuffedUIConfigUILocalization.unitframesunicolor = "Activar Tema de color único (barra de salud gris)"
+	DuffedUIConfigUILocalization.unitframestotdebuffs = "Activar Prejuicios de Objetivo de Objetivo (Alta Resolución)"
+	DuffedUIConfigUILocalization.unitframesclassbar = "Activar barra de clase"
+	DuffedUIConfigUILocalization.unitframesweakenedsoulbar = "Activar notificación de Alma Debilitada (Sacerdote)"
+	DuffedUIConfigUILocalization.unitframesonlyselfdebuffs = "Mostrar solo nuestros prejuicios en objetivo"
+	DuffedUIConfigUILocalization.unitframesshowfocustarget = "Activar objetivo de foco"
+	DuffedUIConfigUILocalization.unitframesbordercolor = "Establece color predeterminado de borde de paneles"
+	DuffedUIConfigUILocalization.unitframesmovecombobar = "Mover la barra de combo del objetivo (PÍCARO SOLAMENTE)"
+	DuffedUIConfigUILocalization.unitframesclassiccombo = "Usar barra de combo clásica"
+	DuffedUIConfigUILocalization.unitframesgridvertical = "Mostrar grupos de banda en Cuadrícula verticálmente"
+	DuffedUIConfigUILocalization.unitframesraid = "Activa el Marco de Banda de DuffedUI"
+	DuffedUIConfigUILocalization.unitframesshowraidpets = "Muestra las Mascotas en el Cuadro de Banda de DuffedUI"
+	DuffedUIConfigUILocalization.unitframesdruidmanabar = "Muestra la Barra de Maná del Druida en forma de Gato/Oso"
+	DuffedUIConfigUILocalization.unitframesdruidmushroombar = "Muestra la Barra de Setas del Druida en la especialización de Equilibrio o Restauración"
+	DuffedUIConfigUILocalization.unitframesmageclassbar = "Muestra la Barra del Mago Arcano"
+	DuffedUIConfigUILocalization.unitframesraidunitspercolumn = "Número de unidades de banda por columna/fila"
+	DuffedUIConfigUILocalization.unitframesmaxraidplayers = "Max raid frames displayed according to instance max players"
+	DuffedUIConfigUILocalization.unitframesshowstatuebar = "Show Statue Bar (Dependencies: Class Bar Option need to be enabled)"
+	DuffedUIConfigUILocalization.unitframesshowgroupresurrect = "Show ressurect icon on raid frames"
+
+	-- Botín
+	DuffedUIConfigUILocalization.loot = "Botín"
+	DuffedUIConfigUILocalization.lootlootframe = "Activar Ventana de botín"
+	DuffedUIConfigUILocalization.lootautogreed = "Activar 'Tirar por Codicia automáticamente' en objetos verdes en máximo nivel"
+	DuffedUIConfigUILocalization.lootrolllootframe = "Activar Marco de Lanzamiento de Dados por Botín"
+
+	-- Invitar
+	DuffedUIConfigUILocalization.invite = "Invitar"
+	DuffedUIConfigUILocalization.inviteautoaccept = "Activar Autoinvitar (Amigos y Compañeros de Clan)"
+
+	-- Descripciones
+	DuffedUIConfigUILocalization.tooltip = "Descripciones"
+	DuffedUIConfigUILocalization.tooltipenable = "Activar Descripciones"
+	DuffedUIConfigUILocalization.tooltiphidecombat = "Ocultar descripciones en combate"
+	DuffedUIConfigUILocalization.tooltiphidebuttons = "Ocultar descripciones en barras de acción"
+	DuffedUIConfigUILocalization.tooltiphideuf = "Ocultar descripciones en marcos de unidades"
+	DuffedUIConfigUILocalization.tooltipcursor = "Activar descripción en cursor"
+
+	-- error
+	DuffedUIConfigUILocalization.error = "Mensaje de Error"
+	DuffedUIConfigUILocalization.errorenable = "Ocultar spam de errores a la mitad de la pantalla"
+
+	-- barra de acción
+	DuffedUIConfigUILocalization.actionbar = "Barras de Acción"
+	DuffedUIConfigUILocalization.actionbarhideshapeshift = "Ocultar Barra de Cambio de Forma/Totems"
+	DuffedUIConfigUILocalization.actionbarshowgrid = "Siempre mostrar cuadrícula en las barras de acción"
+	DuffedUIConfigUILocalization.actionbarenable = "Activar las Barras de Acción de DuffedUI"
+	DuffedUIConfigUILocalization.actionbarrb = "Mostrar la barra de la derecha al pasar el cursor"
+	DuffedUIConfigUILocalization.actionbarhotkey = "Mostrar teclas de acceso rápido en las barras de acción"
+	DuffedUIConfigUILocalization.actionbarssmo = "Mostrar barra de cambio de forma/totems al pasar el cursor"
+	DuffedUIConfigUILocalization.actionbarrbn = "Número de barras de acción abajo (1 o 2)"
+	DuffedUIConfigUILocalization.actionbarrn = "Number de barras de acción a la derecha (0, 1, 2 o 3)"
+	DuffedUIConfigUILocalization.actionbarbuttonsize = "Tamaño de los botones de acción principales"
+	DuffedUIConfigUILocalization.actionbarbuttonspacing = "Espacio entre los botones de acción principales"
+	DuffedUIConfigUILocalization.actionbarpetbuttonsize = "Tamaño de los botones de la barra de mascota/cambio de forma/tótems"
+	DuffedUIConfigUILocalization.actionbarownshdbar = "Usar una barra bacía para 'Danza de las Sombras' (Pícaro) en lugar de la barra de sigilo"
+	DuffedUIConfigUILocalization.actionbarownmetabar = "Usar una barra vacía para Metamorfosis (Brujo)en vez de la barra principal"
+	DuffedUIConfigUILocalization.actionbarownwarstancebar = "Usar una barra vacía para cada estancia (Guerrero) en vez de la barra principal"
+	DuffedUIConfigUILocalization.actionbarmacro = "Ver el texto de la macro en la barra principal"
+
+	-- arena
+	DuffedUIConfigUILocalization.arena = "Arena"
+	DuffedUIConfigUILocalization.unitframesarena = "Activar marcos de unidad de arena"
+
+	-- Tiempos de Reutilización
+	DuffedUIConfigUILocalization.cooldown = "Tiempos de Reutilización"
+	DuffedUIConfigUILocalization.cooldownenable = "Mostrar tiempos de reutilización en botones"
+	DuffedUIConfigUILocalization.cooldowntreshold = "Colorear en rojo el tiempo de reutilización al alcanzar el valor X"
+
+	-- chat
+	DuffedUIConfigUILocalization.chat = "Chat"
+	DuffedUIConfigUILocalization.chatenable = "Activa el Chat de DuffedUI"
+	DuffedUIConfigUILocalization.chatwhispersound = "Reproducir sonido al recibir mensaje privado"
+	DuffedUIConfigUILocalization.chatbackground = "Habilitar fondo del panel de chat"
+
+	-- Auras
+	DuffedUIConfigUILocalization.auras = "Auras"
+	DuffedUIConfigUILocalization.aurasplayer = "Activa los marcos de Beneficios/Prejuicios de DuffedUI"
+	DuffedUIConfigUILocalization.aurasconsolidate = "Activa la consolidación de Beneficios"
+	DuffedUIConfigUILocalization.aurasflash = "Activa la animación intermitente en auras con duración menor a 30 segundos"
+	DuffedUIConfigUILocalization.aurasclassictimer = "Mostrar temporizador clásico en las auras del jugador"
+
+	-- botones
+	DuffedUIConfigUILocalization.option_button_reset = "Reiniciar"
+	DuffedUIConfigUILocalization.option_button_load = "Aplicar cambios"
+	DuffedUIConfigUILocalization.option_button_close = "Cerrar"
+	DuffedUIConfigUILocalization.option_setsavedsetttings = "Ajustes por personaje"
+	DuffedUIConfigUILocalization.option_resetchar = "¿Estás seguro que quieres reiniciar los ajustes de tu personaje para que coincidan con tus ajustes predeterminados?"
+	DuffedUIConfigUILocalization.option_resetall = "¿Estás seguro de que quieres reiniciar todos tus ajustes a los predeterminados?"
+	DuffedUIConfigUILocalization.option_perchar = "¿Estás seguro que quieres activar o desactivar los 'Ajustes por personaje'?"
+	DuffedUIConfigUILocalization.option_makeselection = "Debes seleccionar una opción antes de continuar con la configuración"
+
+end

@@ -1,0 +1,12 @@
+﻿## Interface: 50001
+## Author: Merith @ Zirkel des Cenarius EU
+## Version: 7.0.0
+## Title: |cffC41F3BDuffedUI|r
+## Notes: UI of awesomeness!
+## SavedVariables: DuffedUIData
+## SavedVariablesPerCharacter: DuffedUIDataPerChar
+## OptionalDeps: DuffedUI_ConfigUI, Clique
+## X-oUF: oUFDuffedUI
+## Website: http://www.tukui.org
+
+DuffedUI.xml

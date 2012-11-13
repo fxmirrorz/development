@@ -423,7 +423,7 @@ local function SkinScrollBar(frame)
 			_G[frame:GetName().."ScrollUpButton"].texture = _G[frame:GetName().."ScrollUpButton"]:CreateTexture(nil, "OVERLAY")
 			Point(_G[frame:GetName().."ScrollUpButton"].texture, "TOPLEFT", 2, -2)
 			Point(_G[frame:GetName().."ScrollUpButton"].texture, "BOTTOMRIGHT", -2, 2)
-			_G[frame:GetName().."ScrollUpButton"].texture:SetTexture([[Interface\AddOns\Tukui\medias\textures\arrowup.tga]])
+			_G[frame:GetName().."ScrollUpButton"].texture:SetTexture([[Interface\AddOns\DuffedUI\medias\textures\arrowup.tga]])
 			_G[frame:GetName().."ScrollUpButton"].texture:SetVertexColor(unpack(C["media"].bordercolor))
 		end	
 		
@@ -434,7 +434,7 @@ local function SkinScrollBar(frame)
 			_G[frame:GetName().."ScrollDownButton"].texture = _G[frame:GetName().."ScrollDownButton"]:CreateTexture(nil, "OVERLAY")
 			Point(_G[frame:GetName().."ScrollDownButton"].texture, "TOPLEFT", 2, -2)
 			Point(_G[frame:GetName().."ScrollDownButton"].texture, "BOTTOMRIGHT", -2, 2)
-			_G[frame:GetName().."ScrollDownButton"].texture:SetTexture([[Interface\AddOns\Tukui\medias\textures\arrowdown.tga]])
+			_G[frame:GetName().."ScrollDownButton"].texture:SetTexture([[Interface\AddOns\DuffedUI\medias\textures\arrowdown.tga]])
 			_G[frame:GetName().."ScrollDownButton"].texture:SetVertexColor(unpack(C["media"].bordercolor))
 		end				
 		

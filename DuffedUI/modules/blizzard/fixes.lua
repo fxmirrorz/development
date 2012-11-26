@@ -11,9 +11,9 @@ Load:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end)
 
-if C.unitframes.raid then
+if addon == "DuffedUI_Raid" or addon == "DuffedUI_Raid_Healing" then
 	local function LoadTalentFix()
-		D.CreatePopup["DuffedUI_TALENT_FIX"] = {
+		D.CreatePopup["DUFFEDUI_TALENT_FIX"] = {
 			question = L.UI_Talent_Change_Bug,
 			answer1 = ACCEPT,
 			answer2 = CANCEL,
@@ -28,7 +28,7 @@ if C.unitframes.raid then
 					local p = _G["StaticPopup"..i]
 					p:Hide()
 				end
-				D.ShowPopup("DuffedUI_TALENT_FIX")
+				D.ShowPopup("DUFFEDUI_TALENT_FIX")
 			end
 		end
 

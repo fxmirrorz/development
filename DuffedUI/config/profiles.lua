@@ -19,6 +19,6 @@ end
 -- Name need to be case sensitive
 ---------------------------------------------------------------------------
 
-if D.myname == "Merith" or D.myname == "Taoni" then
-	-- will be come later
+if D.myname == "Merith" then
+	-- blub
 end

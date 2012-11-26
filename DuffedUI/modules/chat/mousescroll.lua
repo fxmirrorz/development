@@ -19,7 +19,7 @@ function FloatingChatFrame_OnMouseScroll(self, delta)
 		if IsShiftKeyDown() then
 			self:ScrollToTop()
 		else
-			for i=1, numlines do
+			for i = 1, numlines do
 				self:ScrollUp()
 			end
 		end

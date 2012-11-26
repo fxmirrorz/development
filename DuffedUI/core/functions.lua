@@ -1,10 +1,12 @@
 local D, C, L, G = unpack(select(2, ...))
 
 -- Define action bar default buttons size
-D.buttonsize = D.Scale(C.actionbar.buttonsize)
-D.buttonspacing = D.Scale(C.actionbar.buttonspacing)
-D.petbuttonsize = D.Scale(C.actionbar.petbuttonsize)
-D.petbuttonspacing = D.Scale(C.actionbar.buttonspacing)
+D.buttonsize = D.Scale(C["actionbar"].buttonsize)
+D.buttonspacing = D.Scale(C["actionbar"].buttonspacing)
+D.petbuttonsize = D.Scale(C["actionbar"].petbuttonsize)
+D.petbuttonspacing = D.Scale(C["actionbar"].buttonspacing)
+
+if C["general"].lowres then D.lowversion = true end
 
 -- return if we are currently playing on PTR.
 D.IsPTRVersion = function()
@@ -23,6 +25,21 @@ D.SetFontString = function(parent, fontName, fontHeight, fontStyle)
 	fs:SetShadowColor(0, 0, 0)
 	fs:SetShadowOffset(1.25, -1.25)
 	return fs
+end
+
+function D.SetModifiedBackdrop(self)
+	local color = RAID_CLASS_COLORS[D.myclass]
+	self:SetBackdropColor(color.r*.15, color.g*.15, color.b*.15)
+	self:SetBackdropBorderColor(color.r, color.g, color.b)
+end
+
+function D.SetOriginalBackdrop(self)
+	local color = RAID_CLASS_COLORS[D.myclass]
+	if C["general"].classcolortheme == true then
+		self:SetBackdropBorderColor(color.r, color.g, color.b)
+	else
+		self:SetTemplate("Default")
+	end
 end
 
 -- datatext panel position
@@ -148,9 +165,9 @@ D.ShiftBarUpdate = function(self)
 			end
 
 			if isCastable then
-				icon:SetVertexColor(1.0, 1.0, 1.0)
+				icon:SetVertexColor(1, 1, 1)
 			else
-				icon:SetVertexColor(0.4, 0.4, 0.4)
+				icon:SetVertexColor(.4, .4, .4)
 			end
 		end
 	end
@@ -159,7 +176,7 @@ end
 -- used to update pet bar buttons
 D.PetBarUpdate = function(self, event)
 	local petActionButton, petActionIcon, petAutoCastableTexture, petAutoCastShine
-	for i=1, NUM_PET_ACTION_SLOTS, 1 do
+	for i = 1, NUM_PET_ACTION_SLOTS, 1 do
 		local buttonName = "PetActionButton" .. i
 		petActionButton = _G[buttonName]
 		petActionIcon = _G[buttonName.."Icon"]
@@ -213,7 +230,7 @@ D.PetBarUpdate = function(self, event)
 			petActionIcon:Hide()
 		end
 		
-		-- between level 1 and 10 on cata, we don't have any control on PeD. (I lol'ed so hard)
+		-- between level 1 and 10 on cata, we don't have any control on Pet. (I lol'ed so hard)
 		-- Setting desaturation on button to true until you learn the control on class trainer.
 		-- you can at least control "follow" button.
 		if not PetHasActionBar() and texture and name ~= "PET_ACTION_FOLLOW" then
@@ -221,6 +238,16 @@ D.PetBarUpdate = function(self, event)
 			SetDesaturation(petActionIcon, 1)
 			petActionButton:SetChecked(0)
 		end
+	end
+end
+
+D.petBarPosition = function()
+if C["actionbar"].petbarhorizontal ~= true or InCombatLockdown() then return end
+	DuffedUIPetBar:ClearAllPoints()
+	if DuffedUIDataPerChar.bar1 == true then
+		DuffedUIPetBar:Point("BOTTOM", DuffedUIBar1, "TOP", 0, 3)
+	else
+		DuffedUIPetBar:Point("BOTTOM", DuffedUIBar2, "TOP", 0, 3)
 	end
 end
 
@@ -236,6 +263,15 @@ D.RGBToHex = function(r, g, b)
 	g = g <= 1 and g >= 0 and g or 0
 	b = b <= 1 and b >= 0 and b or 0
 	return string.format("|cff%02x%02x%02x", r*255, g*255, b*255)
+end
+
+if C["general"].classcolor then
+	C["media"].datatextcolor1 = D.UnitColor.class[D.myclass]
+end
+D.panelcolor = D.RGBToHex(unpack(C["media"].datatextcolor1))
+
+if C["general"].classcoloredborder then
+	C["media"].bordercolor = D.UnitColor.class[D.myclass]
 end
 
 --Return short value of a number
@@ -266,21 +302,21 @@ end
 local waitTable = {}
 local waitFrame
 D.Delay = function(delay, func, ...)
-	if(type(delay)~="number" or type(func)~="function") then
+	if(type(delay) ~= "number" or type(func) ~= "function") then
 		return false
 	end
 	if(waitFrame == nil) then
 		waitFrame = CreateFrame("Frame","WaitFrame", UIParent)
-		waitFrame:SetScript("onUpdate",function (self,elapse)
+		waitFrame:SetScript("onUpdate",function (self, elapse)
 			local count = #waitTable
 			local i = 1
-			while(i<=count) do
-				local waitRecord = tremove(waitTable,i)
-				local d = tremove(waitRecord,1)
-				local f = tremove(waitRecord,1)
-				local p = tremove(waitRecord,1)
+			while(i <= count) do
+				local waitRecord = tremove(waitTable, i)
+				local d = tremove(waitRecord, 1)
+				local f = tremove(waitRecord, 1)
+				local p = tremove(waitRecord, 1)
 				if(d>elapse) then
-				  tinsert(waitTable,i,{d-elapse,f,p})
+				  tinsert(waitTable, i, {d - elapse, f, p})
 				  i = i + 1
 				else
 				  count = count - 1
@@ -289,8 +325,63 @@ D.Delay = function(delay, func, ...)
 			end
 		end)
 	end
-	tinsert(waitTable,{delay,func,{...}})
+	tinsert(waitTable, {delay,func,{...}})
 	return true
+end
+
+D.UTF = function(string, i, dots)
+	if not string then return end
+
+	local bytes = string:len()
+	if bytes <= i then
+		return string
+	else
+		local len, pos = 0, 1
+		while pos <= bytes do
+			len = len + 1
+			local c = string:byte(pos)
+
+			if c > 0 and c <= 127 then
+				pos = pos + 1
+			elseif c >= 192 and c <= 223 then
+				pos = pos + 2
+			elseif c >= 224 and c <= 239 then
+				pos = pos + 3
+			elseif c >= 240 and c <= 247 then
+				pos = pos + 4
+			end
+			if len == i then break end
+		end
+
+		if len == i and pos <= bytes then
+			return string:sub(1, pos - 1) .. (dots and "..." or "")
+		else
+			return string
+		end
+	end
+end
+
+D.CreateBtn = function(name, parent, w, h, tt_txt, txt)
+	local b = CreateFrame("Button", name, parent, "SecureActionButtonTemplate")
+	b:Width(w)
+	b:Height(h)
+	b:SetTemplate("Default")
+
+	b:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+		GameTooltip:AddLine(tt_txt, 1, 1, 1, 1, 1, 1)
+		GameTooltip:Show()
+	end)
+	b:SetScript("OnLeave", function(self)
+		GameTooltip:Hide()
+	end)
+
+	b:FontString(nil, C["media"].font, 10, "THINOUTLINE")
+	b.text:SetText(D.panelcolor..txt)
+	b.text:SetPoint("CENTER", b, "CENTER", 1, 0)
+	b.text:SetJustifyH("CENTER")
+	
+	b:SetAttribute("type1", "macro")
 end
 
 ------------------------------------------------------------------------
@@ -303,7 +394,7 @@ D.SkinFuncs["DuffedUI"] = {}
 local LoadBlizzardSkin = CreateFrame("Frame")
 LoadBlizzardSkin:RegisterEvent("ADDON_LOADED")
 LoadBlizzardSkin:SetScript("OnEvent", function(self, event, addon)
-	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") or not C.general.blizzardreskin then
+	if IsAddOnLoaded("Skinner") or IsAddOnLoaded("Aurora") or not C["skins"].blizzardreskin then
 		self:UnregisterEvent("ADDON_LOADED")
 		return 
 	end
@@ -430,6 +521,80 @@ local ShortValue = function(v)
 	end
 end
 
+-- Castbar Size
+D.cbSize = function()
+	if C["unitframes"].enable ~= true or C["castbar"].enable ~= true then return end
+
+	local x = 4
+	if C["castbar"].cbicons then x = 32 end
+	if C["actionbar"].layout == 1 then
+		if C["actionbar"].petbarhorizontal == true then
+			if DuffedUIPetBar:IsShown() then
+				DuffedUIPlayerCastBar:Width(DuffedUIPetBar:GetWidth() - x)
+			else
+				DuffedUIPlayerCastBar:Width((DuffedUIBar2:GetWidth() + 1) - x)
+			end
+		else
+			DuffedUIPlayerCastBar:Width((DuffedUIBar2:GetWidth() + 1) - x)
+		end
+	else
+		if C["actionbar"].petbarhorizontal == true then
+			if DuffedUIPetBar:IsShown() then
+				DuffedUIPlayerCastBar:Width(DuffedUIPetBar:GetWidth() - x)
+			else
+				DuffedUIPlayerCastBar:Width((DuffedUIBar1:GetWidth() + 1) - x)
+			end
+		else
+			DuffedUIPlayerCastBar:Width((DuffedUIBar1:GetWidth() + 1) - x)
+		end
+	end
+end
+
+-- Castbar Position
+D.cbPosition = function()
+	if C["unitframes"].enable ~= true or C["castbar"].enable ~= true then return end
+
+	D.cbSize()
+	local x = 0
+	local y = 5
+	if C["castbar"].cbicons then x = 14 end
+	if DuffedUIDataPerChar.bar1 == true then
+		DuffedUIPlayerCastBar:ClearAllPoints()
+		if C["actionbar"].petbarhorizontal == true then
+			if DuffedUIPetBar:IsShown() then
+				DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIPetBar, "TOPRIGHT", -2, y)
+			else
+				DuffedUIPlayerCastBar:Point("BOTTOM", DuffedUIBar1, "TOP", x, y)
+			end
+		else
+			DuffedUIPlayerCastBar:Point("BOTTOM", DuffedUIBar1, "TOP", x, y)
+		end
+	else
+		DuffedUIPlayerCastBar:ClearAllPoints()
+		if C["actionbar"].layout == 1 then
+			if C["actionbar"].petbarhorizontal == true then
+				if DuffedUIPetBar:IsShown() then
+					DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIPetBar, "TOPRIGHT", -2, y)
+				else
+					DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIBar2, "TOPRIGHT", -2, y)
+				end
+			else
+				DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIBar2, "TOPRIGHT", -2, y)
+			end
+		else
+			if C["actionbar"].petbarhorizontal == true then
+				if DuffedUIPetBar:IsShown() then
+					DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIPetBar, "TOPRIGHT", -2, y)
+				else
+					DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIBar1, "TOPRIGHT", -2, y)
+				end
+			else
+				DuffedUIPlayerCastBar:Point("BOTTOMRIGHT", DuffedUIBar1, "TOPRIGHT", -2, y)
+			end
+		end
+	end
+end
+
 -- function to update health text
 D.PostUpdateHealth = function(health, unit, min, max)
 	if not UnitIsConnected(unit) or UnitIsDead(unit) or UnitIsGhost(unit) then
@@ -438,12 +603,12 @@ D.PostUpdateHealth = function(health, unit, min, max)
 		elseif UnitIsDead(unit) then
 			health.value:SetText("|cffD7BEA5"..L.unitframes_ouf_dead.."|r")
 		elseif UnitIsGhost(unit) then
-			health.value:SetText("|cffD7BEA5"..L.unitframes_ouf_ghosD.."|r")
+			health.value:SetText("|cffD7BEA5"..L.unitframes_ouf_ghost.."|r")
 		end
 	else
 		local r, g, b
 		
-		-- overwrite healthbar color for enemy player (a DuffedUI option if enabled), target vehicle/pet too far away returning unitreaction nil and friend unit not a player. (mostly for overwrite tapped for friendly)
+		-- overwrite healthbar color for enemy player (a tukui option if enabled), target vehicle/pet too far away returning unitreaction nil and friend unit not a player. (mostly for overwrite tapped for friendly)
 		-- I don't know if we really need to call C["unitframes"].unicolor but anyway, it's safe this way.
 		if (C["unitframes"].unicolor ~= true and C["unitframes"].enemyhcolor and unit == "target" and UnitIsEnemy(unit, "player") and UnitIsPlayer(unit)) or (C["unitframes"].unicolor ~= true and unit == "target" and not UnitIsPlayer(unit) and UnitIsFriend(unit, "player")) then
 			local c = D.UnitColor.reaction[UnitReaction(unit, "player")]
@@ -460,14 +625,20 @@ D.PostUpdateHealth = function(health, unit, min, max)
 
 		if min ~= max then
 			local r, g, b
-			r, g, b = oUF.ColorGradient(min, max, 0.69, 0.31, 0.31, 0.65, 0.63, 0.35, 0.33, 0.59, 0.33)
+			r, g, b = oUF.ColorGradient(min, max, .69, .31, .31, .65, .63, .35, .33, .59, .33)
 			if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
 				if C["unitframes"].showtotalhpmp == true then
 					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", ShortValue(min), ShortValue(max))
 				else
-					health.value:SetFormattedText("|cffAF5050%d|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", min, r * 255, g * 255, b * 255, floor(min / max * 100))
+					health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
 				end
 			elseif unit == "target" or (unit and unit:find("boss%d")) then
+				if C["unitframes"].showtotalhpmp == true then
+					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", ShortValue(min), ShortValue(max))
+				else
+					health.value:SetFormattedText("|cffAF5050%s|r |cffD7BEA5-|r |cff%02x%02x%02x%d%%|r", ShortValue(min), r * 255, g * 255, b * 255, floor(min / max * 100))
+				end
+			elseif (unit and unit:find("boss%d")) then
 				if C["unitframes"].showtotalhpmp == true then
 					health.value:SetFormattedText("|cff559655%s|r |cffD7BEA5|||r |cff559655%s|r", ShortValue(min), ShortValue(max))
 				else
@@ -480,9 +651,11 @@ D.PostUpdateHealth = function(health, unit, min, max)
 			end
 		else
 			if unit == "player" and health:GetAttribute("normalUnit") ~= "pet" then
-				health.value:SetText("|cff559655"..max.."|r")
+				health.value:SetText("|cff559655"..ShortValue(max).."|r")
 			elseif unit == "target" or unit == "focus"  or unit == "focustarget" or (unit and unit:find("arena%d")) then
 				health.value:SetText("|cff559655"..ShortValue(max).."|r")
+			elseif (unit and unit:find("boss%d")) then
+				health.value:SetText(" ")
 			else
 				health.value:SetText(" ")
 			end
@@ -533,12 +706,30 @@ end
 
 -- a function to move name of current target unit if enemy or friendly
 D.PostNamePosition = function(self)
-	self.Name:ClearAllPoints()
-	if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and C["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and C["unitframes"].targetpowerpvponly == false) then
-		self.Name:SetPoint("CENTER", self.panel, "CENTER", 0, 0)
-	else
-		self.Power.value:SetAlpha(0)
-		self.Name:SetPoint("LEFT", self.panel, "LEFT", 4, 0)
+	if C["unitframes"].layout == 1 then
+		self.Name:ClearAllPoints()
+		if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and C["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and C["unitframes"].targetpowerpvponly == false) then
+			self.Name:SetPoint("CENTER", self.panel, "CENTER", 0, 0)
+		else
+			self.Power.value:SetAlpha(0)
+			self.Name:SetPoint("LEFT", self.panel, "LEFT", 4, 0)
+		end
+	elseif C["unitframes"].layout == 2 then
+		self.Name:ClearAllPoints()
+		if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and C["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and C["unitframes"].targetpowerpvponly == false) then
+			self.Name:SetPoint("CENTER", self.panel, "CENTER", 0, 0)
+		else
+			self.Power.value:SetAlpha(0)
+			self.Name:SetPoint("LEFT", self.panel, "LEFT", 4, 0)
+		end
+	elseif C["unitframes"].layout == 3 then
+		self.Name:ClearAllPoints()
+		if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and C["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and C["unitframes"].targetpowerpvponly == false) then
+			self.Name:SetPoint("LEFT", self.Health, "LEFT", 4, 0)
+		else
+			self.Power.value:SetAlpha(0)
+			self.Name:SetPoint("LEFT", self.Health, "LEFT", 4, 0)
+		end
 	end
 end
 
@@ -606,6 +797,37 @@ D.PostUpdatePower = function(power, unit, min, max)
 	end
 end
 
+function D.PvPUpdate(self, elapsed)
+	if (self.elapsed and self.elapsed > 0.2) then
+		local unit = self.unit
+		local time = GetPVPTimer()
+
+		local min = format("%01.f", floor((time / 1000) / 60))
+		local sec = format("%02.f", floor((time / 1000) - min * 60))
+		if self.PvP then
+			local factionGroup = UnitFactionGroup(unit)
+			if UnitIsPVPFreeForAll(unit) then
+				if time ~= 301000 and time ~= -1 then
+					self.PvP:SetText(PVP.." ".."("..min..":"..sec..")")
+				else
+					self.PvP:SetText(PVP)
+				end
+			elseif (factionGroup and UnitIsPVP(unit)) then
+				if time ~= 301000 and time ~= -1 then
+					self.PvP:SetText(PVP.." ".."("..min..":"..sec..")")
+				else
+					self.PvP:SetText(PVP)
+				end
+			else
+				self.PvP:SetText("")
+			end
+		end
+		self.elapsed = 0
+	else
+		self.elapsed = (self.elapsed or 0) + elapsed
+	end
+end
+
 -- display casting time
 D.CustomCastTimeText = function(self, duration)
 	self.Time:SetText(("%.1f / %.1f"):format(self.channeling and duration or self.max - duration, self.max))
@@ -620,11 +842,11 @@ end
 D.FormatTime = function(s)
 	local day, hour, minute = 86400, 3600, 60
 	if s >= day then
-		return format("%dd", ceil(s / day))
+		return format("%d" .. D.panelcolor .. "d", ceil(s / day))
 	elseif s >= hour then
-		return format("%dh", ceil(s / hour))
+		return format("%d" .. D.panelcolor .. "h", ceil(s / hour))
 	elseif s >= minute then
-		return format("%dm", ceil(s / minute))
+		return format("%d" .. D.panelcolor .. "m", ceil(s / minute))
 	elseif s >= minute / 12 then
 		return floor(s)
 	end
@@ -635,7 +857,7 @@ end
 local CreateAuraTimer = function(self, elapsed)
 	if self.timeLeft then
 		self.elapsed = (self.elapsed or 0) + elapsed
-		if self.elapsed >= 0.1 then
+		if self.elapsed >= .1 then
 			if not self.first then
 				self.timeLeft = self.timeLeft - self.elapsed
 			else
@@ -646,7 +868,7 @@ local CreateAuraTimer = function(self, elapsed)
 				local time = D.FormatTime(self.timeLeft)
 				self.remaining:SetText(time)
 				if self.timeLeft <= 5 then
-					self.remaining:SetTextColor(0.99, 0.31, 0.31)
+					self.remaining:SetTextColor(.99, .31, .31)
 				else
 					self.remaining:SetTextColor(1, 1, 1)
 				end
@@ -672,13 +894,13 @@ D.PostCreateAura = function(self, button)
 	button.cd:SetReverse()
 	button.icon:Point("TOPLEFT", 2, -2)
 	button.icon:Point("BOTTOMRIGHT", -2, 2)
-	button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
+	button.icon:SetTexCoord(.08, .92, .08, .92)
 	button.icon:SetDrawLayer('ARTWORK')
 	
 	button.count:Point("BOTTOMRIGHT", 3, 3)
 	button.count:SetJustifyH("RIGHT")
 	button.count:SetFont(C["media"].font, 9, "THICKOUTLINE")
-	button.count:SetTextColor(0.84, 0.75, 0.65)
+	button.count:SetTextColor(.84, .75, .65)
 	
 	button.overlayFrame = CreateFrame("frame", nil, button, nil)
 	button.cd:SetFrameLevel(button:GetFrameLevel() + 1)
@@ -713,17 +935,17 @@ end
 D.PostUpdateAura = function(self, unit, icon, index, offset, filter, isDebuff, duration, timeLeft)
 	local _, _, _, _, dtype, duration, expirationTime, unitCaster, isStealable = UnitAura(unit, index, icon.filter)
 	if icon then
-		if(icon.filter == "HARMFUL") then
-			if(not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle") then
+		if icon.filter == "HARMFUL" then
+			if not UnitIsFriend("player", unit) and icon.owner ~= "player" and icon.owner ~= "vehicle" then
 				icon.icon:SetDesaturated(true)
-				icon:SetBackdropBorderColor(unpack(C.media.bordercolor))
+				icon:SetBackdropBorderColor(unpack(C["media"].bordercolor))
 			else
 				local color = DebuffTypeColor[dtype] or DebuffTypeColor.none
 				icon.icon:SetDesaturated(false)
-				icon:SetBackdropBorderColor(color.r * 0.8, color.g * 0.8, color.b * 0.8)
+				icon:SetBackdropBorderColor(color.r * .8, color.g * .8, color.b * .8)
 			end
 		else
-			if (isStealable or ((D.myclass == "MAGE" or D.myclass == "PRIEST" or D.myclass == "SHAMAN") and dtype == "Magic")) and not UnitIsFriend("player", unit) then
+			if isStealable or ((D.myclass == "MAGE" or D.myclass == "PRIEST" or D.myclass == "SHAMAN") and dtype == "Magic") and not UnitIsFriend("player", unit) then
 				if not icon.Animation:IsPlaying() then
 					icon.Animation:Play()
 				end
@@ -791,9 +1013,9 @@ local CheckInterrupt = function(self, unit)
 	if unit == "vehicle" then unit = "player" end
 
 	if self.interrupt and UnitCanAttack("player", unit) then
-		self:SetStatusBarColor(1, 0, 0, 0.5)	
+		self:SetStatusBarColor(1, 0, 0, .5)	
 	else
-		self:SetStatusBarColor(0.31, 0.45, 0.63, 0.5)		
+		self:SetStatusBarColor(.31, .45, .63, .5)		
 	end
 end
 
@@ -809,10 +1031,10 @@ end
 
 -- update the warlock shard
 D.UpdateShards = function(self, event, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= 'SOUL_SHARDS')) then return end
+	if self.unit ~= unit or (powerType and powerType ~= 'SOUL_SHARDS') then return end
 	local num = UnitPower(unit, SPELL_POWER_SOUL_SHARDS)
 	for i = 1, SHARD_BAR_NUM_SHARDS do
-		if(i <= num) then
+		if i <= num then
 			self.SoulShards[i]:SetAlpha(1)
 		else
 			self.SoulShards[i]:SetAlpha(.2)
@@ -832,12 +1054,12 @@ end
 
 -- druid eclipse bar direction :P
 D.EclipseDirection = function(self)
-	if ( GetEclipseDirection() == "sun" ) then
-			self.Text:SetText("|cffE5994C"..L.unitframes_ouf_starfirespell.."|r")
-	elseif ( GetEclipseDirection() == "moon" ) then
-			self.Text:SetText("|cff4478BC"..L.unitframes_ouf_wrathspell.."|r")
+	if GetEclipseDirection() == "sun" then
+		self.Text:SetText("|cffE5994C"..L.unitframes_ouf_starfirespell.."|r")
+	elseif GetEclipseDirection() == "moon" then
+		self.Text:SetText("|cff4478BC"..L.unitframes_ouf_wrathspell.."|r")
 	else
-			self.Text:SetText("")
+		self.Text:SetText("")
 	end
 end
 
@@ -846,7 +1068,7 @@ D.ComboPointsBarUpdate = function(self, parent, points)
 	local s = parent.shadow
 	local b = parent.Buffs
 		
-	if D.myclass == "ROGUE" and C.unitframes.movecombobar then
+	if D.myclass == "ROGUE" and C["unitframes"].movecombobar then
 		-- always show we this option enabled
 		s:Point("TOPLEFT", -4, 12)
 		self:Show()
@@ -876,7 +1098,6 @@ D.DruidBarDisplay = function(self, login)
 	local eb = self.EclipseBar
 	local m = self.WildMushroom
 	local dm = self.DruidMana
-	local shadow = self.shadow
 	local bg = self.DruidManaBackground
 	local flash = self.FlashInfo
 
@@ -885,11 +1106,9 @@ D.DruidBarDisplay = function(self, login)
 	end
 	
 	if dm and dm:IsShown() then
-		shadow:Point("TOPLEFT", -4, 12)
 		bg:SetAlpha(1)
 	else
 		flash:Show()
-		shadow:Point("TOPLEFT", -4, 4)
 		if bg then bg:SetAlpha(0) end
 	end
 		
@@ -899,12 +1118,10 @@ D.DruidBarDisplay = function(self, login)
 			txt:Show()
 			flash:Hide()
 		end
-		shadow:Point("TOPLEFT", -4, 12)
 		if bg then bg:SetAlpha(1) end
 		
 		-- mushroom
 		if m and m:IsShown() then
-			shadow:Point("TOPLEFT", -4, 21)
 			m:ClearAllPoints()
 			m:Point("BOTTOMLEFT", self, "TOPLEFT", 0, 10)
 		end
@@ -914,12 +1131,10 @@ D.DruidBarDisplay = function(self, login)
 			txt:Hide()
 		end
 		flash:Show()
-		shadow:Point("TOPLEFT", -4, 4)
 		if bg then bg:SetAlpha(0) end
 		
 		-- mushroom
 		if m and m:IsShown() then
-			shadow:Point("TOPLEFT", -4, 12)
 			m:ClearAllPoints()
 			m:Point("BOTTOMLEFT", self, "TOPLEFT", 0, 1)
 		end
@@ -931,18 +1146,13 @@ D.UpdateMushroomVisibility = function(self)
 	local eb = p.EclipseBar
 	local dm = p.DruidMana
 	local m = p.WildMushroom
-	local shadow = p.shadow
 	
 	if (eb and eb:IsShown()) or (dm and dm:IsShown()) then
-		shadow:Point("TOPLEFT", -4, 21)
 		m:ClearAllPoints()
-		m:Point("BOTTOMLEFT", p, "TOPLEFT", 0, 10)
+		m:Point("TOPLEFT", p, "BOTTOMLEFT", 0, -1)
 	elseif m:IsShown() then
-		shadow:Point("TOPLEFT", -4, 12)
 		m:ClearAllPoints()
-		m:Point("BOTTOMLEFT", p, "TOPLEFT", 0, 1)
-	else
-		shadow:Point("TOPLEFT", -4, 4)
+		m:Point("TOPLEFT", p, "BOTTOMLEFT", 0, 1)
 	end
 end
 
@@ -970,21 +1180,21 @@ end
 local UpdateManaLevelDelay = 0
 D.UpdateManaLevel = function(self, elapsed)
 	UpdateManaLevelDelay = UpdateManaLevelDelay + elapsed
-	if self.parent.unit ~= "player" or UpdateManaLevelDelay < 0.2 or UnitIsDeadOrGhost("player") or UnitPowerType("player") ~= 0 then return end
+	if self.parent.unit ~= "player" or UpdateManaLevelDelay < .2 or UnitIsDeadOrGhost("player") or UnitPowerType("player") ~= 0 then return end
 	UpdateManaLevelDelay = 0
 
 	local percMana = UnitMana("player") / UnitManaMax("player") * 100
 
-	if percMana <= C.unitframes.lowThreshold then
+	if percMana <= C["unitframes"].lowThreshold then
 		self.ManaLevel:SetText("|cffaf5050"..L.unitframes_ouf_lowmana.."|r")
-		Flash(self, 0.3)
+		Flash(self, .3)
 	else
 		self.ManaLevel:SetText()
 		StopFlash(self)
 	end
 end
 
--- show or hide druid mana text if cat/bear form or noD.
+-- show or hide druid mana text if cat/bear form or not.
 D.UpdateDruidManaText = function(self)
 	if self.unit ~= "player" then return end
 
@@ -1026,16 +1236,16 @@ D.UpdateThreat = function(self, event, unit)
 	local threat = UnitThreatSituation(self.unit)
 	if (threat == 3) then
 		if self.panel then
-			self.panel:SetBackdropBorderColor(.69,.31,.31,1)
+			self.panel:SetBackdropBorderColor(.69, .31, .31, 1)
 		else
-			self.Name:SetTextColor(1,0.1,0.1)
+			self.Name:SetTextColor(1,.1, .1)
 		end
 	else
 		if self.panel then
 			local r, g, b = unpack(C["media"].bordercolor)
-			self.panel:SetBackdropBorderColor(r * 0.7, g * 0.7, b * 0.7)
+			self.panel:SetBackdropBorderColor(r * .7, g * .7, b * .7)
 		else
-			self.Name:SetTextColor(1,1,1)
+			self.Name:SetTextColor(1, 1, 1)
 		end
 	end 
 end
@@ -1065,12 +1275,12 @@ end
 
 -- position of indicators
 D.countOffsets = {
-	TOPLEFT = {6*C["unitframes"].gridscale, 1},
-	TOPRIGHT = {-6*C["unitframes"].gridscale, 1},
-	BOTTOMLEFT = {6*C["unitframes"].gridscale, 1},
-	BOTTOMRIGHT = {-6*C["unitframes"].gridscale, 1},
-	LEFT = {6*C["unitframes"].gridscale, 1},
-	RIGHT = {-6*C["unitframes"].gridscale, 1},
+	TOPLEFT = {6 * C["unitframes"].gridscale, 1},
+	TOPRIGHT = {-6 * C["unitframes"].gridscale, 1},
+	BOTTOMLEFT = {6 * C["unitframes"].gridscale, 1},
+	BOTTOMRIGHT = {-6 * C["unitframes"].gridscale, 1},
+	LEFT = {6 * C["unitframes"].gridscale, 1},
+	RIGHT = {-6 * C["unitframes"].gridscale, 1},
 	TOP = {0, 0},
 	BOTTOM = {0, 0},
 }
@@ -1098,13 +1308,13 @@ D.createAuraWatch = function(self, unit)
 	auras.icons = {}
 	auras.PostCreateIcon = D.CreateAuraWatchIcon
 
-	if (not C["unitframes"].auratimer) then
+	if not C["unitframes"].auratimer then
 		auras.hideCooldown = true
 	end
 
 	local buffs = {}
 
-	if (D.buffids["ALL"]) then
+	if D.buffids["ALL"] then
 		for key, value in pairs(D.buffids["ALL"]) do
 			tinsert(buffs, value)
 		end
@@ -1122,8 +1332,8 @@ D.createAuraWatch = function(self, unit)
 			local icon = CreateFrame("Frame", nil, auras)
 			icon.spellID = spell[1]
 			icon.anyUnit = spell[4]
-			icon:Width(6*C["unitframes"].gridscale)
-			icon:Height(6*C["unitframes"].gridscale)
+			icon:Width(6 * C["unitframes"].gridscale)
+			icon:Height(6 * C["unitframes"].gridscale)
 			icon:SetPoint(spell[2], 0, 0)
 
 			local tex = icon:CreateTexture(nil, "OVERLAY")
@@ -1132,11 +1342,11 @@ D.createAuraWatch = function(self, unit)
 			if (spell[3]) then
 				tex:SetVertexColor(unpack(spell[3]))
 			else
-				tex:SetVertexColor(0.8, 0.8, 0.8)
+				tex:SetVertexColor(.8, .8, .8)
 			end
 
 			local count = icon:CreateFontString(nil, "OVERLAY")
-			count:SetFont(C["media"].uffont, 8*C["unitframes"].gridscale, "THINOUTLINE")
+			count:SetFont(C["media"].uffont, 8 * C["unitframes"].gridscale, "THINOUTLINE")
 			count:SetPoint("CENTER", unpack(D.countOffsets[spell[2]]))
 			icon.count = count
 
@@ -1211,7 +1421,7 @@ if C["unitframes"].raidunitdebuffwatch == true then
 			
 		-- Important Raid Debuffs we want to show on Grid!
 		-- Mists of Pandaria debuff list created by prophet
-		-- http://www.DuffedUI.org/code/view.php?id=PROPHET170812083424
+		-- http://www.tukui.org/code/view.php?id=PROPHET170812083424
 		D.debuffids = {			
 			-----------------------------------------------------------------
 			-- Mogu'shan Vaults

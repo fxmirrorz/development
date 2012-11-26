@@ -5,7 +5,7 @@ local Kill = CreateFrame("Frame")
 Kill:RegisterEvent("ADDON_LOADED")
 Kill:SetScript("OnEvent", function(self, event, addon)
 	if addon == "Blizzard_AchievementUI" then
-		if C.tooltip.enable then
+		if C["tooltip"].enable then
 			hooksecurefunc("AchievementFrameCategories_DisplayButton", function(button) button.showTooltipFunc = nil end)
 		end
 	end
@@ -13,7 +13,7 @@ Kill:SetScript("OnEvent", function(self, event, addon)
 	if addon ~= "DuffedUI" then return end
 	
 	-- disable Blizzard party & raid frame if our Raid Frames are loaded
-	if C.unitframes.raid then
+	if addon == "DuffedUI_Raid" or addon == "DuffedUI_Raid_Heal" or addon == "DuffedUI" then
 		InterfaceOptionsFrameCategoriesButton11:SetScale(0.00001)
 		InterfaceOptionsFrameCategoriesButton11:SetAlpha(0)
 		
@@ -21,7 +21,7 @@ Kill:SetScript("OnEvent", function(self, event, addon)
 		CompactRaidFrameManager:SetParent(DuffedUIUIHider)
 		CompactUnitFrameProfiles:UnregisterAllEvents()
 			
-		for i=1, MAX_PARTY_MEMBERS do
+		for i = 1, MAX_PARTY_MEMBERS do
 			local name = "PartyMemberFrame" .. i
 			local frame = _G[name]
 
@@ -46,7 +46,7 @@ Kill:SetScript("OnEvent", function(self, event, addon)
 	TutorialFrameAlertButton:Kill()
 	GuildChallengeAlertFrame:Kill()
 	
-	if C.auras.player then
+	if C["auras"].player then
 		BuffFrame:Kill()
 		TemporaryEnchantFrame:Kill()
 		ConsolidatedBuffs:Kill()
@@ -57,7 +57,7 @@ Kill:SetScript("OnEvent", function(self, event, addon)
 	-- make sure boss or arena frame is always disabled when running DuffedUI
 	SetCVar("showArenaEnemyFrames", 0)
 	
-	if C.unitframes.arena then
+	if C["unitframes"].arena then
 		InterfaceOptionsFrameCategoriesButton10:SetScale(0.00001)
 		InterfaceOptionsFrameCategoriesButton10:SetAlpha(0) 
 		InterfaceOptionsUnitFramePanelArenaEnemyFrames:Kill()
@@ -65,18 +65,18 @@ Kill:SetScript("OnEvent", function(self, event, addon)
 		InterfaceOptionsUnitFramePanelArenaEnemyPets:Kill()
 	end
 	
-	if C.chat.enable then
+	if C["chat"].enable then
 		SetCVar("WholeChatWindowClickable", 0)
 		InterfaceOptionsSocialPanelWholeChatWindowClickable:Kill()
 	end
 	
-	if C.unitframes.enable then
+	if C["unitframes"].enable then
 		PlayerFrame:SetParent(DuffedUIUIHider) -- Just to be sure we are safe
 		InterfaceOptionsFrameCategoriesButton9:SetScale(0.00001)
 		InterfaceOptionsFrameCategoriesButton9:SetAlpha(0)	
 	end
 	
-	if C.actionbar.enable then
+	if C["actionbar"].enable then
 		InterfaceOptionsActionBarsPanelBottomLeft:Kill()
 		InterfaceOptionsActionBarsPanelBottomRight:Kill()
 		InterfaceOptionsActionBarsPanelRight:Kill()

@@ -25,7 +25,7 @@ end
 
 local OnLeave = function(self)
 	if self.quality then
-		if(self.quality > 1) then
+		if (self.quality > 1) then
 			local color = ITEM_QUALITY_COLORS[self.quality]
 			self.drop:SetVertexColor(color.r, color.g, color.b)
 		else
@@ -40,7 +40,7 @@ end
 local OnClick = function(self)
 	if not self:GetID() then return end
 	
-	if(IsModifiedClick()) then
+	if (IsModifiedClick()) then
 		HandleModifiedItemClick(GetLootSlotLink(self:GetID()))
 	else
 		ss = self:GetID()
@@ -60,7 +60,7 @@ local OnClick = function(self)
 end
 
 local OnUpdate = function(self)
-	if(GameTooltip:IsOwned(self)) then
+	if (GameTooltip:IsOwned(self)) then
 		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
 		GameTooltip:SetLootItem(self:GetID())
 		CursorOnUpdate(self)
@@ -68,7 +68,7 @@ local OnUpdate = function(self)
 end
 
 local createSlot = function(id)
-	local iconsize = iconSize-2
+	local iconsize = iconSize - 2
 	local frame = CreateFrame("Button", 'DuffedUILootFrameSlot'..id, addon)
 	frame:Point("LEFT", 8, 0)
 	frame:Point("RIGHT", -8, 0)
@@ -99,7 +99,7 @@ local createSlot = function(id)
 
 	local count = iconFrame:CreateFontString(nil, "OVERLAY")
 	count:ClearAllPoints()
-	count:SetJustifyH"RIGHT"
+	count:SetJustifyH("RIGHT")
 	count:Point("BOTTOMRIGHT", iconFrame, -1, 2)
 	count:SetFont(C["media"].font, 12, "OUTLINE")
 	count:SetShadowOffset(.8, -.8)
@@ -108,7 +108,7 @@ local createSlot = function(id)
 	frame.count = count
 
 	local name = frame:CreateFontString(nil, "OVERLAY")
-	name:SetJustifyH"LEFT"
+	name:SetJustifyH("LEFT")
 	name:ClearAllPoints()
 	name:SetPoint("LEFT", frame)
 	name:SetPoint("RIGHT", icon, "LEFT")
@@ -134,9 +134,9 @@ end
 local anchorSlots = function(self)
 	local iconsize = iconSize
 	local shownSlots = 0
-	for i=1, #self.slots do
+	for i = 1, #self.slots do
 		local frame = self.slots[i]
-		if(frame:IsShown()) then
+		if (frame:IsShown()) then
 			shownSlots = shownSlots + 1
 
 			-- We don't have to worry about the previous slots as they're already hidden.
@@ -150,10 +150,10 @@ end
 title:SetFont(C["media"].font, 13, "OUTLINE")
 title:Point("BOTTOMLEFT", addon, "TOPLEFT", 4, 4)
 
-addon:SetScript("OnMouseDown", function(self) if(IsAltKeyDown()) then self:StartMoving() end end)
+addon:SetScript("OnMouseDown", function(self) if (IsAltKeyDown()) then self:StartMoving() end end)
 addon:SetScript("OnMouseUp", function(self) self:StopMovingOrSizing() end)
 addon:SetScript("OnHide", function(self)
-	StaticPopup_Hide"CONFIRM_LOOT_DISTRIBUTION"
+	StaticPopup_Hide("CONFIRM_LOOT_DISTRIBUTION")
 	CloseLoot()
 end)
 addon:SetMovable(true)
@@ -164,7 +164,7 @@ addon:Point("TOPLEFT", 0, -104)
 addon:SetTemplate("Default")
 addon:Width(256)
 addon:Height(64)
-addon:SetBackdropColor(0.1, 0.1, 0.1, 1)
+addon:SetBackdropColor(.1, .1, .1, 1)
 
 addon:SetClampedToScreen(true)
 addon:SetClampRectInsets(0, 0, D.Scale(14), 0)
@@ -176,13 +176,13 @@ addon.slots = {}
 addon.LOOT_OPENED = function(self, event, autoloot)
 	self:Show()
 
-	if(not self:IsShown()) then
+	if not self:IsShown() then
 		CloseLoot(not autoLoot)
 	end
 
 	local items = GetNumLootItems()
 
-	if(IsFishingLoot()) then
+	if IsFishingLoot() then
 		title:SetText(L.loot_fish)
 	elseif(not UnitIsFriend("player", "target") and UnitIsDead"target") then
 		title:SetText(UnitName"target")
@@ -191,7 +191,7 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 	end
 
 	-- Blizzard uses strings here
-	if(GetCVar("lootUnderMouse") == "1") then
+	if (GetCVar("lootUnderMouse") == "1") then
 		local x, y = GetCursorPosition()
 		x = x / self:GetEffectiveScale()
 		y = y / self:GetEffectiveScale()
@@ -207,8 +207,8 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 	end
 
 	local m, w, t = 0, 0, title:GetStringWidth()
-	if(items > 0) then
-		for i=1, items do
+	if (items > 0) then
+		for i = 1, items do
 			local slot = addon.slots[i] or createSlot(i)
 			local texture, item, quantity, quality, locked = GetLootSlotInfo(i)
 			
@@ -219,14 +219,14 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 					item = item:gsub("\n", ", ")
 				end
 
-				if(quantity > 1) then
+				if (quantity > 1) then
 					slot.count:SetText(quantity)
 					slot.count:Show()
 				else
 					slot.count:Hide()
 				end
 
-				if(quality > 1) then
+				if (quality > 1) then
 					slot.drop:SetVertexColor(color.r, color.g, color.b)
 					slot.drop:Show()
 				else
@@ -272,14 +272,14 @@ addon.LOOT_OPENED = function(self, event, autoloot)
 end
 
 addon.LOOT_SLOT_CLEARED = function(self, event, slot)
-	if(not self:IsShown()) then return end
+	if not self:IsShown() then return end
 
 	addon.slots[slot]:Hide()
 	anchorSlots(self)
 end
 
 addon.LOOT_CLOSED = function(self)
-	StaticPopup_Hide"LOOT_BIND"
+	StaticPopup_Hide("LOOT_BIND")
 	self:Hide()
 
 	for _, v in pairs(self.slots) do
@@ -296,7 +296,7 @@ addon.UPDATE_MASTER_LOOT_LIST = function(self)
 end
 
 addon.ADDON_LOADED = function(self, event, addon)
-	if(addon == "DuffedUI") then
+	if addon == "DuffedUI" then
 		self:SetScale(frameScale)
 
 		-- clean up.

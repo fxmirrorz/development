@@ -14,7 +14,7 @@ end
 -- Manage all others stuff for actionbars
 ---------------------------------------------------------------------------
 
-D.CreatePopup["DuffedUI_FIX_AB"] = {
+D.CreatePopup["DUFFEDUI_FIX_AB"] = {
 	question = L.popup_fix_ab,
 	answer1 = ACCEPT,
 	answer2 = CANCEL,
@@ -33,7 +33,7 @@ DuffedUIOnLogon:SetScript("OnEvent", function(self, event)
 		local b1, b2, b3, b4 = GetActionBarToggles()
 		if (not b1 or not b2 or not b3 or not b4) then
 			SetActionBarToggles(1, 1, 1, 1)
-			D.ShowPopup("DuffedUI_FIX_AB")
+			D.ShowPopup("DUFFEDUI_FIX_AB")
 		end
 	end
 	

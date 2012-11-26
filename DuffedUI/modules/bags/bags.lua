@@ -44,10 +44,10 @@ end
 
 local function ForceUpdate()
 	-- XXX: hack to force bag frame update on show
-
+	
 	-- bank
 	Stuffing:PLAYERBANKSLOTS_CHANGED(29)
-
+	
 	-- bags
 	for i = 0, #bags_BACKPACK - 1 do
 		Stuffing:BAG_UPDATE(i)
@@ -94,7 +94,6 @@ local function Stuffing_ToggleBag(id)
 end
 
 -- bag slot stuff
-
 local trashParent = CreateFrame("Frame", nil, UIParent)
 local trashButton = {}
 local trashBag = {}
@@ -107,7 +106,7 @@ local QUEST_ITEM_STRING = nil
 
 function Stuffing:SlotUpdate(b)
 	-- only update cooldown on a slot update if bag are show, else it's useless
-	if (b.Cooldown and (DuffedUIBags and DuffedUIBags:IsShown()) or (DuffedUIBank and DuffedUIBank:IsShown())) then
+	if (b.Cooldown and (TukuiBags and TukuiBags:IsShown()) or (TukuiBank and TukuiBank:IsShown())) then
 		local cd_start, cd_finish, cd_enable = GetContainerItemCooldown(b.bag, b.slot)
 		CooldownFrame_SetTimer(b.Cooldown, cd_start, cd_finish, cd_enable)
 	end
@@ -128,12 +127,12 @@ function Stuffing:SlotUpdate(b)
 	
 	-- reset
 	if not b.frame.lock then
-		b.frame:SetBackdropBorderColor(unpack(C["media"].bordercolor))
+		b.frame:SetBackdropBorderColor(unpack(C.media.bordercolor))
 	end
 	
 	b.frame.questIcon:Hide()
 
-	if clink then
+	if(clink) then
 		-- color slot according to item quality
 		if not b.frame.lock and b.rarity and b.rarity > 1 then
 			b.frame:SetBackdropBorderColor(GetItemQualityColor(b.rarity))
@@ -199,12 +198,10 @@ end
 function Stuffing:BagFrameSlotNew (slot, p)
 	for _, v in ipairs(self.bagframe_buttons) do
 		if v.slot == slot then
-			--print ("found " .. slot)
 			return v, false
 		end
 	end
 
-	--print ("new " .. slot)
 	local ret = {}
 	local tpl
 
@@ -212,11 +209,11 @@ function Stuffing:BagFrameSlotNew (slot, p)
 		ret.slot = slot
 		slot = slot - 4
 		tpl = "BankItemButtonBagTemplate"
-		ret.frame = CreateFrame("CheckButton", "DuffedUIBankBag" .. slot, p, tpl)
+		ret.frame = CreateFrame("CheckButton", "TukuiBankBag" .. slot, p, tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		local icon = _G["DuffedUIBankBag" .. slot .. "IconTexture"]
-		local border = _G["DuffedUIBankBag" .. slot .. "NormalTexture"]
+		local icon = _G["TukuiBankBag" .. slot .. "IconTexture"]
+		local border = _G["TukuiBankBag" .. slot .. "NormalTexture"]
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		icon:Point("TOPLEFT", 2, -2)
@@ -233,11 +230,11 @@ function Stuffing:BagFrameSlotNew (slot, p)
 		end
 	else
 		tpl = "BagSlotButtonTemplate"
-		ret.frame = CreateFrame("CheckButton", "DuffedUIBackBag" .. slot .. "Slot", p, tpl)
+		ret.frame = CreateFrame("CheckButton", "TukuiBackBag" .. slot .. "Slot", p, tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		local icon = _G["DuffedUIBackBag" .. slot .. "SlotIconTexture"]
-		local border = _G["DuffedUIBackBag" .. slot .. "SlotNormalTexture"]
+		local icon = _G["TukuiBackBag" .. slot .. "SlotIconTexture"]
+		local border = _G["TukuiBackBag" .. slot .. "SlotNormalTexture"]
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		icon:Point("TOPLEFT", 2, -2)
@@ -288,7 +285,7 @@ function Stuffing:SlotNew (bag, slot)
 	end
 
 	if not ret.frame then
-		ret.frame = CreateFrame("Button", "DuffedUIBag_" .. bag .. "_" .. slot, self.bags[bag], tpl)
+		ret.frame = CreateFrame("Button", "TukuiBag_" .. bag .. "_" .. slot, self.bags[bag], tpl)
 		ret.frame:SetTemplate()
 		ret.frame:Height(31)
 		ret.frame:Width(31)
@@ -316,7 +313,6 @@ function Stuffing:SlotNew (bag, slot)
 end
 
 -- from OneBag
- 
 local BAGTYPE_PROFESSION = 0x0008 + 0x0010 + 0x0020 + 0x0040 + 0x0080 + 0x0200 + 0x0400
 local BAGTYPE_FISHING = 32768
 
@@ -406,7 +402,7 @@ Stuffing_DDMenu.HideMenu = function()
 end
 
 function Stuffing:CreateBagFrame(w)
-	local n = "DuffedUI"  .. w
+	local n = "Tukui"  .. w
 	local f = CreateFrame ("Frame", n, UIParent)
 	G.Bags[w] = f
 	f:EnableMouse(1)
@@ -415,10 +411,24 @@ function Stuffing:CreateBagFrame(w)
 	f:SetFrameStrata("HIGH")
 	f:SetFrameLevel(20)
 
-	if w == "Bank" then
-		f:Point("BOTTOMLEFT", DuffedUIInfoLeft, "TOPLEFT", 0, 5)
+	if C["chat"].background then
+		if w == "Bank" then
+			f:Point("BOTTOMLEFT", DuffedUIChatBackgroundLeft, "TOPLEFT", 0, 5)
+		else
+			f:Point("BOTTOMRIGHT", DuffedUIChatBackgroundRight, "TOPRIGHT", 0, 5)
+		end
 	else
-		f:Point("BOTTOMRIGHT", DuffedUIInfoRight, "TOPRIGHT", 0, 5)
+		if w == "Bank" then
+			f:Point("BOTTOMLEFT", DuffedUIInfoLeft, "TOPLEFT", 0, 5)
+		else
+			f:Point("BOTTOMRIGHT", DuffedUIInfoRight, "TOPRIGHT", 0, 5)
+		end
+	end
+	
+	-- moveable
+	if C["bags"].moveable == true then
+		f:SetScript("OnMouseDown", function() f:ClearAllPoints() f:StartMoving() end)
+		f:SetScript("OnMouseUp", function() f:StopMovingOrSizing() end)
 	end
 	
 	-- close button
@@ -427,7 +437,7 @@ function Stuffing:CreateBagFrame(w)
 	f.b_close:Height(32)
 	f.b_close:Point("TOPRIGHT", -1, -3)
 	f.b_close:SetScript("OnClick", function(self, btn)
-		if self:GetParent():GetName() == "DuffedUIBags" and btn == "RightButton" then
+		if self:GetParent():GetName() == "TukuiBags" and btn == "RightButton" then
 			if Stuffing_DDMenu.initialize ~= Stuffing.Menu then
 				CloseDropDownMenus()
 				Stuffing_DDMenu.initialize = Stuffing.Menu
@@ -467,11 +477,9 @@ local parent_startmoving = function(self)
 	StartMoving(self:GetParent())
 end
 
-
 local parent_stopmovingorsizing = function (self)
 	StopMoving(self:GetParent())
 end
-
 
 function Stuffing:InitBags()
 	if self.frame then
@@ -584,33 +592,15 @@ function Stuffing:Layout(lb)
 	local slots = 0
 	local rows = 0
 	local off = 26
-	local cols
+	local cols = C["bags"].bpr
 	local f
 	local bs
 
 	if lb then
 		bs = bags_BANK
-		if D.InfoLeftRightWidth >= 405 then
-			cols = 11
-		elseif D.InfoLeftRightWidth >= 370 and D.InfoLeftRightWidth < 405 then
-			cols = 10
-		elseif D.InfoLeftRightWidth >= 335 and D.InfoLeftRightWidth < 370 then
-			cols = 9
-		else
-			cols = 8
-		end
 		f = self.bankFrame
 	else
 		bs = bags_BACKPACK
-		if D.InfoLeftRightWidth >= 405 then
-			cols = 11
-		elseif D.InfoLeftRightWidth >= 370 and D.InfoLeftRightWidth < 405 then
-			cols = 10
-		elseif D.InfoLeftRightWidth >= 335 and D.InfoLeftRightWidth < 370 then
-			cols = 9
-		else
-			cols = 8
-		end
 		f = self.frame
 
 		f.gold:SetText(GetMoneyString(GetMoney(), 12))
@@ -624,12 +614,13 @@ function Stuffing:Layout(lb)
 	end
 
 	f:SetClampedToScreen(1)
-	f:SetTemplate("Default")
+	f:SetTemplate("Transparent")
+
 
 	-- bag frame stuff
 	local fb = f.bags_frame
 	if bag_bars == 1 then
-		fb:SetTemplate("Default")
+		fb:SetTemplate("Transparent")
 
 		local bsize = 30
 		if lb then bsize = 37 end
@@ -640,6 +631,8 @@ function Stuffing:Layout(lb)
 	else
 		fb:Hide()
 	end
+
+
 
 	local idx = 0
 	for _, v in ipairs(bs) do
@@ -663,6 +656,7 @@ function Stuffing:Layout(lb)
 		end
 	end
 
+
 	for _, i in ipairs(bs) do
 		local x = GetContainerNumSlots(i)
 		if x > 0 then
@@ -674,6 +668,7 @@ function Stuffing:Layout(lb)
 		end
 	end
 
+
 	rows = floor (slots / cols)
 	if (slots % cols) ~= 0 then
 		rows = rows + 1
@@ -681,6 +676,7 @@ function Stuffing:Layout(lb)
 
 	f:Width(cols * 31 + (cols - 1) * 4 + 12 * 2)
 	f:Height(rows * 31 + (rows - 1) * 4 + off + 12 * 2)
+
 
 	local idx = 0
 	for _, i in ipairs(bs) do
@@ -833,7 +829,7 @@ function Stuffing:ADDON_LOADED(addon)
 
 	self:InitBags()
 	
-	tinsert(UISpecialFrames,"DuffedUIBags")
+	tinsert(UISpecialFrames,"TukuiBags")
 
 	ToggleBackpack = Stuffing_Toggle
 	ToggleBag = Stuffing_ToggleBag
@@ -1185,7 +1181,6 @@ function Stuffing:SortBags()
 		self:SetScript("OnUpdate", Stuffing.SortOnUpdate)
 	end
 end
-
 
 function Stuffing:RestackOnUpdate(e)
 	if not self.elapsed then

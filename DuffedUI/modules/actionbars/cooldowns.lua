@@ -1,6 +1,6 @@
 local D, C, L, G = unpack(select(2, ...)) 
 --[[
-        An edited lightweight OmniCC for DuffedUI
+        An edited lightweight OmniCC for Tukui
                 A featureless, 'pure' version of OmniCC.
                 This version should work on absolutely everything, but I've removed pretty much all of the options
 --]]
@@ -213,5 +213,4 @@ if _G["ActionBarButtonEventsFrame"].frames then
 		actionButton_Register(frame)
 	end
 end
-
 hooksecurefunc("ActionBarButtonEventsFrame_RegisterFrame", actionButton_Register)

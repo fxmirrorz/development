@@ -10,7 +10,7 @@ local _G = getfenv(0)
 local GameTooltip, GameTooltipStatusBar = _G["GameTooltip"], _G["GameTooltipStatusBar"]
 
 local gsub, find, format = string.gsub, string.find, string.format
-local Tooltips = {GameTooltip,ShoppingTooltip1,ShoppingTooltip2,ShoppingTooltip3,WorldMapTooltip,WorldMapCompareTooltip1,WorldMapCompareTooltip2,WorldMapCompareTooltip3}
+local Tooltips = {GameTooltip, ShoppingTooltip1, ShoppingTooltip2, ShoppingTooltip3, WorldMapTooltip, WorldMapCompareTooltip1, WorldMapCompareTooltip2, WorldMapCompareTooltip3}
 local ItemRefTooltip = ItemRefTooltip
 
 G.Tooltips.GameTooltip = GameTooltip
@@ -40,7 +40,7 @@ anchor:SetFrameStrata("TOOLTIP")
 anchor:SetFrameLevel(20)
 anchor:SetClampedToScreen(true)
 anchor:SetAlpha(0)
-if C.chat.background and DuffedUIChatBackgroundRight then
+if C["chat"].background and DuffedUIChatBackgroundRight then
 	anchor:SetPoint("BOTTOMRIGHT", DuffedUIChatBackgroundRight, "TOPRIGHT", 0, -DuffedUIInfoRight:GetHeight())
 else
 	anchor:SetPoint("BOTTOMRIGHT", DuffedUIInfoRight)
@@ -144,7 +144,7 @@ local function Hex(color)
 end
 
 local function GetColor(unit)
-	if(UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
+	if (UnitIsPlayer(unit) and not UnitHasVehicleUI(unit)) then
 		local _, class = UnitClass(unit)
 		local color = RAID_CLASS_COLORS[class]
 		if not color then return end -- sometime unit too far away return nil for color :(
@@ -186,7 +186,7 @@ local function StatusBarOnValueChanged(self, value)
 	local _, unit = GameTooltip:GetUnit()
 	
 	-- fix target of target returning nil
-	if (not unit) then
+	if not unit then
 		local GMF = GetMouseFocus()
 		unit = GMF and GMF:GetAttribute("unit")
 	end
@@ -253,7 +253,7 @@ local function OnTooltipSetUnit(self)
 	local unit = (select(2, self:GetUnit())) or (GMF and GMF:GetAttribute("unit"))
 	
 	-- A mage's mirror images sometimes doesn't return a unit, this would fix it
-	if (not unit) and (UnitExists("mouseover")) then
+	if not unit and UnitExists("mouseover") then
 		unit = "mouseover"
 	end
 	
@@ -323,7 +323,7 @@ local function OnTooltipSetUnit(self)
 	end
 
 	-- ToT line
-	if UnitExists(unit.."target") and unit~="player" then
+	if UnitExists(unit.."target") and unit ~= "player" then
 		local hex, r, g, b = GetColor(unit.."target")
 		if not r and not g and not b then r, g, b = 1, 1, 1 end
 		GameTooltip:AddLine(UnitName(unit.."target"), r, g, b)

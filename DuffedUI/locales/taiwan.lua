@@ -4,6 +4,78 @@ if D.client == "zhTW" then
 	L.UI_Outdated = "DuffedUI 版本已過期，請至 www.tukui.org 下載最新版"
 	L.UI_Talent_Change_Bug = "A blizzard bug has occured which is preventing you from changing your talents, this happen when you've inspected someone. Unfortunatly there is nothing we can do in this WoW Patch to fix it, please reload your ui and try again."
 	
+	-- helpframe 
+	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - 帮助" 
+	L.Duffed_HELP_BUTTON1 = "快捷命令" 
+	L.Duffed_HELP_BUTTON2 = "天赋/装备切换助手" 
+	L.Duffed_HELP_BUTTON3 = "特殊按鈕" 
+	L.Duffed_HELP_BUTTON4 = "Actionbars"  --內容準備中 
+	L.Duffed_HELP_BUTTON5 = "內容準備中"  --內容準備中 
+	L.Duffed_HELP_BUTTON6 = "內容準備中"  --內容準備中 
+	L.Duffed_HELP_BUTTON7 = "內容準備中"  --內容準備中 
+	L.Duffed_HELP_BUTTON8 = "內容準備中"  --內容準備中 
+	L.Duffed_HELP_BUTTON9 = "鳴謝" 
+
+	L.Duffed_HELP_CONTENT0_TITLE = "總覽" 
+	L.Duffed_HELP_CONTENT0_LINE1 = "歡迎使用 |cffc41f3bDuffedUI|r的幫助面版!\n這個面板將幫助你找到|cffc41f3bDuffedUI|r 一些重要的設定和指令的操作:)" 
+	L.Duffed_HELP_CONTENT0_LINE2 = "請選擇一個使用類型(Dps佈局,治療佈局)" 
+	L.Duffed_HELP_CONTENT0_LINE3 = "遊戲愉快!" 
+	L.Duffed_HELP_CONTENT0_LINE4 = "製作人:greetz Merith - 服務器: Zirkel des Cenarius EU" 
+
+	L.Duffed_HELP_CONTENT9_TITLE = "鳴謝" 
+	L.Duffed_HELP_CONTENT9_LINE1 = "" 
+	L.Duffed_HELP_CONTENT9_LINE2 = "Tukz, Elv, nightcracker, Ecl韕s? Hydra, Asphyxia, Jasje, Epicgrimm, JerichoHM 感謝以上和所有為了不起的Tukui, Tukz和所有編譯者們提供過幫助的人" 
+	L.Duffed_HELP_CONTENT9_LINE3 = "另外由衷感謝我的Beta版測試者:" 
+	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transform, Optional, Pixelfcuk, Shera, lefirez, jones7 和所有其他的測試者:)" 
+
+	L.Duffed_HELP_CONTENT8_TITLE = "內容準備中"  --內容準備中 
+	L.Duffed_HELP_CONTENT8_LINE1 = "" 
+	L.Duffed_HELP_CONTENT8_LINE2 = "" 
+	L.Duffed_HELP_CONTENT8_LINE3 = "" 
+	L.Duffed_HELP_CONTENT8_LINE4 = "" 
+
+	L.Duffed_HELP_CONTENT7_TITLE = "內容準備中"   --內容準備中 
+	L.Duffed_HELP_CONTENT7_LINE1 = "" 
+	L.Duffed_HELP_CONTENT7_LINE2 = "" 
+	L.Duffed_HELP_CONTENT7_LINE3 = "" 
+	L.Duffed_HELP_CONTENT7_LINE4 = "" 
+
+	L.Duffed_HELP_CONTENT6_TITLE = "內容準備中" 
+	L.Duffed_HELP_CONTENT6_LINE1 = "" 
+	L.Duffed_HELP_CONTENT6_LINE2 = "" 
+	L.Duffed_HELP_CONTENT6_LINE3 = "" 
+	L.Duffed_HELP_CONTENT6_LINE4 = "" 
+
+	L.Duffed_HELP_CONTENT5_TITLE = "內容準備中" 
+	L.Duffed_HELP_CONTENT5_LINE1 = "" 
+	L.Duffed_HELP_CONTENT5_LINE2 = "" 
+	L.Duffed_HELP_CONTENT5_LINE3 = "" 
+	L.Duffed_HELP_CONTENT5_LINE4 = "" 
+
+	L.Duffed_HELP_CONTENT4_TITLE = "Actionbars"
+	L.Duffed_HELP_CONTENT4_LINE1 = ""
+	L.Duffed_HELP_CONTENT4_LINE2 = "In DuffedUI you have three different layouts for your actionbars. The layouts are:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
+	L.Duffed_HELP_CONTENT4_LINE3 = "For the layout with 2x12 bottombars you have to set the layout to 2 in the ingameConfig. The third layout can you activate if you set the option Enable lowres-layout on highres in the ingameConfig. Every layout has an button to hide one of the bottombars. Only the default layout has no one if the actionbarswap is active."
+	L.Duffed_HELP_CONTENT4_LINE4 = "If you have suggestions or problems with the layouts please use the forum." 
+
+	L.Duffed_HELP_CONTENT3_TITLE = "特殊按鈕" 
+	L.Duffed_HELP_CONTENT3_LINE1 = "位於小地圖下方的一排按鈕將有各自獨立的功能." 
+	L.Duffed_HELP_CONTENT3_LINE2 = "R => 重載插件\nH => 切換為治療者佈局 (團隊界面)" 
+	L.Duffed_HELP_CONTENT3_LINE3 = "D => 切換為Dps佈局 (團隊界面)\nA => Addonmanager(內置插件管理器)" 
+	L.Duffed_HELP_CONTENT3_LINE4 = "M => 移動你的界面框體(頭像,任務追踪等)\nC => 打開Tukui遊戲內置控制台\nK => 設定遊戲熱鍵" 
+
+	L.Duffed_HELP_CONTENT2_TITLE = "天賦/裝備切換助手" 
+	L.Duffed_HELP_CONTENT2_LINE1 = "切換助手相關插件位於右邊拾取聊天框背景條上.滑鼠,鼠標單擊這些切換按鈕將使你方便地進行天賦及裝備的切換/更換." 
+	L.Duffed_HELP_CONTENT2_LINE2 = "" 
+	L.Duffed_HELP_CONTENT2_LINE3 = "在遊戲的Misc選項中,這個插件能為你的每個天賦設定一套單獨的裝備使用,在你每次切換天賦時自動穿上該設定好的裝備.(例如切換為Dps天賦時自動穿上Dps裝,切換治療天賦時,穿上治療裝).可以通過啟用 / 禁用來設置開關." 
+	L.Duffed_HELP_CONTENT2_LINE4 = "他可以支持創建及設定多達10套裝備." 
+
+	L.Duffed_HELP_CONTENT1_TITLE = "快速指令" 
+	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => 打開這個幫助面板\n/resetui => 重置插件的所有描點位置為原狀\n/install => 重新安裝所有Duffed設置(當你的聊天框或者某個功能出現問題時)" 
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => 移動所有界面元素(頭像,任務追踪)\n/kb => 滑鼠,鼠標移動到動作條上進行熱鍵綁定\n/rl => 重載UI" 
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切換到治療佈局\n/dps => 切換到Dps佈局\n/tc => 打開Tukui遊戲內置控制台\n/ddbm apply => 應用特殊的 DBM-Skin(皮膚)" 
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 應用特殊的 BigWigs-Skin(皮膚)\n/am => 打開 Addonmanager(內置插件管理器)\n/version => 顯示插件版本號" 
+	
 	L.chat_BATTLEGROUND_GET = "戰場"
 	L.chat_BATTLEGROUND_LEADER_GET = "戰場領袖"
 	L.chat_BN_WHISPER_GET = "密語"
@@ -254,8 +326,8 @@ if D.client == "zhTW" then
 
 	L.tutorial_step_1_line_1 = "這個快速指南將向您展示一些DuffedUI的特點及功能。"
 	L.tutorial_step_1_line_2 = "首先，基本要素將會告訴您使用這個UI前該知道的事項。"
-	L.tutorial_step_1_line_3 = "這個安裝程序部分是角色特定，一些設定將會全帳號套用，您必須為每一個有使用DuffedUI的新角色執行安裝程序。程序將會在新角色第一次登入DuffedUI時自動顯示。同時，進階使用者可以在/DuffedUI/config/config.lua中找到選項，友善使用者可以在遊戲中輸入/DuffedUI。"
-	L.tutorial_step_1_line_4 = "進階使用者是指有能力會使用一般使用者所不會的進階功能(如：編輯lua)的個人電腦使用者。友善使用者為一般使用者，並不需要編寫程式的能力，推薦他們使用我們的遊戲內設定工具(/DuffedUI)來設定DuffedUI上想呈現的功能。"
+	L.tutorial_step_1_line_3 = "這個安裝程序部分是角色特定，一些設定將會全帳號套用，您必須為每一個有使用DuffedUI的新角色執行安裝程序。程序將會在新角色第一次登入DuffedUI時自動顯示。同時，進階使用者可以在/DuffedUI/config/config.lua中找到選項，友善使用者可以在遊戲中輸入/tukui。"
+	L.tutorial_step_1_line_4 = "進階使用者是指有能力會使用一般使用者所不會的進階功能(如：編輯lua)的個人電腦使用者。友善使用者為一般使用者，並不需要編寫程式的能力，推薦他們使用我們的遊戲內設定工具(/tukui)來設定DuffedUI上想呈現的功能。"
 
 	L.tutorial_step_2_line_1 = "DuffedUI包含一個內建版本的oUF，由Trond (Haste) A Ekseth創造，處理畫面中所有的單位框架，增/減益狀態及職業特色元素。"
 	L.tutorial_step_2_line_2 = "您可以拜訪 http://www.wowinterface.com 蒐尋oUF以獲得更多這項工具的資訊。"

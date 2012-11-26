@@ -13,9 +13,9 @@ DuffedUIFonts:RegisterEvent("ADDON_LOADED")
 DuffedUIFonts:SetScript("OnEvent", function(self, event, addon)
 	if addon ~= "DuffedUI" then return end
 	
-	local NORMAL     = C.media.font
-	local COMBAT     = C.media.dmgfont
-	local NUMBER     = C.media.font
+	local NORMAL     = C["media"].font
+	local COMBAT     = C["media"].dmgfont
+	local NUMBER     = C["media"].font
 
 	if D.eyefinity then
 		-- damage are huge on eyefinity, so we disable it

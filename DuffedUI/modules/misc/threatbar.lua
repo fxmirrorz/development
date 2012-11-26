@@ -2,9 +2,9 @@ local D, C, L, G = unpack(select(2, ...))
 if not DuffedUIInfoRight or not oUFDuffedUI then return end
 
 local aggroColors = {
-	[1] = {12/255, 151/255,  15/255},
-	[2] = {166/255, 171/255,  26/255},
-	[3] = {163/255,  24/255,  24/255},
+	[1] = {12 / 255, 151 / 255,  15 / 255},
+	[2] = {166 / 255, 171 / 255,  26 / 255},
+	[3] = {163 / 255,  24 / 255,  24 / 255},
 }
 
 local DuffedUIThreatBar = CreateFrame("StatusBar", "DuffedUIThreatBar", DuffedUIInfoRight)
@@ -29,7 +29,7 @@ DuffedUIThreatBar.Title:SetPoint("LEFT", DuffedUIThreatBar, "LEFT", D.Scale(30),
 	  
 DuffedUIThreatBar.bg = DuffedUIThreatBar:CreateTexture(nil, 'BORDER')
 DuffedUIThreatBar.bg:SetAllPoints(DuffedUIThreatBar)
-DuffedUIThreatBar.bg:SetTexture(0.1,0.1,0.1)
+DuffedUIThreatBar.bg:SetTexture(.1, .1, .1)
 
 local function OnEvent(self, event, ...)
 	local party = GetNumGroupMembers()
@@ -63,7 +63,7 @@ local function OnUpdate(self, event, unit)
 		self:SetValue(threatval)
 		self.text:SetFormattedText("%3.1f", threatval)
 		
-		local r, g, b = oUFDuffedUI.ColorGradient(threatval,100, 0,.8,0,.8,.8,0,.8,0,0)
+		local r, g, b = oUFDuffedUI.ColorGradient(threatval, 100, 0, .8, 0, .8, .8, 0, .8, 0, 0)
 		self:SetStatusBarColor(r, g, b)
 
 		if threatval > 0 then

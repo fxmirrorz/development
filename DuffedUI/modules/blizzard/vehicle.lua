@@ -9,9 +9,9 @@ anchor:Size(120, 20)
 anchor:SetMovable(true)
 anchor:SetClampedToScreen(true)
 anchor:SetTemplate("Default")
-anchor:SetBackdropBorderColor(1,0,0)
+anchor:SetBackdropBorderColor(1, 0, 0)
 anchor:SetAlpha(0)
-anchor.text = D.SetFontString(anchor, C.media.uffont, 12)
+anchor.text = D.SetFontString(anchor, C["media"].uffont, 12)
 anchor.text:SetPoint("CENTER")
 anchor.text:SetText(L.move_vehicle)
 G.Misc.VehicleAnchor = anchor
@@ -45,7 +45,7 @@ local function VehicleNumSeatIndicator()
 end
 
 local function vehmousebutton(alpha)
-	for i=1, D.numSeat do
+	for i = 1, D.numSeat do
 	local pb = _G["VehicleSeatIndicatorButton"..i]
 		pb:SetAlpha(alpha)
 	end
@@ -61,7 +61,7 @@ local function vehmouse()
 		VehicleSeatIndicator:HookScript("OnEnter", function() VehicleSeatIndicator:SetAlpha(1) vehmousebutton(1) end)
 		VehicleSeatIndicator:HookScript("OnLeave", function() VehicleSeatIndicator:SetAlpha(0) vehmousebutton(0) end)
 
-		for i=1, D.numSeat do
+		for i = 1, D.numSeat do
 			local pb = _G["VehicleSeatIndicatorButton"..i]
 			pb:SetAlpha(0)
 			pb:HookScript("OnEnter", function(self) VehicleSeatIndicator:SetAlpha(1) vehmousebutton(1) end)

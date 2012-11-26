@@ -12,7 +12,7 @@ if C["datatext"].avd and C["datatext"].avd > 0 then
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.avd
+	Stat.Option = C["datatext"].avd
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.Avoidance = Stat

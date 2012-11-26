@@ -5,7 +5,7 @@
 ## Notes: UI of awesomeness!
 ## SavedVariables: DuffedUIData
 ## SavedVariablesPerCharacter: DuffedUIDataPerChar
-## OptionalDeps: DuffedUI_ConfigUI, Clique
+## OptionalDeps: DuffedUI_ConfigUI
 ## X-oUF: oUFDuffedUI
 ## Website: http://www.tukui.org
 

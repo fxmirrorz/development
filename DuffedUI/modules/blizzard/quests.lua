@@ -1,7 +1,7 @@
 local D, C, L, G = unpack(select(2, ...))
 
 -- add quest level into Quest list frame.
-if (IsAddOnLoaded("QuestGuru")) then return end
+if IsAddOnLoaded("QuestGuru") then return end
 
 local function questlevel()
 	local buttons = QuestLogScrollFrame.buttons

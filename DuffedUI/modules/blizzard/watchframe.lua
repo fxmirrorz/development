@@ -18,7 +18,7 @@ DuffedUIWatchFrameAnchor:EnableMouse(false)
 DuffedUIWatchFrameAnchor:SetTemplate("Default")
 DuffedUIWatchFrameAnchor:SetBackdropBorderColor(1, 0, 0)
 DuffedUIWatchFrameAnchor:SetAlpha(0)
-DuffedUIWatchFrameAnchor.text = D.SetFontString(DuffedUIWatchFrameAnchor, C.media.uffont, 12)
+DuffedUIWatchFrameAnchor.text = D.SetFontString(DuffedUIWatchFrameAnchor, C["media"].uffont, 12)
 DuffedUIWatchFrameAnchor.text:SetPoint("CENTER")
 DuffedUIWatchFrameAnchor.text:SetText(L.move_watchframe)
 DuffedUIWatchFrameAnchor.text:Hide()
@@ -45,7 +45,7 @@ DuffedUIWatchFrame:SetPoint("TOP", DuffedUIWatchFrameAnchor)
 local function init()
 	DuffedUIWatchFrame:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	DuffedUIWatchFrame:RegisterEvent("CVAR_UPDATE")
-	DuffedUIWatchFrame:SetScript("OnEvent", function(_,_,cvar,value)
+	DuffedUIWatchFrame:SetScript("OnEvent", function(_, _, cvar, value)
 		if cvar == "WATCH_FRAME_WIDTH_TEXT" then
 			if not WatchFrame.userCollapsed then
 				if value == "1" then
@@ -68,7 +68,7 @@ local function setup()
 	WatchFrame:SetClampedToScreen(false)
 	WatchFrame:ClearAllPoints()
 	WatchFrame.ClearAllPoints = function() end
-	WatchFrame:SetPoint("TOPLEFT", 32,-2.5)
+	WatchFrame:SetPoint("TOPLEFT", 32, -2.5)
 	WatchFrame:SetPoint("BOTTOMRIGHT", 4,0)
 	WatchFrame.SetPoint = D.dummy
 
@@ -81,7 +81,7 @@ local function setup()
 	WatchFrameCollapseExpandButton:SetPushedTexture("")
 	WatchFrameCollapseExpandButton:SetHighlightTexture("")
 	WatchFrameCollapseExpandButton:SkinCloseButton()
-	WatchFrameCollapseExpandButton.t:SetFont(C.media.font, 12, "OUTLINE")
+	WatchFrameCollapseExpandButton.t:SetFont(C["media"].font, 12, "OUTLINE")
 	WatchFrameCollapseExpandButton:HookScript("OnClick", function(self) 
 		if WatchFrame.collapsed then 
 			self.t:SetText("V") 
@@ -98,12 +98,11 @@ local function SkinQuestButton(self)
 		local t = _G[self:GetName().."IconTexture"]
 		self:SkinButton()
 		self:StyleButton()
-		t:SetTexCoord(.1,.9,.1,.9)
+		t:SetTexCoord(.1, .9, .1, .9)
 		t:SetInside()
 		self.isSkinned = true
 	end
 end
-
 hooksecurefunc("WatchFrameItem_UpdateCooldown", SkinQuestButton)
 
 ------------------------------------------------------------------------

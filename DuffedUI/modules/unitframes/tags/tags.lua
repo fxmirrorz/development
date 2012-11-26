@@ -19,6 +19,16 @@ local function ShortenValue(value)
 	end
 end
 
+oUF.Tags.Events['DuffedUI:perchp'] = 'UNIT_HEALTH'
+oUF.Tags.Methods['DuffedUI:perchp'] = function(unit)
+	local m = UnitHealthMax(unit)
+	if(m == 0) then
+		return 0
+	else
+		return D.panelcolor..math.floor(UnitHealth(unit)/m*100+.5).."%"
+	end
+end
+
 oUF.Tags.Events['DuffedUI:threat'] = 'UNIT_THREAT_LIST_UPDATE'
 oUF.Tags.Methods['DuffedUI:threat'] = function(unit)
 	local tanking, status, percent = UnitDetailedThreatSituation('player', 'target')
@@ -112,7 +122,6 @@ local utf8sub = function(string, i, dots)
 		end
 	end
 end
-
 
 oUF.Tags.Events['DuffedUI:getnamecolor'] = 'UNIT_POWER'
 oUF.Tags.Methods['DuffedUI:getnamecolor'] = function(unit)

@@ -63,7 +63,7 @@ for i, pet in pairs(pets) do
 	if i == 1 then
 		pet.HealthBarBackdrop:Point("TOPLEFT", pet.ActualHealthBar, "TOPLEFT", -2, 2)
 		pet.HealthBarBackdrop:Point("BOTTOMLEFT", pet.ActualHealthBar, "BOTTOMLEFT", -2, -2)
-		pet.ActualHealthBar:SetVertexColor(171/255, 214/255, 116/255)
+		pet.ActualHealthBar:SetVertexColor(171 / 255, 214 / 255, 116 / 255)
 		f.Ally2.iconPoint = pet.IconBackdrop
 		f.Ally3.iconPoint = pet.IconBackdrop
 
@@ -75,11 +75,11 @@ for i, pet in pairs(pets) do
 
 		pet.FirstAttack:SetPoint("LEFT", pet.HealthBarBackdrop, "RIGHT", 5, 0)
 		pet.FirstAttack:SetTexCoord(pet.SpeedIcon:GetTexCoord())
-		pet.FirstAttack:SetVertexColor(.1,.1,.1,1)
+		pet.FirstAttack:SetVertexColor(.1, .1, .1, 1)
 	else
 		pet.HealthBarBackdrop:Point("TOPRIGHT", pet.ActualHealthBar, "TOPRIGHT", 2, 2)
 		pet.HealthBarBackdrop:Point("BOTTOMRIGHT", pet.ActualHealthBar, "BOTTOMRIGHT", 2, -2)
-		pet.ActualHealthBar:SetVertexColor(196/255,  30/255,  60/255)
+		pet.ActualHealthBar:SetVertexColor(196 / 255,  30 / 255,  60 / 255)
 		f.Enemy2.iconPoint = pet.IconBackdrop
 		f.Enemy3.iconPoint = pet.IconBackdrop
 
@@ -91,7 +91,7 @@ for i, pet in pairs(pets) do
 
 		pet.FirstAttack:SetPoint("RIGHT", pet.HealthBarBackdrop, "LEFT", -5, 0)
 		pet.FirstAttack:SetTexCoord(.5, 0, .5, 1)
-		pet.FirstAttack:SetVertexColor(.1,.1,.1,1)
+		pet.FirstAttack:SetVertexColor(.1, .1, .1, 1)
 	end
 
 	pet.PetType:ClearAllPoints()
@@ -121,9 +121,9 @@ hooksecurefunc("PetBattleFrame_UpdateSpeedIndicators", function(self)
 	for i, pet in pairs(pets) do
 		pet.FirstAttack:Show()
 		if pet.SpeedIcon:IsShown() then
-			pet.FirstAttack:SetVertexColor(0,1,0,1)
+			pet.FirstAttack:SetVertexColor(0, 1, 0, 1)
 		else
-			pet.FirstAttack:SetVertexColor(.8,0,.3,1)
+			pet.FirstAttack:SetVertexColor(.8, 0, .3, 1)
 		end
 	end
 end)
@@ -143,7 +143,7 @@ hooksecurefunc("PetBattleAuraHolder_Update", function(self)
 	if not self.petOwner or not self.petIndex then return end
 
 	local nextFrame = 1
-	for i=1, C_PetBattles.GetNumAuras(self.petOwner, self.petIndex) do
+	for i = 1, C_PetBattles.GetNumAuras(self.petOwner, self.petIndex) do
 		local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles.GetAuraInfo(self.petOwner, self.petIndex, i)
 		if (isBuff and self.displayBuffs) or (not isBuff and self.displayDebuffs) then
 			local frame = self.frames[nextFrame]
@@ -154,7 +154,7 @@ hooksecurefunc("PetBattleAuraHolder_Update", function(self)
 			if not frame.isSkinned then
 				frame:CreateBackdrop()
 				frame.backdrop:SetOutside(frame.Icon)
-				frame.Icon:SetTexCoord(.1,.9,.1,.9)
+				frame.Icon:SetTexCoord(.1, .9, .1, .9)
 			end
 
 			if isBuff then
@@ -178,7 +178,7 @@ end)
 
 -- PETS UNITFRAMES, ALWAYS HIDE BLIZZARD ICONS BORDER
 hooksecurefunc("PetBattleUnitFrame_UpdateDisplay", function(self)
-	self.Icon:SetTexCoord(.1,.9,.1,.9)
+	self.Icon:SetTexCoord(.1, .9, .1, .9)
 end)
 
 -- REPOSITION "VS" TEXT
@@ -275,10 +275,10 @@ end)
 ---------------------------------
 
 local bar = CreateFrame("Frame", "DuffedUIPetBattleActionBar", UIParent, "SecureHandlerStateTemplate")
-bar:SetSize (52*6 + 7*10, 52 * 1 + 10*2)
+bar:SetSize (52 * 6 + 7 * 10, 52 * 1 + 10 * 2)
 bar:EnableMouse(true)
 bar:SetTemplate()
-bar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 14)
+bar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 25)
 bar:Hide()
 
 RegisterStateDriver(bar, "visibility", "[petbattle] show; hide")
@@ -339,9 +339,9 @@ end)
 local function SkinPetButton(self)
 	self:CreateBackdrop()
 	self:SetNormalTexture("")
-	self.Icon:SetTexCoord(.1,.9,.1,.9)
+	self.Icon:SetTexCoord(.1, .9, .1, .9)
 	self:StyleButton()
-	self.SelectedHighlight:SetTexture(0.9, 0.8, 0.1, 0.3)
+	self.SelectedHighlight:SetTexture(.9, .8, .1, .3)
 	self.SelectedHighlight:SetInside(self.backdrop)
 	self.pushed:SetInside(self.backdrop)
 	self.hover:SetInside(self.backdrop)
@@ -354,7 +354,7 @@ end
 
 -- SETUP OUR PET ACTION BAR
 hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function(self)
-	for i=1, NUM_BATTLE_PET_ABILITIES do
+	for i = 1, NUM_BATTLE_PET_ABILITIES do
 		local b = bf.abilityButtons[i]
 		b.checked = true
 		SkinPetButton(b)
@@ -363,7 +363,7 @@ hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function(self)
 		if i == 1 then
 			b:SetPoint("BOTTOMLEFT", 10, 10)
 		else
-			local previous = bf.abilityButtons[i-1]
+			local previous = bf.abilityButtons[i - 1]
 			b:SetPoint("LEFT", previous, "RIGHT", 10, 0)
 		end
 	end

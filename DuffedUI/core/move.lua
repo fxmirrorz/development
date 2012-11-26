@@ -6,7 +6,7 @@ D.AllowFrameMoving = {}
 
 -- used to exec various code if we enable or disable moving
 local function exec(self, enable)
-	if self == DuffedUIGMFrameAnchor then
+	if self == DuffedUIGMFrameAnchor or self == TCBanchor or self == FCBanchor or self == RCDAnchor or self == DuffedUISpellCooldowns or self == DuffedUIBnetHolder then
 		if enable then
 			self:Show()
 		else
@@ -17,16 +17,15 @@ local function exec(self, enable)
 	if self == DuffedUIMinimap then
 		if enable then 
 			Minimap:Hide()
-			self:SetBackdropBorderColor(1,0,0,1)
+			self:SetBackdropBorderColor(1, 0, 0, 1)
 		else 
 			Minimap:Show()
-			self:SetBackdropBorderColor(unpack(C.media.bordercolor))
+			self:SetBackdropBorderColor(unpack(C["media"].bordercolor))
 		end
 	end
 	
 	if self == DuffedUIAurasPlayerBuffs then
 		local buffs = DuffedUIAurasPlayerBuffs
-		local debuffs = DuffedUIAurasPlayerDebuffs
 		
 		if enable then
 			buffs.backdrop:SetAlpha(1)
@@ -34,23 +33,42 @@ local function exec(self, enable)
 			local position = self:GetPoint()
 			if position:match("TOPLEFT") or position:match("BOTTOMLEFT") or position:match("BOTTOMRIGHT") or position:match("TOPRIGHT") then
 				buffs:SetAttribute("point", position)
-				debuffs:SetAttribute("point", position)
 			end
 			if position:match("LEFT") then
 				buffs:SetAttribute("xOffset", 35)
-				debuffs:SetAttribute("xOffset", 35)
 			else
 				buffs:SetAttribute("xOffset", -35)
-				debuffs:SetAttribute("xOffset", -35)
 			end
 			if position:match("BOTTOM") then
 				buffs:SetAttribute("wrapYOffset", 67.5)
-				debuffs:SetAttribute("wrapYOffset", 67.5)
 			else
 				buffs:SetAttribute("wrapYOffset", -67.5)
-				debuffs:SetAttribute("wrapYOffset", -67.5)
 			end
 			buffs.backdrop:SetAlpha(0)
+		end
+	end
+	
+	if self == DuffedUIAurasPlayerDebuffs then
+		local debuffs = DuffedUIAurasPlayerDebuffs
+		
+		if enable then
+			debuffs.backdrop:SetAlpha(1)
+		else
+			local position = self:GetPoint()
+			if position:match("TOPLEFT") or position:match("BOTTOMLEFT") or position:match("BOTTOMRIGHT") or position:match("TOPRIGHT") then
+				debuffs:SetAttribute("point", position)
+			end
+			if position:match("LEFT") then
+				debuffs:SetAttribute("xOffset", 35)
+			else
+				debuffs:SetAttribute("xOffset", -35)
+			end
+			if position:match("BOTTOM") then
+				debuffs:SetAttribute("wrapYOffset", 67.5)
+			else
+				debuffs:SetAttribute("wrapYOffset", -67.5)
+			end
+			debuffs.backdrop:SetAlpha(0)
 		end
 	end
 	
@@ -98,6 +116,14 @@ local enable = true
 local origa1, origf, origa2, origx, origy
 
 D.MoveUIElements = function()
+	if DuffedUIRaidUtilityAnchor then
+		if DuffedUIRaidUtilityAnchor:IsShown() then DuffedUIRaidUtilityAnchor:Hide() else DuffedUIRaidUtilityAnchor:Show() end
+	end
+	
+	if sCombosAnchor then
+		if sCombosAnchor:IsShown() then sCombosAnchor:Hide() else sCombosAnchor:Show() end
+	end
+	
 	for i = 1, getn(D.AllowFrameMoving) do
 		if D.AllowFrameMoving[i] then		
 			if enable then

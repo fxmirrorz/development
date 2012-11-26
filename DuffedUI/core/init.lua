@@ -3,7 +3,7 @@
 --------------------------------------------------
 
 -- Add the line below at the top of every created .lua file:	
--- local D, C, L, G = unpack(DuffedUI)
+-- local T, C, L, G = unpack(DuffedUI)
 
 ----------------------------------------------------------------
 -- Initiation of DuffedUI engine
@@ -86,4 +86,21 @@ D.Credits = {
 	"Haste",
 	"Hydra",
 	"Elv",
+}
+
+D.DuffedCredits = {
+	"jones7",
+	"Optional",
+	"Pixelfcuk",
+	"Shera",
+	"lefirez",
+	"macgee",
+	"loveran",
+	"transform",
+	"Kanestorm",
+	"Sinaris",
+	"Juhawny",
+	"Elenarda",
+	"Trisha",
+	"Zenglao",
 }

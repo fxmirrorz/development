@@ -1,10 +1,9 @@
--- MOVE ME TO /SKINS
+local D, C, L, G = unpack(select(2, ...))
 
-local D, C, L, G = unpack(select(2, ...)) 
 -- GhostFrame at top
 GhostFrame:SetTemplate("Default")
-GhostFrame:SetBackdropColor(0,0,0,0)
-GhostFrame:SetBackdropBorderColor(0,0,0,0)
+GhostFrame:SetBackdropColor(0, 0, 0, 0)
+GhostFrame:SetBackdropBorderColor(0, 0, 0, 0)
 GhostFrame.SetBackdropColor = D.dummy
 GhostFrame.SetBackdropBorderColor = D.dummy
 GhostFrameContentsFrame:SetTemplate("Default")

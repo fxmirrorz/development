@@ -6,7 +6,7 @@ local D, C, L, G = unpack(select(2, ...))
 if C["datatext"].hps_text and C["datatext"].hps_text > 0 then
 	local events = {SPELL_HEAL = true, SPELL_PERIODIC_HEAL = true}
 	local HPS_FEED = CreateFrame("Frame", "DuffedUIStatHeal")
-	HPS_FEED.Option = C.datatext.hps_text
+	HPS_FEED.Option = C["datatext"].hps_text
 	HPS_FEED.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	HPS_FEED.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.HPS = HPS_FEED
@@ -94,5 +94,4 @@ if C["datatext"].hps_text and C["datatext"].hps_text > 0 then
 			return string.format(HPS_FEED.Color2.."%.1fk |r" .. HPS_FEED.Color1..L.datatext_hps.."|r", ((actual_heals_total or 0) / (cmbt_time or 1)) / 1000)
 		end
 	end
-
 end

@@ -1,236 +1,158 @@
 local D, C, L, G = unpack(select(2, ...)) 
 
 local DuffedUIBar1 = CreateFrame("Frame", "DuffedUIBar1", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar1:SetTemplate()
-DuffedUIBar1:SetWidth((D.buttonsize * 12) + (D.buttonspacing * 13))
-DuffedUIBar1:SetHeight((D.buttonsize * 1) + (D.buttonspacing * 2))
-DuffedUIBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 14)
+DuffedUIBar1:SetTemplate("Transparent")
+if C["actionbar"].layout ~= 1 then
+	DuffedUIBar1:SetSize((D.buttonsize * 12) + (D.buttonspacing * 13), (D.buttonsize * 2) + (D.buttonspacing * 3))
+	DuffedUIBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 70)
+else
+	if D.lowversion then
+		DuffedUIBar1:SetSize((D.buttonsize * 12) + (D.buttonspacing * 13), (D.buttonsize * 2) + (D.buttonspacing * 3))
+		DuffedUIBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 3)
+	else
+		DuffedUIBar1:SetSize((D.buttonsize * 24) + (D.buttonspacing * 25), (D.buttonsize * 1) + (D.buttonspacing * 2))
+		DuffedUIBar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 26)
+	end
+end
 DuffedUIBar1:SetFrameStrata("BACKGROUND")
 DuffedUIBar1:SetFrameLevel(1)
+DuffedUIBar1:CreateShadow("Default")
 G.ActionBars.Bar1 = DuffedUIBar1
 
 local DuffedUIBar2 = CreateFrame("Frame", "DuffedUIBar2", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar2:SetTemplate()
-DuffedUIBar2:Point("BOTTOMRIGHT", DuffedUIBar1, "BOTTOMLEFT", -6, 0)
-DuffedUIBar2:SetWidth((D.buttonsize * 6) + (D.buttonspacing * 7))
-DuffedUIBar2:SetHeight((D.buttonsize * 2) + (D.buttonspacing * 3))
+DuffedUIBar2:SetTemplate("Transparent")
+if C["actionbar"].layout ~= 1 then
+	DuffedUIBar2:Point("BOTTOMRIGHT", DuffedUIBar1, "BOTTOMLEFT", -3, 0)
+	DuffedUIBar2:SetSize((D.buttonsize * 3) + (D.buttonspacing * 4), (D.buttonsize * 2) + (D.buttonspacing * 3))
+else
+	DuffedUIBar2:Point("BOTTOM", DuffedUIBar1, "TOP", 0, 3)
+	DuffedUIBar2:SetSize((D.buttonsize * 12) + (D.buttonspacing * 13), (D.buttonsize * 1) + (D.buttonspacing * 2))
+end
 DuffedUIBar2:SetFrameStrata("BACKGROUND")
 DuffedUIBar2:SetFrameLevel(3)
-DuffedUIBar2:SetAlpha(0)
-if D.lowversion then
-	DuffedUIBar2:SetAlpha(0)
-else
-	DuffedUIBar2:SetAlpha(1)
-end
+DuffedUIBar2:CreateShadow("Default")
 G.ActionBars.Bar2 = DuffedUIBar2
 
 local DuffedUIBar3 = CreateFrame("Frame", "DuffedUIBar3", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar3:SetTemplate()
-DuffedUIBar3:Point("BOTTOMLEFT", DuffedUIBar1, "BOTTOMRIGHT", 6, 0)
-DuffedUIBar3:SetWidth((D.buttonsize * 6) + (D.buttonspacing * 7))
-DuffedUIBar3:SetHeight((D.buttonsize * 2) + (D.buttonspacing * 3))
+DuffedUIBar3:SetTemplate("Transparent")
+DuffedUIBar3:Point("RIGHT", UIParent, "RIGHT", -13, -14)
+DuffedUIBar3:SetSize((D.buttonsize * 2) + (D.buttonspacing * 3), (D.buttonsize * 12) + (D.buttonspacing * 13))
 DuffedUIBar3:SetFrameStrata("BACKGROUND")
 DuffedUIBar3:SetFrameLevel(3)
-if D.lowversion then
-	DuffedUIBar3:SetAlpha(0)
-else
-	DuffedUIBar3:SetAlpha(1)
-end
+DuffedUIBar3:CreateShadow("Default")
 G.ActionBars.Bar3 = DuffedUIBar3
 
-local DuffedUIBar4 = CreateFrame("Frame", "DuffedUIBar4", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar4:SetTemplate()
-DuffedUIBar4:Point("BOTTOM", UIParent, "BOTTOM", 0, 14)
-DuffedUIBar4:SetWidth((D.buttonsize * 12) + (D.buttonspacing * 13))
-DuffedUIBar4:SetHeight((D.buttonsize * 2) + (D.buttonspacing * 3))
-DuffedUIBar4:SetFrameStrata("BACKGROUND")
-DuffedUIBar4:SetFrameLevel(3)
-G.ActionBars.Bar4 = DuffedUIBar4
-
-local DuffedUIBar5 = CreateFrame("Frame", "DuffedUIBar5", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar5:SetTemplate()
-DuffedUIBar5:SetPoint("RIGHT", UIParent, "RIGHT", -23, -14)
-DuffedUIBar5:SetHeight((D.buttonsize * 12) + (D.buttonspacing * 13))
-DuffedUIBar5:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-DuffedUIBar5:SetFrameStrata("BACKGROUND")
-DuffedUIBar5:SetFrameLevel(2)
-DuffedUIBar5:SetAlpha(0)
-G.ActionBars.Bar5 = DuffedUIBar5
-
-local DuffedUIBar6 = CreateFrame("Frame", "DuffedUIBar6", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar6:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-DuffedUIBar6:SetHeight((D.buttonsize * 12) + (D.buttonspacing * 13))
-DuffedUIBar6:SetPoint("LEFT", DuffedUIBar5, "LEFT", 0, 0)
-DuffedUIBar6:SetFrameStrata("BACKGROUND")
-DuffedUIBar6:SetFrameLevel(2)
-DuffedUIBar6:SetAlpha(0)
-G.ActionBars.Bar6 = DuffedUIBar6
-
-local DuffedUIBar7 = CreateFrame("Frame", "DuffedUIBar7", UIParent, "SecureHandlerStateTemplate")
-DuffedUIBar7:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-DuffedUIBar7:SetHeight((D.buttonsize * 12) + (D.buttonspacing * 13))
-DuffedUIBar7:SetPoint("TOP", DuffedUIBar5, "TOP", 0 , 0)
-DuffedUIBar7:SetFrameStrata("BACKGROUND")
-DuffedUIBar7:SetFrameLevel(2)
-DuffedUIBar7:SetAlpha(0)
-G.ActionBars.Bar7 = DuffedUIBar7
+if C["actionbar"].layout == 2 then
+	local DuffedUIBar4 = CreateFrame("Frame", "DuffedUIBar4", UIParent, "SecureHandlerStateTemplate")
+	DuffedUIBar4:Point("BOTTOMLEFT", DuffedUIBar1, "BOTTOMRIGHT", 3, 0)
+	DuffedUIBar4:SetSize((D.buttonsize * 3) + (D.buttonspacing * 4), (D.buttonsize * 2) + (D.buttonspacing * 3))
+	DuffedUIBar4:SetTemplate("Transparent")
+	DuffedUIBar4:SetFrameStrata("BACKGROUND")
+	DuffedUIBar4:SetFrameLevel(2)
+	DuffedUIBar4:CreateShadow("Default")
+end
 
 local petbg = CreateFrame("Frame", "DuffedUIPetBar", UIParent, "SecureHandlerStateTemplate")
-petbg:SetTemplate()
-petbg:SetSize(D.petbuttonsize + (D.petbuttonspacing * 2), (D.petbuttonsize * 10) + (D.petbuttonspacing * 11))
-petbg:SetPoint("RIGHT", DuffedUIBar5, "LEFT", -6, 0)
+petbg:SetTemplate("Transparent")
+if C["actionbar"].petbarhorizontal ~= true then
+	petbg:SetSize(D.petbuttonsize + (D.petbuttonspacing * 2), (D.petbuttonsize * 10) + (D.petbuttonspacing * 11))
+	petbg:SetPoint("RIGHT", DuffedUIBar3, "LEFT", -6, 0)
+else
+	petbg:SetSize((D.petbuttonsize * 10) + (D.petbuttonspacing * 11), D.petbuttonsize + (D.petbuttonspacing * 2))
+	petbg:SetPoint("BOTTOM", DuffedUIBar2, "TOP", 0, 3)
+end
 G.ActionBars.Pet = petbg
 
 local ltpetbg1 = CreateFrame("Frame", "DuffedUILineToPetActionBarBackground", petbg)
-ltpetbg1:SetTemplate()
+ltpetbg1:SetTemplate("Transparent")
 ltpetbg1:Size(24, 265)
 ltpetbg1:Point("LEFT", petbg, "RIGHT", 0, 0)
 ltpetbg1:SetParent(petbg)
 ltpetbg1:SetFrameStrata("BACKGROUND")
 ltpetbg1:SetFrameLevel(0)
+if C["actionbar"].petbarhorizontal or C["actionbar"].petbaralwaysvisible then ltpetbg1:Hide() end
 G.ActionBars.Pet.BackgroundLink = ltpetbg1
-
--- INVISIBLE FRAME COVERING BOTTOM ACTIONBARS JUST TO PARENT UF CORRECTLY
-local invbarbg = CreateFrame("Frame", "InvDuffedUIActionBarBackground", UIParent)
-if D.lowversion then
-	invbarbg:SetPoint("TOPLEFT", DuffedUIBar4)
-	invbarbg:SetPoint("BOTTOMRIGHT", DuffedUIBar1)
-	DuffedUIBar2:Hide()
-	DuffedUIBar3:Hide()
-else
-	invbarbg:SetPoint("TOPLEFT", DuffedUIBar2)
-	invbarbg:SetPoint("BOTTOMRIGHT", DuffedUIBar3)
-end
-G.Panels.BottomPanelOverActionBars = invbarbg
-
--- LEFT VERTICAL LINE
-local ileftlv = CreateFrame("Frame", "DuffedUIInfoLeftLineVertical", UIParent)
-ileftlv:SetTemplate()
-ileftlv:Size(2, 130)
-ileftlv:Point("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 22, 30)
-ileftlv:SetFrameLevel(1)
-ileftlv:SetFrameStrata("BACKGROUND")
-G.Panels.BottomLeftVerticalLine = ileftlv
-
--- RIGHT VERTICAL LINE
-local irightlv = CreateFrame("Frame", "DuffedUIInfoRightLineVertical", UIParent)
-irightlv:SetTemplate()
-irightlv:Size(2, 130)
-irightlv:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -22, 30)
-irightlv:SetFrameLevel(1)
-irightlv:SetFrameStrata("BACKGROUND")
-G.Panels.BottomRightVerticalLine = irightlv
-
-if not C.chat.background then
-	-- CUBE AT LEFT, ACT AS A BUTTON (CHAT MENU)
-	local cubeleft = CreateFrame("Frame", "DuffedUICubeLeft", UIParent)
-	cubeleft:SetTemplate()
-	cubeleft:Size(10)
-	cubeleft:Point("BOTTOM", ileftlv, "TOP", 0, 0)
-	cubeleft:EnableMouse(true)
-	cubeleft:SetFrameLevel(1)
-	cubeleft:SetScript("OnMouseDown", function(self, btn)
-		if DuffedUIInfoLeftBattleGround and UnitInBattleground("player") then
-			if btn == "RightButton" then
-				if DuffedUIInfoLeftBattleGround:IsShown() then
-					DuffedUIInfoLeftBattleGround:Hide()
-				else
-					DuffedUIInfoLeftBattleGround:Show()
-				end
-			end
-		end
-		
-		if btn == "LeftButton" then	
-			ToggleFrame(ChatMenu)
-		end
-	end)
-	G.Panels.BottomLeftCube = cubeleft
-	
-
-	-- CUBE AT RIGHT, ACT AS A BUTTON (CONFIGUI or BG'S)
-	local cuberight = CreateFrame("Frame", "DuffedUICubeRight", UIParent)
-	cuberight:SetTemplate()
-	cuberight:Size(10)
-	cuberight:SetFrameLevel(1)
-	cuberight:Point("BOTTOM", irightlv, "TOP", 0, 0)
-	if C["bags"].enable then
-		cuberight:EnableMouse(true)
-		cuberight:SetScript("OnMouseDown", function(self)
-			ToggleAllBags()
-		end)
-	end
-	G.Panels.BottomRightCube = cuberight
-end
-
--- HORIZONTAL LINE LEFT
-local ltoabl = CreateFrame("Frame", "DuffedUILineToABLeft", UIParent)
-ltoabl:SetTemplate()
-ltoabl:Size(5, 2)
-ltoabl:ClearAllPoints()
-ltoabl:Point("BOTTOMLEFT", ileftlv, "BOTTOMLEFT", 0, 0)
-ltoabl:Point("RIGHT", DuffedUIBar1, "BOTTOMLEFT", -1, 17)
-ltoabl:SetFrameStrata("BACKGROUND")
-ltoabl:SetFrameLevel(1)
-G.Panels.BottomLeftLine = ltoabl
-
--- HORIZONTAL LINE RIGHT
-local ltoabr = CreateFrame("Frame", "DuffedUILineToABRight", UIParent)
-ltoabr:SetTemplate()
-ltoabr:Size(5, 2)
-ltoabr:Point("LEFT", DuffedUIBar1, "BOTTOMRIGHT", 1, 17)
-ltoabr:Point("BOTTOMRIGHT", irightlv, "BOTTOMRIGHT", 0, 0)
-ltoabr:SetFrameStrata("BACKGROUND")
-ltoabr:SetFrameLevel(1)
-G.Panels.BottomRightLine = ltoabr
-
--- MOVE/HIDE SOME ELEMENTS IF CHAT BACKGROUND IS ENABLED
-local movechat = 0
-if C.chat.background then movechat = 10 ileftlv:SetAlpha(0) irightlv:SetAlpha(0) end
 
 -- INFO LEFT (FOR STATS)
 local ileft = CreateFrame("Frame", "DuffedUIInfoLeft", UIParent)
-ileft:SetTemplate()
-ileft:Size(D.InfoLeftRightWidth, 23)
-ileft:SetPoint("LEFT", ltoabl, "LEFT", 14 - movechat, 0)
+ileft:SetTemplate("Default")
+if C["actionbar"].layout ~= 1 or D.lowversion then
+	ileft:Size(D.Scale(D.InfoLeftRightWidth - 9), 19)
+	ileft:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 3)
+else
+	ileft:Size(D.Scale(D.InfoLeftRightWidth - 25), 19)
+	ileft:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOM", -12, 3)
+end
 ileft:SetFrameLevel(2)
 ileft:SetFrameStrata("BACKGROUND")
+ileft:CreateShadow("Default")
 G.Panels.DataTextLeft = ileft
 
 -- INFO RIGHT (FOR STATS)
 local iright = CreateFrame("Frame", "DuffedUIInfoRight", UIParent)
-iright:SetTemplate()
-iright:Size(D.InfoLeftRightWidth, 23)
-iright:SetPoint("RIGHT", ltoabr, "RIGHT", -14 + movechat, 0)
+iright:SetTemplate("Default")
+if C["actionbar"].layout ~= 1 or D.lowversion then
+	iright:Size(D.Scale(D.InfoLeftRightWidth + 12), 19)
+	iright:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 3)
+else
+	iright:Size(D.Scale(D.InfoLeftRightWidth - 25), 19)
+	iright:SetPoint("BOTTOMLEFT", UIParent, "BOTTOM", 12, 3)
+end
 iright:SetFrameLevel(2)
 iright:SetFrameStrata("BACKGROUND")
+iright:CreateShadow("Default")
 G.Panels.DataTextRight = iright
 
-if C.chat.background then
-	-- Alpha horizontal lines because all panels is dependent on this frame.
-	ltoabl:SetAlpha(0)
-	ltoabr:SetAlpha(0)
-	
+if C["actionbar"].buttonsize > 26 and C["actionbar"].layout == 1 and not D.lowversion then
+	-- HORIZONTAL LINE LEFT
+	local ltoabl = CreateFrame("Frame", "DuffedUILineToABLeft", DuffedUIBar1)
+	ltoabl:SetTemplate("Default")
+	ltoabl:Size(10, 2)
+	ltoabl:SetPoint("RIGHT", ileft, "LEFT", 0, 0)
+
+	-- HORIZONTAL LINE RIGHT
+	local ltoabr = CreateFrame("Frame", "DuffedUILineToABRight", DuffedUIBar1)
+	ltoabr:SetTemplate("Default")
+	ltoabr:Size(10, 2)
+	ltoabr:SetPoint("LEFT", iright, "RIGHT", 0, 0)
+
+	-- LEFT VERTICAL LINE
+	local ileftlv = CreateFrame("Frame", "DuffedUIInfoLeftLineVertical", DuffedUIBar1)
+	ileftlv:SetTemplate("Default")
+	ileftlv:Size(2, 13)
+	ileftlv:SetPoint("BOTTOM", ltoabl, "LEFT", 0, -1)
+
+	-- RIGHT VERTICAL LINE
+	local irightlv = CreateFrame("Frame", "DuffedUIInfoRightLineVertical", DuffedUIBar1)
+	irightlv:SetTemplate("Default")
+	irightlv:Size(2, 13)
+	irightlv:SetPoint("BOTTOM", ltoabr, "RIGHT", 0, -1)
+end
+
+if C["chat"].background then
 	-- CHAT BG LEFT
 	local chatleftbg = CreateFrame("Frame", "DuffedUIChatBackgroundLeft", DuffedUIInfoLeft)
 	chatleftbg:SetTemplate("Transparent")
-	chatleftbg:Size(D.InfoLeftRightWidth + 12, 177)
-	chatleftbg:Point("BOTTOM", DuffedUIInfoLeft, "BOTTOM", 0, -6)
+	chatleftbg:Size(D.InfoLeftRightWidth + 12, 149)
+	if C["actionbar"].layout ~= 1 or D.lowversion then chatleftbg:Point("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 24) else chatleftbg:Point("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 5, 5) end
 	chatleftbg:SetFrameLevel(1)
+	chatleftbg:CreateShadow("Default")
 	G.Panels.LeftChatBackground = chatleftbg
 
 	-- CHAT BG RIGHT
 	local chatrightbg = CreateFrame("Frame", "DuffedUIChatBackgroundRight", DuffedUIInfoRight)
 	chatrightbg:SetTemplate("Transparent")
-	chatrightbg:Size(D.InfoLeftRightWidth + 12, 177)
-	chatrightbg:Point("BOTTOM", DuffedUIInfoRight, "BOTTOM", 0, -6)
+	chatrightbg:Size(D.InfoLeftRightWidth + 12, 149)
+	if C["actionbar"].layout ~= 1 or D.lowversion then chatrightbg:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 24) else chatrightbg:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -5, 5) end
 	chatrightbg:SetFrameLevel(1)
+	chatrightbg:CreateShadow("Default")
 	G.Panels.RightChatBackground = chatrightbg
 	
 	-- LEFT TAB PANEL
 	local tabsbgleft = CreateFrame("Frame", "DuffedUITabsLeftBackground", UIParent)
 	tabsbgleft:SetTemplate()
-	tabsbgleft:Size(D.InfoLeftRightWidth, 23)
-	tabsbgleft:Point("TOP", chatleftbg, "TOP", 0, -6)
+	tabsbgleft:Size((D.InfoLeftRightWidth - 40), 20)
+	tabsbgleft:Point("TOP", chatleftbg, "TOP", -22, -4)
 	tabsbgleft:SetFrameLevel(2)
 	tabsbgleft:SetFrameStrata("BACKGROUND")
 	G.Panels.LeftChatTabsBackground = tabsbgleft
@@ -238,33 +160,26 @@ if C.chat.background then
 	-- RIGHT TAB PANEL
 	local tabsbgright = CreateFrame("Frame", "DuffedUITabsRightBackground", UIParent)
 	tabsbgright:SetTemplate()
-	tabsbgright:Size(D.InfoLeftRightWidth, 23)
-	tabsbgright:Point("TOP", chatrightbg, "TOP", 0, -6)
+	tabsbgright:Size((D.InfoLeftRightWidth - 20), 20)
+	tabsbgright:Point("TOP", chatrightbg, "TOP", -12, -4)
 	tabsbgright:SetFrameLevel(2)
 	tabsbgright:SetFrameStrata("BACKGROUND")
 	G.Panels.RightChatTabsBackground = tabsbgright
-
-	-- [[ Create new horizontal line for chat background ]] --
-	-- HORIZONTAL LINE LEFT
-	local ltoabl2 = CreateFrame("Frame", "DuffedUILineToABLeftAlt", UIParent)
-	ltoabl2:SetTemplate()
-	ltoabl2:Size(5, 2)
-	ltoabl2:Point("RIGHT", DuffedUIBar1, "LEFT", 0, 16)
-	ltoabl2:Point("BOTTOMLEFT", chatleftbg, "BOTTOMRIGHT", 0, 16)
-	ltoabl2:SetFrameStrata("BACKGROUND")
-	ltoabl2:SetFrameLevel(1)
-	G.Panels.LeftDataTextToActionBarLine = ltoabl2
-
-	-- HORIZONTAL LINE RIGHT
-	local ltoabr2 = CreateFrame("Frame", "DuffedUILineToABRightAlt", UIParent)
-	ltoabr2:SetTemplate()
-	ltoabr2:Size(5, 2)
-	ltoabr2:Point("LEFT", DuffedUIBar1, "RIGHT", 0, 16)
-	ltoabr2:Point("BOTTOMRIGHT", chatrightbg, "BOTTOMLEFT", 0, 16)
-	ltoabr2:SetFrameStrata("BACKGROUND")
-	ltoabr2:SetFrameLevel(1)
-	G.Panels.RightDataTextToActionBarLine = ltoabr2
 end
+
+local chatmenu = CreateFrame("Frame", "DuffedUIChatMenu", UIParent)
+chatmenu:SetTemplate("Default")
+chatmenu:Size(20)
+if C["chat"].background then chatmenu:Point("LEFT", DuffedUITabsLeftBackground, "RIGHT", 2, 0) else chatmenu:Point("TOPLEFT", ChatFrame1, "TOPLEFT", 2, 0) end
+chatmenu:SetFrameLevel(3)
+chatmenu.text = D.SetFontString(chatmenu, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
+chatmenu.text:SetPoint("CENTER", 1, -1)
+chatmenu.text:SetText(D.panelcolor .. "E")
+chatmenu:SetScript("OnMouseDown", function(self, btn)
+	if btn == "LeftButton" then	
+		ToggleFrame(ChatMenu)
+	end
+end)
 
 if DuffedUIMinimap then
 	local minimapstatsleft = CreateFrame("Frame", "DuffedUIMinimapStatsLeft", DuffedUIMinimap)
@@ -290,3 +205,16 @@ if C["datatext"].battleground == true then
 	bgframe:EnableMouse(true)
 	G.Panels.BattlegroundDataText = bgframe
 end
+
+local bnet = CreateFrame("Frame", "DuffedUIBnetHolder", UIParent)
+bnet:SetTemplate("Default")
+bnet:Size(BNToastFrame:GetWidth(), BNToastFrame:GetHeight())
+bnet:Point("TOPLEFT", UIParent, "TOPLEFT", 3, -3)
+bnet:SetClampedToScreen(true)
+bnet:SetMovable(true)
+bnet:SetBackdropBorderColor(1, 0, 0)
+bnet.text = D.SetFontString(bnet, C["media"].font, 12)
+bnet.text:SetPoint("CENTER")
+bnet.text:SetText("Move BnetFrame")
+bnet:Hide()
+tinsert(D.AllowFrameMoving, bnet)

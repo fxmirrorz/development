@@ -8,7 +8,7 @@ if C["datatext"].power and C["datatext"].power > 0 then
 	local Stat = CreateFrame("Frame", "DuffedUIStatPower")
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.power
+	Stat.Option = C["datatext"].power
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.Power = Stat

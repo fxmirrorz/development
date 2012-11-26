@@ -4,6 +4,78 @@ if D.client == "deDE" then
 	L.UI_Outdated = "Deine Version von DuffedUI ist veraltet. Du kannst die aktuelle Version von www.tukui.org laden"
 	L.UI_Talent_Change_Bug = "A blizzard bug has occured which is preventing you from changing your talents, this happen when you've inspected someone. Unfortunatly there is nothing we can do in this WoW Patch to fix it, please reload your ui and try again."
 	
+	-- helpframe
+	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - Hilfe"
+	L.Duffed_HELP_BUTTON1 = "Slashcommands"
+	L.Duffed_HELP_BUTTON2 = "Specswitcher"
+	L.Duffed_HELP_BUTTON3 = "Buttons"
+	L.Duffed_HELP_BUTTON4 = "Aktionsleisten"
+	L.Duffed_HELP_BUTTON5 = "coming soon"
+	L.Duffed_HELP_BUTTON6 = "coming soon"
+	L.Duffed_HELP_BUTTON7 = "coming soon"
+	L.Duffed_HELP_BUTTON8 = "coming soon"
+	L.Duffed_HELP_BUTTON9 = "Credits"
+
+	L.Duffed_HELP_CONTENT0_TITLE = "Allgemein"
+	L.Duffed_HELP_CONTENT0_LINE1 = "Willkommen zum HilfePanel von |cffc41f3bDuffedUI|r!\nDieses Panel soll euch helfen die wichtigsten Einstellungen und Kommandos f\195\188r |cffc41f3bDuffedUI|r zu finden. :)"
+	L.Duffed_HELP_CONTENT0_LINE2 = "W\195\164hle eine Category."
+	L.Duffed_HELP_CONTENT0_LINE3 = "Viel Spaß!"
+	L.Duffed_HELP_CONTENT0_LINE4 = "greetz Merith - Zirkel des Cenarius EU"
+
+	L.Duffed_HELP_CONTENT9_TITLE = "Credits"
+	L.Duffed_HELP_CONTENT9_LINE1 = ""
+	L.Duffed_HELP_CONTENT9_LINE2 = "Tukz, Elv, nightcracker, Eclípsé, Hydra, Asphyxia, Jasje, Epicgrimm, JerichoHM and all others who help Tukz and the Editors f\195\188r the awesome Tukui"
+	L.Duffed_HELP_CONTENT9_LINE3 = "Ein Extra Danke sch\195\150n geht an meine Betatester:"
+	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transf\195\188rm, Optional, Pixelfcuk, Shera, lefirez, jones7 and all other Betatester :)"
+
+	L.Duffed_HELP_CONTENT8_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT8_LINE1 = ""
+	L.Duffed_HELP_CONTENT8_LINE2 = ""
+	L.Duffed_HELP_CONTENT8_LINE3 = ""
+	L.Duffed_HELP_CONTENT8_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT7_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT7_LINE1 = ""
+	L.Duffed_HELP_CONTENT7_LINE2 = ""
+	L.Duffed_HELP_CONTENT7_LINE3 = ""
+	L.Duffed_HELP_CONTENT7_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT6_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT6_LINE1 = ""
+	L.Duffed_HELP_CONTENT6_LINE2 = ""
+	L.Duffed_HELP_CONTENT6_LINE3 = ""
+	L.Duffed_HELP_CONTENT6_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT5_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT5_LINE1 = ""
+	L.Duffed_HELP_CONTENT5_LINE2 = ""
+	L.Duffed_HELP_CONTENT5_LINE3 = ""
+	L.Duffed_HELP_CONTENT5_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT4_TITLE = "Aktionsleisten"
+	L.Duffed_HELP_CONTENT4_LINE1 = ""
+	L.Duffed_HELP_CONTENT4_LINE2 = "Mit DuffedUI hast du drei unterschiedliche Layouts. Die Layouts sind:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
+	L.Duffed_HELP_CONTENT4_LINE3 = "Um das Layout mit 2x12 bottombars zu nutzen, musst du in der ingameConfig die option W\195\164hle Actionbarlayut mit 2 aktivieren. Das dritte Layout aktivierst du indem du in der ingameConfig unter Allgemein die Option Aktiviere Lowres-layout bei Highres aktivierst. Jedes Layout hat ein Button womit man eine der Bottombars oder auch die Splitbars ein und ausblenden kann. Nur das Standardlayout besitzt diesen nicht wenn der Actionbarswap aktiv ist."
+	L.Duffed_HELP_CONTENT4_LINE4 = "Solltest du Probleme oder Vorschl\195\164ge zu den Aktionsleisten haben, nutze bitte daf\195\188r das Forum."
+
+	L.Duffed_HELP_CONTENT3_TITLE = "Buttons"
+	L.Duffed_HELP_CONTENT3_LINE1 = "Unterhalb der Minimap findet ihr einige Buttons die unterschiedliche Funktionen haben."
+	L.Duffed_HELP_CONTENT3_LINE2 = "R => L\195\164dt das UI neu\nH => Wechselt zum Heilerlayout (Raidframes)"
+	L.Duffed_HELP_CONTENT3_LINE3 = "D => Wechselt zum DPS / Tank-Layout (Raidframes)\nA => Addonmanager"
+	L.Duffed_HELP_CONTENT3_LINE4 = "M => Aktiviert die beweglichen Frames\nC => \195\150ffnet die ingameConfig\nK => Aktiviert die Funktion f\195\188r Tastenk\195\188rzel"
+
+	L.Duffed_HELP_CONTENT2_TITLE = "Specswitcher"
+	L.Duffed_HELP_CONTENT2_LINE1 = "Das Specswitcherplugin findet ihr am rechten ChatTab-Hintergrund. Damit habt ihr die M\195\150glichkeit mit einem Klick eure Skillung und Gegenstandset zu wechseln."
+	L.Duffed_HELP_CONTENT2_LINE2 = ""
+	L.Duffed_HELP_CONTENT2_LINE3 = "Als weitere Option k\195\150nnt ihr einstellen welches Gegenstandsset f\195\188r welche Skillung automatisch genutzt wird oder auch diese Funktion abzuschalten."
+	L.Duffed_HELP_CONTENT2_LINE4 = "Die Funktion kann bis zu 10 unterschiedliche Sets enthalten"
+
+	L.Duffed_HELP_CONTENT1_TITLE = "Slashcommands"
+	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => \195\150ffnet dieses Panel\n/resetui => Setzt die Positionen der Frames der UI zur\195\188ck\n/install => Installiert das gesamte UI neu"
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => Aktiviert die Anker zum plazieren der UI-Elemente\n/kb => Setzt Tastaturk\195\188rzel via Hoverbind\n/rl => L\195\164dt die UI neu"
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => Wechselt zum Heilerlayout\n/dps => Wechselt zum DPS / Tank-Layout\n/tc => \195\150ffnet die ingameConfig\n/ddbm apply => \195\188bernimmt das DBM-Skin"
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => \195\188bernimmt das BigWigs-Skin\n/am => \195\150ffnet den Addonmanager\n/version => Zeigt den Versionshinweis"
+	
 	L.chat_BATTLEGROUND_GET = "B"
 	L.chat_BATTLEGROUND_LEADER_GET = "B"
 	L.chat_BN_WHISPER_GET = "Von"
@@ -254,8 +326,8 @@ if D.client == "deDE" then
 
     L.tutorial_step_1_line_1 = "Dieses kurze Tutorial wird Dir einige Funktionen von DuffedUI zeigen."
     L.tutorial_step_1_line_2 = "Zuerst das Wichtigste, das Du wissen solltest, bevor Du mit diesem UI spielst."
-    L.tutorial_step_1_line_3 = "Diese Installation ist teilweise charakterbezogen. Während einige Einstellungen, die später angewandt werden, accountweit sind, musst Du die Installation für jeden neuen Charakter starten der DuffedUI nutzt. Dieses Script wird automatisch beim ersten Einloggen eines Charakters mit DuffedUI gezeigt. Die Optionen können benutzerfreundlich mit dem Befehl /duffedui angepasst werden. Erfahrene Benutzer können die Optionen auch unter /DuffedUI/config/config.lua anpassen."
-    L.tutorial_step_1_line_4 = "Das Bearbeiten der Config.lua benötigt unter anderem Erfahrung in der Programmierung von Lua. Es wird empfohlen, die Konfiguration im Spiel per /duffedui zu ändern, sollten diese Kenntnisse nicht vorhanden sein."
+    L.tutorial_step_1_line_3 = "Diese Installation ist teilweise charakterbezogen. Während einige Einstellungen, die später angewandt werden, accountweit sind, musst Du die Installation für jeden neuen Charakter starten der DuffedUI nutzt. Dieses Script wird automatisch beim ersten Einloggen eines Charakters mit DuffedUI gezeigt. Die Optionen können benutzerfreundlich mit dem Befehl /tukui angepasst werden. Erfahrene Benutzer können die Optionen auch unter /DuffedUI/config/config.lua anpassen."
+    L.tutorial_step_1_line_4 = "Das Bearbeiten der Config.lua benötigt unter anderem Erfahrung in der Programmierung von Lua. Es wird empfohlen, die Konfiguration im Spiel per /tukui zu ändern, sollten diese Kenntnisse nicht vorhanden sein."
 
     L.tutorial_step_2_line_1 = "DuffedUI verwendet eine eingebettete Version von oUF, programmiert von Trond (Haste) A Ekseth. Es kümmert sich um alle Einheitenfenster, Buffs und Debuffs und alle klassenspezifischen Elemente."
     L.tutorial_step_2_line_2 = "Du kannst auf wowinterface.com nach oUF suchen, um mehr über dieses Werkzeug zu erfahren."
@@ -278,7 +350,7 @@ if D.client == "deDE" then
     L.tutorial_step_5_line_4 = "/gm öffnet das Hilfe-Fenster. /install, /resetui oder /tutorial lädt dieses Installationsprogramm. /frame zeigt den Namen des Fensters unter deinem Mauszeiger und dem des übergeordneten Fensters mit einigen anderen Informationen an."
 
     L.tutorial_step_6_line_1 = "Die Einführung ist abgeschlossen. Du kannst sie jeder Zeit wieder starten, indem Du /tutorial eingibst."
-    L.tutorial_step_6_line_2 = "Ich schlage vor, Du wirfst mal einen Blick auf die Datei DuffedUI/config/config.lua oder gibst /duffedui ein, um das Interface deinen Bedürfnissen anzupassen."
+    L.tutorial_step_6_line_2 = "Ich schlage vor, Du wirfst mal einen Blick auf die Datei DuffedUI/config/config.lua oder gibst /tukui ein, um das Interface deinen Bedürfnissen anzupassen."
     L.tutorial_step_6_line_3 = "Du kannst nun mit der Installation des Interface fortfahren, wenn diese noch nicht abgeschlossen ist oder Du das Interface auf die Standardeinstellungen zurücksetzen willst."
     L.tutorial_step_6_line_4 = ""
 

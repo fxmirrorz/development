@@ -1,5 +1,5 @@
 local D, C, L, G = unpack(select(2, ...)) 
-if C.tooltip.enable ~= true then return end
+if C["tooltip"].enable ~= true then return end
 
 local function ClearItemID(self)
 	self.DuffedUIItemTooltip = nil
@@ -37,5 +37,5 @@ f:SetScript("OnEvent", function(_, _, name)
 	if name ~= "DuffedUI" then return end
 	f:UnregisterEvent("ADDON_LOADED")
 	f:SetScript("OnEvent", nil)
-	DuffedUIItemTooltip = DuffedUIItemTooltip or {count=true, id=true}
+	DuffedUIItemTooltip = DuffedUIItemTooltip or {count = true, id = true}
 end)

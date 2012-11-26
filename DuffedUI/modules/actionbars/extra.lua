@@ -7,7 +7,7 @@ holder:Size(160, 80)
 holder:SetPoint("BOTTOM", 0, 250)
 holder:SetMovable(true)
 holder:SetTemplate("Default")
-holder:SetBackdropBorderColor(1,0,0)
+holder:SetBackdropBorderColor(1, 0, 0)
 holder:SetAlpha(0)
 holder.text = D.SetFontString(holder, C["media"].uffont, 12)
 holder.text:SetPoint("CENTER")
@@ -30,7 +30,7 @@ local icon = button.icon
 local texture = button.style
 local disableTexture = function(style, texture)
 	-- look like sometime the texture path is set to capital letter instead of lower-case
-	if string.sub(texture,1,9) == "Interface" or string.sub(texture,1,9) == "INTERFACE" then
+	if string.sub(texture, 1, 9) == "Interface" or string.sub(texture, 1, 9) == "INTERFACE" then
 		style:SetTexture("")
 	end
 end

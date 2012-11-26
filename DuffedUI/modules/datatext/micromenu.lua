@@ -17,7 +17,7 @@ if C["datatext"].micromenu and C["datatext"].micromenu > 0 then
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.micromenu
+	Stat.Option = C["datatext"].micromenu
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.MicroMenu = Stat

@@ -7,8 +7,8 @@ frame.content = {}
 
 local icon
 local faction = D.myfaction
-local flash = C.auras.flash
-local filter = C.auras.consolidate
+local flash = C["auras"].flash
+local filter = C["auras"].consolidate
 local sexID = UnitSex("player")
 local sex = "male"
 local race = D.myrace
@@ -46,7 +46,7 @@ local OnUpdate = function(self, elapsed)
 	local timeLeft
 	
 	-- Handle refreshing of temporary enchants.
-	if(self.offset) then
+	if self.offset then
 		local expiration = select(self.offset, GetWeaponEnchantInfo())
 		if(expiration) then
 			timeLeft = expiration / 1e3
@@ -59,7 +59,7 @@ local OnUpdate = function(self, elapsed)
 	
 	self.timeLeft = timeLeft
 
-	if(timeLeft <= 0) then
+	if timeLeft <= 0 then
 		-- Kill the tracker so we don't end up with stuck timers.
 		self.timeLeft = nil
 
@@ -67,17 +67,17 @@ local OnUpdate = function(self, elapsed)
 		return self:SetScript("OnUpdate", nil)
 	else
 		local text = D.FormatTime(timeLeft)
-		local r, g, b = oUFDuffedUI.ColorGradient(self.timeLeft, self.Dur, 0.8,0,0,0.8,0.8,0,0,0.8,0)
+		local r, g, b = oUFDuffedUI.ColorGradient(self.timeLeft, self.Dur, .8, 0, 0, .8, .8, 0, 0, .8, 0)
 
 		self.Bar:SetValue(self.timeLeft)
 		self.Bar:SetStatusBarColor(r, g, b)
 		
-		if(timeLeft < 60.5) then
+		if timeLeft < 60.5 then
 			if flash then
 				StartStopFlash(self.Animation, timeLeft)
 			end
 			
-			if(timeLeft < 5) then
+			if timeLeft < 5 then
 				self.Duration:SetTextColor(255/255, 20/255, 20/255)	
 			else
 				self.Duration:SetTextColor(255/255, 165/255, 0/255)
@@ -93,10 +93,10 @@ end
 local UpdateAura = function(self, index)
 	local name, rank, texture, count, dtype, duration, expirationTime, caster, isStealable, shouldConsolidate, spellID, canApplyAura, isBossDebuff = UnitAura(self:GetParent():GetAttribute"unit", index, self.filter)
 	local consolidate = self.consolidate
-	if(name) then
-		if(duration > 0 and expirationTime and not consolidate) then
+	if name then
+		if (duration > 0 and expirationTime and not consolidate) then
 			local timeLeft = expirationTime - GetTime()
-			if(not self.timeLeft) then
+			if not self.timeLeft then
 				self.timeLeft = timeLeft
 				self:SetScript("OnUpdate", OnUpdate)
 			else
@@ -112,7 +112,7 @@ local UpdateAura = function(self, index)
 			end
 			
 			self.Bar:SetMinMaxValues(0, duration)
-			if not C.auras.classictimer then self.Holder:Show() end
+			if not C["auras"].classictimer then self.Holder:Show() end
 		else
 			if flash then
 				self.Animation:Stop()
@@ -123,20 +123,20 @@ local UpdateAura = function(self, index)
 			
 			local min, max  = self.Bar:GetMinMaxValues()
 			self.Bar:SetValue(max)
-			self.Bar:SetStatusBarColor(0, 0.8, 0)
-			if not C.auras.classictimer then self.Holder:Hide() end
+			self.Bar:SetStatusBarColor(0, .8, 0)
+			if not C["auras"].classictimer then self.Holder:Hide() end
 		end
 
-		if(count > 1) then
+		if count > 1 then
 			self.Count:SetText(count)
 		else
 			self.Count:SetText("")
 		end
 
-		if(self.filter == "HARMFUL") then
+		if self.filter == "HARMFUL" then
 			local color = DebuffTypeColor[dtype or "none"]
-			self:SetBackdropBorderColor(color.r * 3/5, color.g * 3/5, color.b * 3/5)
-			self.Holder:SetBackdropBorderColor(color.r * 3/5, color.g * 3/5, color.b * 3/5)
+			self:SetBackdropBorderColor(color.r * 3 / 5, color.g * 3 / 5, color.b * 3 / 5)
+			self.Holder:SetBackdropBorderColor(color.r * 3 / 5, color.g * 3 / 5, color.b * 3 / 5)
 		end
 
 		self.Icon:SetTexture(texture)
@@ -159,7 +159,7 @@ local UpdateTempEnchant = function(self, slot)
 	
 	local expiration = select(offset, GetWeaponEnchantInfo())
 	
-	if(expiration) then
+	if expiration then
 		self.Dur = 3600
 		self.offset = offset
 		self:SetScript("OnUpdate", OnUpdate)
@@ -173,13 +173,13 @@ end
 local OnAttributeChanged = function(self, attribute, value)
 	local consolidate = self:GetName():match("Consolidate")
 	
-	if consolidate or C.auras.classictimer then
+	if consolidate or C["auras"].classictimer then
 		self.Holder:Hide()
 	else
 		self.Duration:Hide()
 	end
 	
-	if(attribute == "index") then
+	if attribute == "index" then
 		-- look if the current buff is consolidated
 		if filter then
 			if consolidate then
@@ -188,7 +188,7 @@ local OnAttributeChanged = function(self, attribute, value)
 		end
 		
 		return UpdateAura(self, value)
-	elseif(attribute == "target-slot") then
+	elseif attribute == "target-slot" then
 		self.Bar:SetMinMaxValues(0, 3600)
 		return UpdateTempEnchant(self, value)
 	end
@@ -207,7 +207,7 @@ local Skin = function(self)
 	Count:SetPoint("TOP", self, 1, -4)
 	self.Count = Count
 
-	if(not proxy) then
+	if not proxy then
 		local Holder = CreateFrame("Frame", nil, self)
 		Holder:Size(self:GetWidth(), 7)
 		Holder:SetPoint("TOP", self, "BOTTOM", 0, -1)
@@ -216,12 +216,12 @@ local Skin = function(self)
 		
 		local Bar = CreateFrame("StatusBar", nil, Holder)
 		Bar:SetInside()
-		Bar:SetStatusBarTexture(C.media.blank)
-		Bar:SetStatusBarColor(0, 0.8, 0)
+		Bar:SetStatusBarTexture(C["media"].blank)
+		Bar:SetStatusBarColor(0, .8, 0)
 		self.Bar = Bar
 		
 		local Duration = self:CreateFontString(nil, "OVERLAY")
-		local font, size, flags = C.media.font, 12, "OUTLINE"
+		local font, size, flags = C["media"].font, 12, "OUTLINE"
 		Duration:SetFont(font, size, flags)
 		Duration:SetPoint("BOTTOM", 0, -17)
 		self.Duration = Duration

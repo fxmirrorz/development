@@ -4,6 +4,78 @@ if D.client == "zhCN" then
 	L.UI_Outdated = "DuffedUI 版本已过期，请至 www.tukui.org 下载最新版"
 	L.UI_Talent_Change_Bug = "A blizzard bug has occured which is preventing you from changing your talents, this happen when you've inspected someone. Unfortunatly there is nothing we can do in this WoW Patch to fix it, please reload your ui and try again."
 	
+	-- helpframe
+	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - 帮助"
+	L.Duffed_HELP_BUTTON1 = "命令行"
+	L.Duffed_HELP_BUTTON2 = "天赋切换器"
+	L.Duffed_HELP_BUTTON3 = "特殊按钮"
+	L.Duffed_HELP_BUTTON4 = "Actionbars"
+	L.Duffed_HELP_BUTTON5 = "即将到来"
+	L.Duffed_HELP_BUTTON6 = "即将到来"
+	L.Duffed_HELP_BUTTON7 = "即将到来"
+	L.Duffed_HELP_BUTTON8 = "即将到来"
+	L.Duffed_HELP_BUTTON9 = "鸣谢"
+
+	L.Duffed_HELP_CONTENT0_TITLE = "总览"
+	L.Duffed_HELP_CONTENT0_LINE1 = "欢迎使用|cffc41f3bDuffedUI|r!的帮助面板。\n 这个面板会帮助你找到 |cffc41f3bDuffedUI|r的重要设定和命令。 :)"
+	L.Duffed_HELP_CONTENT0_LINE2 = "请选择一个分类."
+	L.Duffed_HELP_CONTENT0_LINE3 = "游戏愉快 !"
+	L.Duffed_HELP_CONTENT0_LINE4 = "此致， Merith - Zirkel des Cenarius EU"
+
+	L.Duffed_HELP_CONTENT9_TITLE = "鸣谢"
+	L.Duffed_HELP_CONTENT9_LINE1 = ""
+	L.Duffed_HELP_CONTENT9_LINE2 = "Tukz, Elv, nightcracker, Ecl韕s? Hydra, Asphyxia, Jasje, Epicgrimm, JerichoHM and all others who help Tukz and the Editors for the awesome Tukui"
+	L.Duffed_HELP_CONTENT9_LINE3 = "另外由衷感谢我的beta版本测试者:"
+	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transform, Optional, Pixelfcuk, Shera, lefirez, jones7 还有其他所有的测试者 :)"
+
+	L.Duffed_HELP_CONTENT8_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT8_LINE1 = ""
+	L.Duffed_HELP_CONTENT8_LINE2 = ""
+	L.Duffed_HELP_CONTENT8_LINE3 = ""
+	L.Duffed_HELP_CONTENT8_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT7_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT7_LINE1 = ""
+	L.Duffed_HELP_CONTENT7_LINE2 = ""
+	L.Duffed_HELP_CONTENT7_LINE3 = ""
+	L.Duffed_HELP_CONTENT7_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT6_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT6_LINE1 = ""
+	L.Duffed_HELP_CONTENT6_LINE2 = ""
+	L.Duffed_HELP_CONTENT6_LINE3 = ""
+	L.Duffed_HELP_CONTENT6_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT5_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT5_LINE1 = ""
+	L.Duffed_HELP_CONTENT5_LINE2 = ""
+	L.Duffed_HELP_CONTENT5_LINE3 = ""
+	L.Duffed_HELP_CONTENT5_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT4_TITLE = "Actionbars"
+	L.Duffed_HELP_CONTENT4_LINE1 = ""
+	L.Duffed_HELP_CONTENT4_LINE2 = "In DuffedUI you have three different layouts for your actionbars. The layouts are:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
+	L.Duffed_HELP_CONTENT4_LINE3 = "For the layout with 2x12 bottombars you have to set the layout to 2 in the ingameConfig. The third layout can you activate if you set the option Enable lowres-layout on highres in the ingameConfig. Every layout has an button to hide one of the bottombars. Only the default layout has no one if the actionbarswap is active."
+	L.Duffed_HELP_CONTENT4_LINE4 = "If you have suggestions or problems with the layouts please use the forum."
+
+	L.Duffed_HELP_CONTENT3_TITLE = "按钮"
+	L.Duffed_HELP_CONTENT3_LINE1 = "在小地图的下面你可以看到一排有自己独特功能的小按钮。"
+	L.Duffed_HELP_CONTENT3_LINE2 = "R => 重新加载UI\nH => 切换到治疗界面 (团队框架)"
+	L.Duffed_HELP_CONTENT3_LINE3 = "D => 切换到 DPS界面 (团队框架)\nA => 插件管理器"
+	L.Duffed_HELP_CONTENT3_LINE4 = "M => 移动界面\nC => 打开游戏内设置\nK => 按键设置"
+
+	L.Duffed_HELP_CONTENT2_TITLE = "天赋切换器"
+	L.Duffed_HELP_CONTENT2_LINE1 = "天赋切换器位于你的右侧聊天框的标题栏上，你可以通过这个插件来实现一键切换天赋."
+	L.Duffed_HELP_CONTENT2_LINE2 = ""
+	L.Duffed_HELP_CONTENT2_LINE3 = "通过这个插件你可以实现切换天赋时是否自动切换装备."
+	L.Duffed_HELP_CONTENT2_LINE4 = "它可以创建和启用多达十套装备."
+
+	L.Duffed_HELP_CONTENT1_TITLE = "命令行"
+	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => 打开帮主面板\n/resetui => 重置所有UI界面\n/install => 重新安装整个UI"
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => 移动界面内元素\n/kb => 设置按键\n/rl => 重载界面"
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切换到治疗界面\n/dps => 切换到DPS/坦克界面\n/tc => 打开游戏内设置\n/ddbm apply => 启用DBM皮肤"
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 启用BigWigs皮肤\n/am => 打开插件管理器\n/version => 显示插件版本"
+	
 	-- localization for zhCN  by 风吹那啥凉（Popptise @DuffedUI forums)	
 	L.chat_BATTLEGROUND_GET = "战场"
 	L.chat_BATTLEGROUND_LEADER_GET = "战场领袖"
@@ -260,7 +332,7 @@ if D.client == "zhCN" then
 	-- tutorial 1
 	L.tutorial_step_1_line_1 = "这个快速的小教程将给您展示一些DuffedUI的特性。"
 	L.tutorial_step_1_line_2 = "首先，将告知你一些使用DuffedUI前该知道的要点。"
-	L.tutorial_step_1_line_3 = "安装程序是按照每个角色来设定的。当然一些设定将在整个帐号下适用，您必须要为每一个使用DuffedUI的角色运行一遍安装程序。程序将在您每个角色第一次运行DuffedUI时自动显示。 当然, 高阶用户可以在 /DuffedUI/config/config.lua 中发现这些选项， 新手在游戏中输入/DuffedUI 也可以找到。"
+	L.tutorial_step_1_line_3 = "安装程序是按照每个角色来设定的。当然一些设定将在整个帐号下适用，您必须要为每一个使用DuffedUI的角色运行一遍安装程序。程序将在您每个角色第一次运行DuffedUI时自动显示。 当然, 高阶用户可以在 /DuffedUI/config/config.lua 中发现这些选项， 新手在游戏中输入/tukui 也可以找到。"
 	L.tutorial_step_1_line_4 = "高阶用户是指相比于普通的用户他们有能力使用一些新的特新(比如编辑LUA脚本)。新手是指没有编程能力的用户。那么我们建议他们使用游戏内设置面板来设定DuffedUI至他们想要的样式。"
 
 	-- tutorial 2

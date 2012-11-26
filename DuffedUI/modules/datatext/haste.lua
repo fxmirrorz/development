@@ -7,7 +7,7 @@ if C["datatext"].haste and C["datatext"].haste > 0 then
 	local Stat = CreateFrame("Frame", "DuffedUIStatHaste")
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.haste
+	Stat.Option = C["datatext"].haste
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.Haste = Stat

@@ -115,7 +115,6 @@ function DuffedUIRange:Load()
 	self:RegisterEvent('PLAYER_LOGOUT')
 end
 
-
 --[[ Frame Events ]]--
 function DuffedUIRange:OnEvent(event, ...)
 	local action = self[event]
@@ -286,9 +285,9 @@ end
 function DuffedUIRange:GetDefaults()
 	return {
 		normal = {1, 1, 1},
-		oor = {1, 0.1, 0.1},
-		oom = {0.1, 0.3, 1},
-		ooh = {0.45, 0.45, 1},
+		oor = {1, .1, .1},
+		oom = {.1, .3, 1},
+		ooh = {.45, .45, 1},
 	}
 end
 

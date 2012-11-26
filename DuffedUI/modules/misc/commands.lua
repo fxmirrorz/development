@@ -10,6 +10,22 @@ SLASH_ENABLE_ADDON1 = "/enable"
 SlashCmdList.RCSLASH = DoReadyCheck
 SLASH_RCSLASH1 = "/rc"
 
+-- switch to heal layout via a command
+SLASH_DUFFEDUIHEAL1 = "/heal"
+SlashCmdList.DUFFEDUIHEAL = function()
+	DisableAddOn("DuffedUI_Raid")
+	EnableAddOn("DuffedUI_Raid_Healing")
+	ReloadUI()
+end
+
+-- switch to dps layout via a command
+SLASH_DUFFEDUIDPS1 = "/dps"
+SlashCmdList.DUFFEDUIDPS = function()
+	DisableAddOn("DuffedUI_Raid_Healing")
+	EnableAddOn("DuffedUI_Raid")
+	ReloadUI()
+end
+
 -- disband party/raid
 local function DisbandRaidGroup()
 	if InCombatLockdown() then return end
@@ -18,7 +34,7 @@ local function DisbandRaidGroup()
 		SendChatMessage(ERR_GROUP_DISBANDED, "RAID")
 		for i = 1, GetNumGroupMembers() do
 			local name, _, _, _, _, _, _, online = GetRaidRosterInfo(i)
-			if online and name ~= D.myname then
+			if online and name ~= T.myname then
 				UninviteUnit(name)
 			end
 		end
@@ -33,7 +49,7 @@ local function DisbandRaidGroup()
 	LeaveParty()
 end
 
-D.CreatePopup["TUKUIDISBAND_RAID"] = {
+D.CreatePopup["DUFFEDUIDISBAND_RAID"] = {
 	question = L.disband,
 	answer1 = ACCEPT,
 	answer2 = CANCEL,
@@ -50,7 +66,7 @@ SlashCmdList["GROUPDISBAND"] = function()
 	
 	-- only allow disband group if leader or assistant
 	if UnitIsGroupLeader("player") or UnitIsGroupAssistant("player") then
-		D.ShowPopup("TUKUIDISBAND_RAID")
+		D.ShowPopup("DUFFEDUIDISBAND_RAID")
 	end
 end
 SLASH_GROUPDISBAND1 = '/gd'

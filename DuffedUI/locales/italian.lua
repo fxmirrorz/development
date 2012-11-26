@@ -5,6 +5,78 @@ if D.client == "itIT" then
 	L.UI_Outdated = "La tua versione di DuffedUI non è aggiornata. Puoi scaricare l'ultima versione da www.tukui.org"
 	L.UI_Talent_Change_Bug = "Un bug della Blizzard sta impedendo il cambio dei talenti, questo succede quando si ispeziona qualcuno. Sfortunatamente non si può fare nulla per sistemare il problema, ricaricate la propria ui e riprovate."
 
+	-- helpframe
+	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - Help"
+	L.Duffed_HELP_BUTTON1 = "Slashcommands"
+	L.Duffed_HELP_BUTTON2 = "Specswitcher"
+	L.Duffed_HELP_BUTTON3 = "Buttons"
+	L.Duffed_HELP_BUTTON4 = "Actionbars"
+	L.Duffed_HELP_BUTTON5 = "coming soon"
+	L.Duffed_HELP_BUTTON6 = "coming soon"
+	L.Duffed_HELP_BUTTON7 = "coming soon"
+	L.Duffed_HELP_BUTTON8 = "coming soon"
+	L.Duffed_HELP_BUTTON9 = "Credits"
+
+	L.Duffed_HELP_CONTENT0_TITLE = "General"
+	L.Duffed_HELP_CONTENT0_LINE1 = "Welcome to the HelpPanel from |cffc41f3bDuffedUI|r!\nThis Panel will help you to find the importants settings and commands for |cffc41f3bDuffedUI|r :)"
+	L.Duffed_HELP_CONTENT0_LINE2 = "Please select a category."
+	L.Duffed_HELP_CONTENT0_LINE3 = "Have Fun !"
+	L.Duffed_HELP_CONTENT0_LINE4 = "greetz Merith - Zirkel des Cenarius EU"
+
+	L.Duffed_HELP_CONTENT9_TITLE = "Credits"
+	L.Duffed_HELP_CONTENT9_LINE1 = ""
+	L.Duffed_HELP_CONTENT9_LINE2 = "Tukz, Elv, nightcracker, Eclípsé, Hydra, Asphyxia, Jasje, Epicgrimm, JerichoHM and all others who help Tukz and the Editors for the awesome Tukui"
+	L.Duffed_HELP_CONTENT9_LINE3 = "Special Thanks goes to my Betatester:"
+	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transform, Optional, Pixelfcuk, Shera, lefirez, jones7 and all other Betatester :)"
+
+	L.Duffed_HELP_CONTENT8_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT8_LINE1 = ""
+	L.Duffed_HELP_CONTENT8_LINE2 = ""
+	L.Duffed_HELP_CONTENT8_LINE3 = ""
+	L.Duffed_HELP_CONTENT8_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT7_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT7_LINE1 = ""
+	L.Duffed_HELP_CONTENT7_LINE2 = ""
+	L.Duffed_HELP_CONTENT7_LINE3 = ""
+	L.Duffed_HELP_CONTENT7_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT6_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT6_LINE1 = ""
+	L.Duffed_HELP_CONTENT6_LINE2 = ""
+	L.Duffed_HELP_CONTENT6_LINE3 = ""
+	L.Duffed_HELP_CONTENT6_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT5_TITLE = "coming soon"
+	L.Duffed_HELP_CONTENT5_LINE1 = ""
+	L.Duffed_HELP_CONTENT5_LINE2 = ""
+	L.Duffed_HELP_CONTENT5_LINE3 = ""
+	L.Duffed_HELP_CONTENT5_LINE4 = ""
+
+	L.Duffed_HELP_CONTENT4_TITLE = "Actionbars"
+	L.Duffed_HELP_CONTENT4_LINE1 = ""
+	L.Duffed_HELP_CONTENT4_LINE2 = "In DuffedUI you have three different layouts for your actionbars. The layouts are:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
+	L.Duffed_HELP_CONTENT4_LINE3 = "For the layout with 2x12 bottombars you have to set the layout to 2 in the ingameConfig. The third layout can you activate if you set the option Enable lowres-layout on highres in the ingameConfig. Every layout has an button to hide one of the bottombars. Only the default layout has no one if the actionbarswap is active."
+	L.Duffed_HELP_CONTENT4_LINE4 = "If you have suggestions or problems with the layouts please use the forum."
+
+	L.Duffed_HELP_CONTENT3_TITLE = "Buttons"
+	L.Duffed_HELP_CONTENT3_LINE1 = "Below the Minimap you have a row of several buttons which all have an own function."
+	L.Duffed_HELP_CONTENT3_LINE2 = "R => Reload the UI\nH => Switch to heallayout (Raidframes)"
+	L.Duffed_HELP_CONTENT3_LINE3 = "D => Switch to DPS-Layout (Raidframes)\nA => Addonmanager"
+	L.Duffed_HELP_CONTENT3_LINE4 = "M => Move your frames\nC => Open the ingameConfig\nK => Set your keybindings"
+
+	L.Duffed_HELP_CONTENT2_TITLE = "Specswitcher"
+	L.Duffed_HELP_CONTENT2_LINE1 = "The Specswitcherplugin is located on the right chattabbackground. With this plugin you have the possibility so switch your spec and gearset with one click."
+	L.Duffed_HELP_CONTENT2_LINE2 = ""
+	L.Duffed_HELP_CONTENT2_LINE3 = "As an option, the plugin also provides to determine the primary equipset for each spec, as well as the automatic switch of armor to enable / disable."
+	L.Duffed_HELP_CONTENT2_LINE4 = "It can be created and utilize up to ten equipsets."
+
+	L.Duffed_HELP_CONTENT1_TITLE = "Slashcommands"
+	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => Open this panel\n/resetui => Reset the position of the entire UI\n/install => Reinstall the entire UI"
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => Enable movers to place the UI-Elements\n/kb => Set keybindings via hoverbind\n/rl => Reloads the UI"
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => Switch to Heal-Layout\n/dps => Switch to DPS-Layout\n/tc => Open ingame-Config\n/ddbm apply => Apply the DBM-Skin"
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => Apply the BigWigs-Skin\n/am => Open Addonmanager\n/version => Shows the versionframe"
+	
 	L.chat_BATTLEGROUND_GET = "BG"
 	L.chat_BATTLEGROUND_LEADER_GET = "BG"
 	L.chat_BN_WHISPER_GET = "Da"
@@ -257,8 +329,8 @@ if D.client == "itIT" then
 	-- tutorial 1
 	L.tutorial_step_1_line_1 = "Questo breve tutorial ti mostrerà alcune delle caratteristiche di DuffedUI."
 	L.tutorial_step_1_line_2 = "Primo, le cose essenziali che devi sapere prima che tu possa giocare con questa UI."
-	L.tutorial_step_1_line_3 = "Questa installazione è parzialmente specifica per il singolo personaggio. Mentre alcune impostazioni che verranno applicate in seguito saranno account-wide, devi avviare lo script di installazione per ogni nuovi personaggio che esegue DuffedUI. Lo script si esegue in automatico su ogni nuovo personaggio per la priam volta. Inoltre le opzioni si possono trovare in /DuffedUI/config/config.lua per gli utenti `Power` users oppure digitando /DuffedUI in gioco per `Friendly` users"
-	L.tutorial_step_1_line_4 = "Un power user è un utente che ha le abilità per utilizzare caratteristiche avanzate (ex: Lua editing) che non sono alla portata dei normali utenti. Un friendly user è un normale utente che necessariamente non è capace di programmare. E' consigliato per questi utilizzare lo strumento di configurazione in gioco (/DuffedUI) per le impostazioni che vogliono cambiare in DuffedUI."
+	L.tutorial_step_1_line_3 = "Questa installazione è parzialmente specifica per il singolo personaggio. Mentre alcune impostazioni che verranno applicate in seguito saranno account-wide, devi avviare lo script di installazione per ogni nuovi personaggio che esegue DuffedUI. Lo script si esegue in automatico su ogni nuovo personaggio per la priam volta. Inoltre le opzioni si possono trovare in /DuffedUI/config/config.lua per gli utenti `Power` users oppure digitando /tukui in gioco per `Friendly` users"
+	L.tutorial_step_1_line_4 = "Un power user è un utente che ha le abilità per utilizzare caratteristiche avanzate (ex: Lua editing) che non sono alla portata dei normali utenti. Un friendly user è un normale utente che necessariamente non è capace di programmare. E' consigliato per questi utilizzare lo strumento di configurazione in gioco (/tukui) per le impostazioni che vogliono cambiare in DuffedUI."
 
 	-- tutorial 2
 	L.tutorial_step_2_line_1 = "DuffedUI include una versione di oUF (oUFDuffedUI) creata da Haste. Questa controlla tutte le unitframe dello schermo, buffs and debuffs, e gli elementi specifici della classe."

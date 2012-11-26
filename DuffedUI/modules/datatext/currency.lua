@@ -8,7 +8,7 @@ if C["datatext"].currency and C["datatext"].currency > 0 then
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.currency
+	Stat.Option = C["datatext"].currency
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.Currency = Stat

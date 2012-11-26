@@ -1,5 +1,4 @@
 local D, C, L, G = unpack(select(2, ...)) 
-
 if not C["actionbar"].enable == true then return end
 
 ---------------------------------------------------------------------------
@@ -9,6 +8,7 @@ if not C["actionbar"].enable == true then return end
 ---------------------------------------------------------------------------
 
 local bar = DuffedUIBar1
+if C["actionbar"].swap and C["actionbar"].layout == 1 then bar = DuffedUIBar2 end
 
 local shd = 7
 local meta = ""
@@ -79,11 +79,20 @@ bar:SetScript("OnEvent", function(self, event, unit, ...)
 			button:SetParent(bar)
 			button:SetFrameStrata("BACKGROUND")
 			button:SetFrameLevel(15)
-			if i == 1 then
-				button:SetPoint("BOTTOMLEFT", D.buttonspacing, D.buttonspacing)
+			if C["actionbar"].layout == 2 and C["actionbar"].swap then
+				if i == 1 then
+					button:SetPoint("TOPLEFT", D.buttonspacing, -D.buttonspacing)
+				else
+					local previous = _G["ActionButton"..i-1]
+					button:SetPoint("LEFT", previous, "RIGHT", D.buttonspacing, 0)
+				end
 			else
-				local previous = _G["ActionButton"..i-1]
-				button:SetPoint("LEFT", previous, "RIGHT", D.buttonspacing, 0)
+				if i == 1 then
+					button:SetPoint("BOTTOMLEFT", D.buttonspacing, D.buttonspacing)
+				else
+					local previous = _G["ActionButton"..i-1]
+					button:SetPoint("LEFT", previous, "RIGHT", D.buttonspacing, 0)
+				end
 			end
 		end
 	elseif event == "UPDATE_VEHICLE_ACTIONBAR" or event == "UPDATE_OVERRIDE_ACTIONBAR" then
@@ -91,18 +100,14 @@ bar:SetScript("OnEvent", function(self, event, unit, ...)
 			if not self.inVehicle then
 				DuffedUIBar2Button:Hide()
 				DuffedUIBar3Button:Hide()
-				DuffedUIBar4Button:Hide()
-				DuffedUIBar5ButtonTop:Hide()
-				DuffedUIBar5ButtonBottom:Hide()
+				DuffedUIBar3Button2:Hide()
 				self.inVehicle = true
 			end
 		else
 			if self.inVehicle then
 				DuffedUIBar2Button:Show()
 				DuffedUIBar3Button:Show()
-				DuffedUIBar4Button:Show()
-				DuffedUIBar5ButtonTop:Show()
-				DuffedUIBar5ButtonBottom:Show()
+				DuffedUIBar3Button2:Show()
 				self.inVehicle = false
 			end
 		end

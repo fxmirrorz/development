@@ -9,7 +9,7 @@ if C["datatext"].calltoarms and C["datatext"].calltoarms > 0 then
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("MEDIUM")
 	Stat:SetFrameLevel(3)
-	Stat.Option = C.datatext.calltoarms
+	Stat.Option = C["datatext"].calltoarms
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.CallToArm = Stat
@@ -87,7 +87,7 @@ if C["datatext"].calltoarms and C["datatext"].calltoarms > 0 then
 	end
 
 	local function OnEnter(self)
-		local anchor, panel, xoff, yoff = D.DataTextTooltipAnchor(Text)
+		local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(Text)
 		GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(BATTLEGROUND_HOLIDAY)

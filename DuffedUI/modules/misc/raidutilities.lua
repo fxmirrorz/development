@@ -4,19 +4,40 @@
 --]]
 
 local D, C, L, G = unpack(select(2, ...))
-local panel_height = ((D.Scale(5)*4) + (D.Scale(22)*4))
+local panel_height = ((D.Scale(5) * 4) + (D.Scale(22) * 4))
 local r,g,b = C["media"].backdropcolor
 
 local function CreateUtilities(self, event, addon)
-	if addon == "DuffedUI" and C.unitframes.raid then
+	if addon == "DuffedUI_Raid_Healing" or addon == "DuffedUI_Raid" then
 		-- it need the DuffedUI minimap
 		if not DuffedUIMinimap then return end
+		
+		-- Anchor
+		local anchor = CreateFrame("Frame", "DuffedUIRaidUtilityAnchor", UIParent)
+		anchor:SetMovable(true)
+		anchor:SetTemplate("Default")
+		anchor:Size(DuffedUIMinimap:GetWidth(), 21)
+		anchor:Point("TOP", UIParent, "TOP", -150, 0)
+		anchor:SetScript("OnMouseDown", function() anchor:StartMoving() end)
+		anchor:SetScript("OnMouseUp", function() anchor:StopMovingOrSizing() end)
+		anchor:SetBackdropBorderColor(1,0,0)
+		anchor:CreateShadow("")
+		anchor:SetFrameStrata("HIGH")
+		anchor:SetUserPlaced(true)
+		anchor:SetClampedToScreen(true)
+		anchor:Hide()
+		tinsert(D.AllowFrameMoving, DuffedUIRaidUtilityAnchor)
+		
+		anchor.text = anchor:CreateFontString(nil, "OVERLAY")
+		anchor.text:SetFont(C["media"].font, C["datatext"].fontsize)
+		anchor.text:SetPoint("CENTER")
+		anchor.text:SetText("Move RaidUtility")
 
 		--Create main frame
 		local DuffedUIRaidUtility = CreateFrame("Frame", "DuffedUIRaidUtility", DuffedUIMinimap)
 		DuffedUIRaidUtility:SetTemplate()
 		DuffedUIRaidUtility:Size(DuffedUIMinimap:GetWidth(), panel_height)
-		DuffedUIRaidUtility:Point("TOPRIGHT", DuffedUIMinimapStatsRight, "BOTTOMRIGHT", 0, -2)
+		DuffedUIRaidUtility:Point("TOPLEFT", anchor, "TOPLEFT", 0, 0)
 		DuffedUIRaidUtility:Hide()
 		DuffedUIRaidUtility:SetFrameLevel(10)
 		DuffedUIRaidUtility:SetFrameStrata("Medium")
@@ -68,7 +89,7 @@ local function CreateUtilities(self, event, addon)
 		end
 
 		--Show Button
-		CreateButton("DuffedUIRaidUtilityShowButton", DuffedUIMinimap, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", DuffedUIMinimap:GetWidth(), 21, "TOPRIGHT", DuffedUIMinimapStatsRight, "BOTTOMRIGHT", 0, -2, RAID_ASSISTANT, nil)
+		CreateButton("DuffedUIRaidUtilityShowButton", DuffedUIMinimap, "UIMenuButtonStretchTemplate, SecureHandlerClickTemplate", DuffedUIMinimap:GetWidth(), 21, "TOPLEFT", anchor, "TOPLEFT", 0, 0, RAID_ASSISTANT, nil)
 		DuffedUIRaidUtilityShowButton:SetFrameRef("DuffedUIRaidUtility", DuffedUIRaidUtility)
 		DuffedUIRaidUtilityShowButton:SetAttribute("_onclick", [=[self:Hide(); self:GetFrameRef("DuffedUIRaidUtility"):Show();]=])
 		DuffedUIRaidUtilityShowButton:SetScript("OnMouseUp", function(self) DuffedUIRaidUtility.toggled = true end)
@@ -81,7 +102,7 @@ local function CreateUtilities(self, event, addon)
 		DuffedUIRaidUtilityCloseButton:SetScript("OnMouseUp", function(self) DuffedUIRaidUtility.toggled = false end)
 
 		--Disband Raid button
-		CreateButton("DuffedUIRaidUtilityDisbandRaidButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtility:GetWidth() * 0.95, D.Scale(21), "TOP", DuffedUIRaidUtility, "TOP", 0, D.Scale(-5), "Disband Group", nil)
+		CreateButton("DuffedUIRaidUtilityDisbandRaidButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtility:GetWidth() * .95, D.Scale(21), "TOP", DuffedUIRaidUtility, "TOP", 0, D.Scale(-5), "Disband Group", nil)
 		DuffedUIRaidUtilityDisbandRaidButton:SetScript("OnMouseUp", function(self)
 			if CheckRaidStatus() then
 				D.ShowPopup("TUKUIDISBAND_RAID")
@@ -89,7 +110,7 @@ local function CreateUtilities(self, event, addon)
 		end)
 
 		--Role Check button
-		CreateButton("DuffedUIRaidUtilityRoleCheckButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtility:GetWidth() * 0.95, D.Scale(21), "TOP", DuffedUIRaidUtilityDisbandRaidButton, "BOTTOM", 0, D.Scale(-5), ROLE_POLL, nil)
+		CreateButton("DuffedUIRaidUtilityRoleCheckButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtility:GetWidth() * .95, D.Scale(21), "TOP", DuffedUIRaidUtilityDisbandRaidButton, "BOTTOM", 0, D.Scale(-5), ROLE_POLL, nil)
 		DuffedUIRaidUtilityRoleCheckButton:SetScript("OnMouseUp", function(self)
 			if CheckRaidStatus() then
 				InitiateRolePoll()
@@ -109,7 +130,7 @@ local function CreateUtilities(self, event, addon)
 		DuffedUIRaidUtilityMainAssistButton:SetAttribute("action", "set")
 
 		--Ready Check button
-		CreateButton("DuffedUIRaidUtilityReadyCheckButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtilityRoleCheckButton:GetWidth() * 0.75, D.Scale(21), "TOPLEFT", DuffedUIRaidUtilityMainTankButton, "BOTTOMLEFT", 0, D.Scale(-5), READY_CHECK, nil)
+		CreateButton("DuffedUIRaidUtilityReadyCheckButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtilityRoleCheckButton:GetWidth() * .75, D.Scale(21), "TOPLEFT", DuffedUIRaidUtilityMainTankButton, "BOTTOMLEFT", 0, D.Scale(-5), READY_CHECK, nil)
 		DuffedUIRaidUtilityReadyCheckButton:SetScript("OnMouseUp", function(self)
 			if CheckRaidStatus() then
 				DoReadyCheck()
@@ -121,7 +142,7 @@ local function CreateUtilities(self, event, addon)
 		CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton:SetPoint("TOPRIGHT", DuffedUIRaidUtilityMainAssistButton, "BOTTOMRIGHT", 0, D.Scale(-5))
 		CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton:SetParent(DuffedUIRaidUtility)
 		CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton:SetHeight(D.Scale(21))
-		CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton:SetWidth(DuffedUIRaidUtilityRoleCheckButton:GetWidth() * 0.22)
+		CompactRaidFrameManagerDisplayFrameLeaderOptionsRaidWorldMarkerButton:SetWidth(DuffedUIRaidUtilityRoleCheckButton:GetWidth() * .22)
 
 		--Put other stuff back
 		CompactRaidFrameManagerDisplayFrameLeaderOptionsInitiateReadyCheck:ClearAllPoints()

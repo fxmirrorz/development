@@ -1,100 +1,50 @@
 local D, C, L, G = unpack(select(2, ...))
 
--- omg this file sux, it really need a rewrite someday, I was probably drunk when I made this. :X
-
+local cp = "|cff319f1b" -- +
+local cm = "|cff9a1212" -- -
 local function ShowOrHideBar(bar, button)
 	local db = DuffedUIDataPerChar
 	
 	if bar:IsShown() then
-		if bar == DuffedUIBar5 and D.lowversion then
-			if button == DuffedUIBar5ButtonTop then
-				if DuffedUIBar7:IsShown() then
-					UnregisterStateDriver(DuffedUIBar7, "visibility")
-					DuffedUIBar7:Hide()
-					bar:SetWidth((D.buttonsize * 2) + (D.buttonspacing * 3))
-					db.hidebar7 = true
-				elseif DuffedUIBar6:IsShown() then
-					UnregisterStateDriver(DuffedUIBar6, "visibility")
-					DuffedUIBar6:Hide()
-					bar:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-					db.hidebar6 = true
-				else
-					UnregisterStateDriver(bar, "visibility")
-					bar:Hide()
-				end
-			else
-				if button == DuffedUIBar5ButtonBottom then
-					if not bar:IsShown() then
-						RegisterStateDriver(bar, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-						bar:Show()
-						bar:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-					elseif not DuffedUIBar6:IsShown() then
-						RegisterStateDriver(DuffedUIBar6, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-						DuffedUIBar6:Show()
-						bar:SetWidth((D.buttonsize * 2) + (D.buttonspacing * 3))
-						db.hidebar6 = false
-					else
-						RegisterStateDriver(DuffedUIBar7, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-						DuffedUIBar7:Show()
-						bar:SetWidth((D.buttonsize * 3) + (D.buttonspacing * 4))
-						db.hidebar7 = false
-					end
-				end
+		if bar == DuffedUIBar2 then
+			if button == DuffedUIBar2Button then
+				UnregisterStateDriver(bar, "visibility")
+				bar:Hide()
+				db.bar1 = true
 			end
-		else
-			UnregisterStateDriver(bar, "visibility")
-			bar:Hide()
 		end
 		
-		-- for bar 2�+3�+4, high reso only
-		if bar == DuffedUIBar4 then
-			--DuffedUIBar1:SetHeight((D.buttonsize * 1) + (D.buttonspacing * 2))
-			DuffedUIBar2:SetHeight(DuffedUIBar1:GetHeight())
-			DuffedUIBar3:SetHeight(DuffedUIBar1:GetHeight())
-			DuffedUIBar2Button:SetHeight(DuffedUIBar1:GetHeight())
-			DuffedUIBar3Button:SetHeight(DuffedUIBar1:GetHeight())
-			if not D.lowversion then
-				for i = 7, 12 do
-					local left = _G["MultiBarBottomLeftButton"..i]
-					local right = _G["MultiBarBottomRightButton"..i]
-					left:SetAlpha(0)
-					right:SetAlpha(0)
+		if bar == DuffedUIBar3 then
+			if button == DuffedUIBar3Button then
+				if C["actionbar"].petbarhorizontal ~= true then DuffedUILineToPetActionBarBackground:Show() end
+				if db.rightbars == 1 then
+					MultiBarRight:Show()
+					db.rightbars = 2
+					bar:SetWidth((D.buttonsize * 2) + (D.buttonspacing * 3))
+				elseif db.rightbars == 2 then
+					MultiBarRight:Hide()
+					db.rightbars = 1
+					bar:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
 				end
+			elseif button == DuffedUIBar3Button2 then
+				if C["actionbar"].petbarhorizontal ~= true then DuffedUILineToPetActionBarBackground:Hide() end
+				db.rightbars = 0
+				UnregisterStateDriver(bar, "visibility")
+				bar:Hide()
 			end
 		end
 	else
-		if bar == DuffedUIBar5 and D.lowversion then
-			if DuffedUIBar7:IsShown() then
-				RegisterStateDriver(DuffedUIBar7, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-				DuffedUIBar7:Show()
-				DuffedUIBar5:SetWidth((D.buttonsize * 3) + (D.buttonspacing * 4))
-			elseif DuffedUIBar6:IsShown() then
-				RegisterStateDriver(DuffedUIBar6, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-				DuffedUIBar6:Show()
-				DuffedUIBar5:SetWidth((D.buttonsize * 2) + (D.buttonspacing * 3))
-			else
-				RegisterStateDriver(bar, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-				bar:Show()
-			end
-		else
-			RegisterStateDriver(bar, "visibility", "[vehicleui][petbattle][overridebar] hide; show")
-			bar:Show()
+		if bar == DuffedUIBar2 then
+			db.bar1 = false
+			RegisterStateDriver(bar, "visibility", "[vehicleui][petbattle] hide; show")
 		end
-		
-		-- for bar 2�+3�+4, high reso only
-		if bar == DuffedUIBar4 then
-			--DuffedUIBar1:SetHeight((D.buttonsize * 2) + (D.buttonspacing * 3))
-			DuffedUIBar2:SetHeight(DuffedUIBar4:GetHeight())
-			DuffedUIBar3:SetHeight(DuffedUIBar4:GetHeight())
-			DuffedUIBar2Button:SetHeight(DuffedUIBar2:GetHeight())
-			DuffedUIBar3Button:SetHeight(DuffedUIBar3:GetHeight())
-			if not D.lowversion then
-				for i = 7, 12 do
-					local left = _G["MultiBarBottomLeftButton"..i]
-					local right = _G["MultiBarBottomRightButton"..i]
-					left:SetAlpha(1)
-					right:SetAlpha(1)
-				end
+		if bar == DuffedUIBar3 then
+			if button == DuffedUIBar3Button then
+				bar:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
+				MultiBarRight:Hide()
+				db.rightbars = 1
+				if C["actionbar"].petbarhorizontal ~= true then DuffedUILineToPetActionBarBackground:Show() end
+				RegisterStateDriver(bar, "visibility", "[vehicleui][petbattle] hide; show")
 			end
 		end
 	end
@@ -104,75 +54,41 @@ local function MoveButtonBar(button, bar)
 	local db = DuffedUIDataPerChar
 	
 	if button == DuffedUIBar2Button then
+		D.petBarPosition()
+		D.cbPosition()
 		if bar:IsShown() then
-			db.hidebar2 = false
-			button:ClearAllPoints()
-			button:Point("BOTTOMRIGHT", DuffedUIBar2, "BOTTOMLEFT", -2, 0)
-			button.text:SetText("|cff4BAF4C>|r")
+			button.text:SetText(cm.."-|r")
 		else
-			db.hidebar2 = true
-			button:ClearAllPoints()
-			button:Point("BOTTOMRIGHT", DuffedUIBar1, "BOTTOMLEFT", -2, 0)
-			button.text:SetText("|cff4BAF4C<|r")
-		end
-	end
-	
-	if button == DuffedUIBar3Button then
-		if bar:IsShown() then
-			db.hidebar3 = false
-			button:ClearAllPoints()
-			button:Point("BOTTOMLEFT", DuffedUIBar3, "BOTTOMRIGHT", 2, 0)
-			button.text:SetText("|cff4BAF4C<|r")
-		else
-			db.hidebar3 = true
-			button:ClearAllPoints()
-			button:Point("BOTTOMLEFT", DuffedUIBar1, "BOTTOMRIGHT", 2, 0)
-			button.text:SetText("|cff4BAF4C>|r")
+			button.text:SetText(cp.."+|r")
 		end
 	end
 
-	if button == DuffedUIBar4Button then
+	if button == DuffedUIBar3Button then
 		if bar:IsShown() then
-			db.hidebar4 = false
-			button.text:SetText("|cff4BAF4C- - - - - -|r")
-		else
-			db.hidebar4 = true
-			button.text:SetText("|cff4BAF4C+ + + + + +|r")
+			if db.rightbars == 2 and button == DuffedUIBar3Button then
+				button.text:SetText(cm..">|r")
+				DuffedUIBar3Button2:Hide()
+				button:Height(130)
+				button:ClearAllPoints()
+				button:Point("RIGHT", UIParent, "RIGHT", 1, -14)
+				if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -23 -((D.buttonsize * 2) + (D.buttonspacing * 3)), -14) end
+			elseif db.rightbars == 1 then
+				DuffedUIBar3Button2:Show()
+				button:Height(130/2)
+				button:ClearAllPoints()
+				button:Point("BOTTOMRIGHT", UIParent, "RIGHT", 1, -14)
+				button.text:SetText(cp.."<|r")
+				if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -23 -((D.buttonsize * 1) + (D.buttonspacing * 2)), -14) end
+			end
 		end
-	end
-	
-	if button == DuffedUIBar5ButtonTop or button == DuffedUIBar5ButtonBottom then		
-		local buttontop = DuffedUIBar5ButtonTop
-		local buttonbot = DuffedUIBar5ButtonBottom
-		if bar:IsShown() then
-			db.hidebar5 = false
-			buttontop:ClearAllPoints()
-			buttontop:Size(bar:GetWidth(), 17)
-			buttontop:Point("BOTTOM", bar, "TOP", 0, 2)
-			if not D.lowversion then buttontop.text:SetText("|cff4BAF4C>|r") end
-			buttonbot:ClearAllPoints()
-			buttonbot:Size(bar:GetWidth(), 17)
-			buttonbot:Point("TOP", bar, "BOTTOM", 0, -2)
-			if not D.lowversion then buttonbot.text:SetText("|cff4BAF4C>|r") end
-				
-			-- move the pet
-			DuffedUIPetBar:ClearAllPoints()
-			DuffedUIPetBar:Point("RIGHT", bar, "LEFT", -6, 0)		
-		else
-			db.hidebar5 = true
-			buttonbot:ClearAllPoints()
-			buttonbot:SetSize(DuffedUILineToPetActionBarBackground:GetWidth(), DuffedUILineToPetActionBarBackground:GetHeight())
-			buttonbot:Point("LEFT", DuffedUIPetBar, "RIGHT", 2, 0)
-			if not D.lowversion then buttonbot.text:SetText("|cff4BAF4C<|r") end
-			buttontop:ClearAllPoints()
-			buttontop:SetSize(DuffedUILineToPetActionBarBackground:GetWidth(), DuffedUILineToPetActionBarBackground:GetHeight())
-			buttontop:Point("LEFT", DuffedUIPetBar, "RIGHT", 2, 0)
-			if not D.lowversion then buttontop.text:SetText("|cff4BAF4C<|r") end
-			
-			-- move the pet
-			DuffedUIPetBar:ClearAllPoints()
-			DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -23, -14)
-		end	
+	elseif button == DuffedUIBar3Button2 then
+		if db.rightbars == 0 then
+			button:Hide()
+			DuffedUIBar3Button:Height(130)
+			DuffedUIBar3Button:ClearAllPoints()
+			DuffedUIBar3Button:Point("RIGHT", UIParent, "RIGHT", 1, -14)
+			if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -14, -14) end
+		end
 	end
 end
 
@@ -185,90 +101,74 @@ local function UpdateBar(self, bar) -- guess what! :P
 	MoveButtonBar(button, bar)
 end
 
-local DuffedUIBar2Button = CreateFrame("Button", "DuffedUIBar2Button", DuffedUIPetBattleHider)
-DuffedUIBar2Button:Width(17)
-DuffedUIBar2Button:SetHeight(DuffedUIBar2:GetHeight())
-if D.lowversion then
-	DuffedUIBar2Button:Point("BOTTOMRIGHT", DuffedUIBar1, "BOTTOMLEFT", -2, 0)
-else
-	DuffedUIBar2Button:Point("BOTTOMRIGHT", DuffedUIBar2, "BOTTOMLEFT", -2, 0)
-end
+-- +/-
+local DuffedUIBar2Button = CreateFrame("Button", "DuffedUIBar2Button", UIParent)
 DuffedUIBar2Button:SetTemplate("Default")
+DuffedUIBar2Button:CreateShadow("Default")
 DuffedUIBar2Button:RegisterForClicks("AnyUp")
-DuffedUIBar2Button:SetAlpha(0)
-DuffedUIBar2Button:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar2) end)
-DuffedUIBar2Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-DuffedUIBar2Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-DuffedUIBar2Button.text = D.SetFontString(DuffedUIBar2Button, C["media"].uffont, 20)
-DuffedUIBar2Button.text:Point("CENTER", 1, 1)
-DuffedUIBar2Button.text:SetText("|cff4BAF4C>|r")
-G.ActionBars.Bar2.ShowHideButton = DuffedUIBar2Button
-
-local DuffedUIBar3Button = CreateFrame("Button", "DuffedUIBar3Button", DuffedUIPetBattleHider)
-DuffedUIBar3Button:Width(17)
-DuffedUIBar3Button:SetHeight(DuffedUIBar3:GetHeight())
-if D.lowversion then
-	DuffedUIBar3Button:Point("BOTTOMLEFT", DuffedUIBar1, "BOTTOMRIGHT", 2, 0)
+DuffedUIBar2Button.text = D.SetFontString(DuffedUIBar2Button, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
+DuffedUIBar2Button:SetScript("OnClick", function(self, btn)
+	if btn == "RightButton" then
+		if DuffedUIInfoLeftBattleGround and UnitInBattleground("player") then
+			ToggleFrame(DuffedUIInfoLeftBattleGround)
+		end
+	else
+		UpdateBar(self, DuffedUIBar2)
+	end
+end)
+if D.lowversion or C["actionbar"].layout ~= 1 then
+	DuffedUIBar2Button:Size(DuffedUIInfoLeft:GetHeight())
+	DuffedUIBar2Button:Point("LEFT", DuffedUIInfoLeft, "RIGHT", 2, 0)
 else
-	DuffedUIBar3Button:Point("BOTTOMLEFT", DuffedUIBar3, "BOTTOMRIGHT", 2, 0)
+	DuffedUIBar2Button:Point("TOPLEFT", DuffedUIInfoLeft, "TOPRIGHT", 2, 0)
+	DuffedUIBar2Button:Point("BOTTOMRIGHT", DuffedUIInfoRight, "BOTTOMLEFT", -2, 0)
 end
+DuffedUIBar2Button.text:Point("CENTER", 2, -1)
+if C["actionbar"].button2 == true then DuffedUIBar2Button:SetAlpha(0) else DuffedUIBar2Button:SetAlpha(1) end
+DuffedUIBar2Button:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(C["media"].datatextcolor1)) end)
+DuffedUIBar2Button:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
+DuffedUIBar2Button.text:SetText(cm.."-|r")
+
+-- >/< 1
+local DuffedUIBar3Button = CreateFrame("Button", "DuffedUIBar3Button", UIParent)
+DuffedUIBar3Button:Width(12)
+DuffedUIBar3Button:Height(130)
+DuffedUIBar3Button:Point("RIGHT", UIParent, "RIGHT", 1, -14)
 DuffedUIBar3Button:SetTemplate("Default")
 DuffedUIBar3Button:RegisterForClicks("AnyUp")
 DuffedUIBar3Button:SetAlpha(0)
 DuffedUIBar3Button:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar3) end)
-DuffedUIBar3Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-DuffedUIBar3Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-DuffedUIBar3Button.text = D.SetFontString(DuffedUIBar3Button, C["media"].uffont, 20)
-DuffedUIBar3Button.text:Point("CENTER", 1, 1)
-DuffedUIBar3Button.text:SetText("|cff4BAF4C<|r")
-G.ActionBars.Bar3.ShowHideButton = DuffedUIBar3Button
+if C["actionbar"].rightbarsmouseover == true then
+	DuffedUIBar3Button:SetScript("OnEnter", function(self) DuffedUIRightBarsMouseover(1) end)
+	DuffedUIBar3Button:SetScript("OnLeave", function(self) DuffedUIRightBarsMouseover(0) end)
+else
+	DuffedUIBar3Button:SetScript("OnEnter", function(self) self:SetAlpha(1) DuffedUIBar3Button2:SetAlpha(1) end)
+	DuffedUIBar3Button:SetScript("OnLeave", function(self) self:SetAlpha(0) DuffedUIBar3Button2:SetAlpha(0) end)
+end
+DuffedUIBar3Button.text = D.SetFontString(DuffedUIBar3Button, C["media"].font, 14)
+DuffedUIBar3Button.text:Point("CENTER", 0, 0)
+DuffedUIBar3Button.text:SetText(cm..">|r")
 
-local DuffedUIBar4Button = CreateFrame("Button", "DuffedUIBar4Button", DuffedUIPetBattleHider)
-DuffedUIBar4Button:SetWidth(DuffedUIBar1:GetWidth())
-DuffedUIBar4Button:Height(10)
-DuffedUIBar4Button:Point("TOP", DuffedUIBar1, "BOTTOM", 0, -2)
-DuffedUIBar4Button:SetTemplate("Default")
-DuffedUIBar4Button:RegisterForClicks("AnyUp")
-DuffedUIBar4Button:SetAlpha(0)
-DuffedUIBar4Button:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar4) end)
-DuffedUIBar4Button:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-DuffedUIBar4Button:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-DuffedUIBar4Button.text = D.SetFontString(DuffedUIBar4Button, C["media"].uffont, 30)
-DuffedUIBar4Button.text:SetPoint("CENTER", 0, 0)
-DuffedUIBar4Button.text:SetText("|cff4BAF4C- - - - - -|r")
-G.ActionBars.Bar4.ShowHideButton = DuffedUIBar4Button
-
-local DuffedUIBar5ButtonTop = CreateFrame("Button", "DuffedUIBar5ButtonTop", DuffedUIPetBattleHider)
-DuffedUIBar5ButtonTop:SetWidth(DuffedUIBar5:GetWidth())
-DuffedUIBar5ButtonTop:Height(17)
-DuffedUIBar5ButtonTop:Point("BOTTOM", DuffedUIBar5, "TOP", 0, 2)
-DuffedUIBar5ButtonTop:SetTemplate("Default")
-DuffedUIBar5ButtonTop:RegisterForClicks("AnyUp")
-DuffedUIBar5ButtonTop:SetAlpha(0)
-DuffedUIBar5ButtonTop:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar5) end)
-DuffedUIBar5ButtonTop:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-DuffedUIBar5ButtonTop:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-DuffedUIBar5ButtonTop.text = D.SetFontString(DuffedUIBar5ButtonTop, C["media"].uffont, 20)
-DuffedUIBar5ButtonTop.text:Point("CENTER", 1, 1)
-DuffedUIBar5ButtonTop.text:SetText("|cff4BAF4C>|r")
-G.ActionBars.Bar5.ShowHideButtonTop = DuffedUIBar5ButtonTop
-
-local DuffedUIBar5ButtonBottom = CreateFrame("Button", "DuffedUIBar5ButtonBottom", DuffedUIPetBattleHider)
-DuffedUIBar5ButtonBottom:SetFrameLevel(DuffedUIBar5ButtonTop:GetFrameLevel() + 1)
-DuffedUIBar5ButtonBottom:SetWidth(DuffedUIBar5:GetWidth())
-DuffedUIBar5ButtonBottom:Height(17)
-DuffedUIBar5ButtonBottom:Point("TOP", DuffedUIBar5, "BOTTOM", 0, -2)
-DuffedUIBar5ButtonBottom:SetTemplate("Default")
-DuffedUIBar5ButtonBottom:RegisterForClicks("AnyUp")
-DuffedUIBar5ButtonBottom:SetAlpha(0)
-DuffedUIBar5ButtonBottom:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar5) end)
-DuffedUIBar5ButtonBottom:SetScript("OnEnter", function(self) self:SetAlpha(1) end)
-DuffedUIBar5ButtonBottom:SetScript("OnLeave", function(self) self:SetAlpha(0) end)
-DuffedUIBar5ButtonBottom.text = D.SetFontString(DuffedUIBar5ButtonBottom, C["media"].uffont, 20)
-DuffedUIBar5ButtonBottom.text:Point("CENTER", 1, 1)
-G.ActionBars.Bar5.ShowHideButtonBottom = DuffedUIBar5ButtonBottom
-
-if D.lowversion then DuffedUIBar5ButtonBottom.text:SetText("|cff4BAF4C<|r") else DuffedUIBar5ButtonBottom.text:SetText("|cff4BAF4C>|r") end
+-- >/< 2
+local DuffedUIBar3Button2 = CreateFrame("Button", "DuffedUIBar3Button2", UIParent)
+DuffedUIBar3Button2:Width(DuffedUIBar3Button:GetWidth())
+DuffedUIBar3Button2:Height((DuffedUIBar3Button:GetHeight()/2)+1)
+DuffedUIBar3Button2:Point("TOP", DuffedUIBar3Button, "BOTTOM", 0, 1)
+DuffedUIBar3Button2:SetTemplate("Default")
+DuffedUIBar3Button2:RegisterForClicks("AnyUp")
+DuffedUIBar3Button2:SetAlpha(0)
+DuffedUIBar3Button2:Hide()
+DuffedUIBar3Button2:SetScript("OnClick", function(self) UpdateBar(self, DuffedUIBar3) end)
+if C["actionbar"].rightbarsmouseover == true then
+	DuffedUIBar3Button2:SetScript("OnEnter", function(self) DuffedUIRightBarsMouseover(1) end)
+	DuffedUIBar3Button2:SetScript("OnLeave", function(self) DuffedUIRightBarsMouseover(0) end)
+else
+	DuffedUIBar3Button2:SetScript("OnEnter", function(self) self:SetAlpha(1) DuffedUIBar3Button:SetAlpha(1) end)
+	DuffedUIBar3Button2:SetScript("OnLeave", function(self) self:SetAlpha(0) DuffedUIBar3Button:SetAlpha(0) end)
+end
+DuffedUIBar3Button2.text = D.SetFontString(DuffedUIBar3Button2, C["media"].font, 14)
+DuffedUIBar3Button2.text:Point("CENTER", 0, 0)
+DuffedUIBar3Button2.text:SetText(cm..">|r")
 
 -- exit vehicle button on left side of bottom action bar
 local vehicleleft = CreateFrame("Button", "DuffedUIExitVehicleButtonLeft", UIParent, "SecureHandlerClickTemplate")
@@ -306,39 +206,25 @@ init:SetScript("OnEvent", function(self, event)
 	if not DuffedUIDataPerChar then DuffedUIDataPerChar = {} end
 	local db = DuffedUIDataPerChar
 	
-	if not D.lowversion and db.hidebar2 then 
+	D.cbPosition()
+	D.petBarPosition()
+
+	-- Third Bar at the bottom
+	if db.bar1 then
 		UpdateBar(DuffedUIBar2Button, DuffedUIBar2)
 	end
-	
-	if not D.lowversion and db.hidebar3 then
-		UpdateBar(DuffedUIBar3Button, DuffedUIBar3)
-	end
-	
-	if db.hidebar4 then
-		UpdateBar(DuffedUIBar4Button, DuffedUIBar4)
-	end
-		
-	if D.lowversion then
-		-- because we use bar6.lua and bar7.lua with DuffedUIBar5Button for lower reso.
-		DuffedUIBar2Button:Hide()
-		DuffedUIBar3Button:Hide()
-		if db.hidebar7 then
-			UnregisterStateDriver(DuffedUIBar7, "visibility")
-			DuffedUIBar7:Hide()
-			DuffedUIBar5:SetWidth((D.buttonsize * 2) + (D.buttonspacing * 3))
-		end
-		
-		if db.hidebar6 then
-			UnregisterStateDriver(DuffedUIBar6, "visibility")
-			DuffedUIBar6:Hide()
-			DuffedUIBar5:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
-		end
-		
-		DuffedUIBar5ButtonTop:SetWidth(DuffedUIBar5:GetWidth())
-		DuffedUIBar5ButtonBottom:SetWidth(DuffedUIBar5:GetWidth())
-	end
-	
-	if db.hidebar5 then
-		UpdateBar(DuffedUIBar5ButtonTop, DuffedUIBar5)
+
+	-- Rightbars on startup
+	if db.rightbars == nil then db.rightbars = 2 end
+	if db.rightbars == 1 then
+		MoveButtonBar(DuffedUIBar3Button, DuffedUIBar3)
+		DuffedUIBar3:SetWidth((D.buttonsize * 1) + (D.buttonspacing * 2))
+		if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -23 -((D.buttonsize * 1) + (D.buttonspacing * 2)), -14) DuffedUILineToPetActionBarBackground:Show() end
+	elseif db.rightbars == 0 then
+		DuffedUIBar3Button.text:SetText(cp.."<|r")
+		DuffedUIBar3:Hide()
+		if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -14, -14) DuffedUILineToPetActionBarBackground:Hide() end
+	elseif db.rightbars == 2 then
+		if C["actionbar"].petbarhorizontal ~= true then DuffedUIPetBar:Point("RIGHT", UIParent, "RIGHT", -23 -((D.buttonsize * 2) + (D.buttonspacing * 3)), -14) DuffedUILineToPetActionBarBackground:Show() end
 	end
 end)

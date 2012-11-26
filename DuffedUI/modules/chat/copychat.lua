@@ -12,12 +12,8 @@ local isf = nil
 
 local function CreateCopyFrame()
 	frame = CreateFrame("Frame", "DuffedUIChatCopyFrame", UIParent)
-	frame:SetTemplate("Default")
-	if D.lowversion then
-		frame:Width(DuffedUIBar1:GetWidth() + 10)
-	else
-		frame:Width((DuffedUIBar1:GetWidth() * 2) + 20)
-	end
+	frame:SetTemplate("Transparent")
+	frame:Width(DuffedUIBar1:GetWidth())
 	frame:Height(250)
 	frame:SetScale(1)
 	frame:Point("BOTTOM", UIParent, "BOTTOM", 0, 10)
@@ -67,7 +63,7 @@ end
 
 local function Copy(cf)
 	local _, size = cf:GetFont()
-	FCF_SetChatWindowFontSize(cf, cf, 0.01)
+	FCF_SetChatWindowFontSize(cf, cf, .01)
 	local lineCt = GetLines(cf:GetRegions())
 	local text = table.concat(lines, "\n", 1, lineCt)
 	FCF_SetChatWindowFontSize(cf, cf, size)
@@ -80,20 +76,22 @@ end
 for i = 1, NUM_CHAT_WINDOWS do
 	local cf = _G[format("ChatFrame%d",  i)]
 	local button = CreateFrame("Button", format("DuffedUIButtonCF%d", i), cf)
-	button:SetPoint("TOPRIGHT", 0, 0)
+	if C["chat"].background then button:SetPoint("TOPRIGHT", 4, 25) else button:SetPoint("TOPRIGHT", 0, 0) end
 	button:Height(20)
 	button:Width(20)
-	button:SetNormalTexture(C.media.copyicon)
-	button:SetAlpha(0)
+	button:SetNormalTexture(C["media"].copyicon)
+	if C["chat"].background then button:SetAlpha(1) else button:SetAlpha(0) end
 	button:SetTemplate("Default")
 
 	button:SetScript("OnMouseUp", function(self)
 		Copy(cf)
 	end)
-	button:SetScript("OnEnter", function() 
-		button:SetAlpha(1) 
-	end)
-	button:SetScript("OnLeave", function() button:SetAlpha(0) end)
+	if not C["chat"].background then
+		button:SetScript("OnEnter", function() 
+			button:SetAlpha(1) 
+		end)
+		button:SetScript("OnLeave", function() button:SetAlpha(0) end)
+	end
 	
 	G.Chat["ChatFrame"..i].Copy = button
 end

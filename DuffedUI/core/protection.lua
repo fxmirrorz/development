@@ -1,6 +1,6 @@
 ------------------------------------------------------------------------
 -- We don't want 2 addons enabled doing the same thing. 
--- Disable a feature on Tukui if X addon is found.
+-- Disable a feature on DuffedUI if X addon is found.
 ------------------------------------------------------------------------
 
 local D, C, L, G = unpack(select(2, ...))
@@ -22,7 +22,8 @@ if (IsAddOnLoaded("Prat") or IsAddOnLoaded("Prat-3.0") or IsAddOnLoaded("Chatter
 end
 
 if (IsAddOnLoaded("Quartz") or IsAddOnLoaded("AzCastBar") or IsAddOnLoaded("eCastingBar")) then
-	C["unitframes"].unitcastbar = false
+	C["castbar"].enable = false
+	C["castbar"].enable = false
 end
 
 if (IsAddOnLoaded("TipTac") or IsAddOnLoaded("FreebTip")) then

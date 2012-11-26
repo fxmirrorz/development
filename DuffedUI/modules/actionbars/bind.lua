@@ -1,4 +1,4 @@
-local D, C, L = unpack(select(2, ...))
+local D, C, L = unpack(select(2, ...)) -- Import: T - functions, constants, variables; C - config; L - locales
 -- keybind feature
 local bind = CreateFrame("Frame", "DuffedUIHoverBind", UIParent)
 
@@ -63,7 +63,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 					self:AddLine(bind.button.name, 1, 1, 1)
 					bind.button.bindings = {GetBindingKey(spellmacro.." "..bind.button.name)}
 					if #bind.button.bindings == 0 then
-						self:AddLine("No bindings seD.", .6, .6, .6)
+						self:AddLine("No bindings set.", .6, .6, .6)
 					else
 						self:AddDoubleLine("Binding", "Key", .6, .6, .6, .6, .6, .6)
 						for i = 1, #bind.button.bindings do
@@ -155,7 +155,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 					self:AddLine(bind.button.name, 1, 1, 1)
 					bind.button.bindings = {GetBindingKey(bind.button.bindstring)}
 					if #bind.button.bindings == 0 then
-						self:AddLine("No bindings seD.", .6, .6, .6)
+						self:AddLine("No bindings set.", .6, .6, .6)
 					else
 						self:AddDoubleLine(KEY_BINDING, "Key", .6, .6, .6, .6, .6, .6)
 						for i = 1, #bind.button.bindings do
@@ -198,11 +198,11 @@ SlashCmdList.MOUSEOVERBIND = function()
 			local shift = IsShiftKeyDown() and "SHIFT-" or ""
 			
 			if not self.spellmacro or self.spellmacro=="PET" or self.spellmacro=="STANCE" then
-				SetBinding(alD..ctrl..shifD..key, self.button.bindstring)
+				SetBinding(alt..ctrl..shift..key, self.button.bindstring)
 			else
-				SetBinding(alD..ctrl..shifD..key, self.spellmacro.." "..self.button.name)
+				SetBinding(alt..ctrl..shift..key, self.spellmacro.." "..self.button.name)
 			end
-			print(alD..ctrl..shifD..key.." |cff00ff00bound to |r"..self.button.name..".")
+			print(alt..ctrl..shift..key.." |cff00ff00bound to |r"..self.button.name..".")
 			self:Update(self.button, self.spellmacro)
 			if self.spellmacro~="MACRO" then GameTooltip:Hide() end
 		end
@@ -228,7 +228,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 			self:UnregisterEvent("PLAYER_REGEN_DISABLED")
 		end
 
-		D.CreatePopup["DuffedUI_KEYBIND_MODE"] = {
+		D.CreatePopup["TUKUI_KEYBIND_MODE"] = {
 			question = L.bind_instruct,
 			answer1 = L.bind_save,
 			answer2 = L.bind_discardbind,
@@ -285,7 +285,7 @@ SlashCmdList.MOUSEOVERBIND = function()
 	end
 	if not bind.enabled then
 		bind:Activate()
-		D.ShowPopup("DuffedUI_KEYBIND_MODE")
+		D.ShowPopup("TUKUI_KEYBIND_MODE")
 	end
 end
 SLASH_MOUSEOVERBIND1 = "/bindkey"

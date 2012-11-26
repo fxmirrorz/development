@@ -32,7 +32,7 @@ elseif (D.screenwidth >= 3840) or (UIParent:GetWidth() + 1 > D.screenwidth) then
 	if width >= 4080 and width < 4320 then width = 1360 end 	                -- WXGA
 	if width >= 3840 and width < 4080 then width = 1224 end 	                -- SXGA & SXGA (UVGA) & WXGA & HDTV
 	
-	-- yep, now set Tukui to lower reso if screen #1 width < 1600
+	-- yep, now set DuffedUI to lower reso if screen #1 width < 1600
 	if width < 1600 and not C.general.overridelowtohigh then
 		D.lowversion = true
 	end
@@ -54,7 +54,7 @@ end
 
 -- autoscale
 if C["general"].autoscale == true then
-	C["general"].uiscale = min(2, max(.64, 768/string.match(D.resolution, "%d+x(%d+)")))
+	C["general"].uiscale = min(2, max(.64, 768 / string.match(D.resolution, "%d+x(%d+)")))
 end
 	
 --------------------------------------------------------
@@ -109,7 +109,7 @@ Graphic:SetScript("OnEvent", function(self, event)
 		local height = D.screenheight
 		
 		-- if autoscale is off, find a new width value of UIParent for screen #1.
-		if not C.general.autoscale or height > 1200 then
+		if not C["general"].autoscale or height > 1200 then
 			local h = UIParent:GetHeight()
 			local ratio = D.screenheight / h
 			local w = D.eyefinity / ratio
@@ -123,7 +123,7 @@ Graphic:SetScript("OnEvent", function(self, event)
 		UIParent:SetPoint("CENTER")		
 	end
 
-	-- require a reload when graphics option changes, even if Standard Blizzard UI doesn't really need iD.
+	-- require a reload when graphics option changes, even if Standard Blizzard UI doesn't really need it.
 	VideoOptionsFrameOkay:HookScript("OnClick", NeedReloadUI)
 	VideoOptionsFrameApply:HookScript("OnClick", NeedReloadUI)
 	

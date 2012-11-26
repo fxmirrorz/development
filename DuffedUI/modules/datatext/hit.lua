@@ -7,7 +7,7 @@ local D, C, L, G = unpack(select(2, ...))
 -- Hit Rating
 if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
 	local Stat = CreateFrame("Frame", "DuffedUIStatHit")
-	Stat.Option = C.datatext.hit
+	Stat.Option = C["datatext"].hit
 	Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 	Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 	G.DataText.Hit = Stat
@@ -35,11 +35,11 @@ if not C["datatext"].hit == nil or C["datatext"].hit > 0 then
 			local cast = GetSpellHitModifier() or 0
 			
 			if attackpwr > spellpwr and select(2, UnitClass("Player")) ~= "HUNTER" then
-				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(6)+cac)..Stat.Color1..HID.."|r")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(6)+cac)..Stat.Color1..HIT.."|r")
 			elseif select(2, UnitClass("Player")) == "HUNTER" then
-				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(7)+cac)..Stat.Color1..HID.."|r")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(7)+cac)..Stat.Color1..HIT.."|r")
 			else
-				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(8)+cast)..Stat.Color1..HID.."|r")
+				Text:SetText(format(Stat.Color2.."%.2f%%|r ", GetCombatRatingBonus(8)+cast)..Stat.Color1..HIT.."|r")
 			end
 			
 			int = 1

@@ -7,7 +7,7 @@ local D, C, L, G = unpack(select(2, ...))
 if not C["datatext"].friends or C["datatext"].friends == 0 then return end
 
 -- create a popup
-D.CreatePopup["TUKUI_SET_BN_BROADCAST"] = {
+D.CreatePopup["DUFFEDUI_SET_BN_BROADCAST"] = {
 	question = BN_BROADCAST_TOOLTIP,
 	answer1 = ACCEPT,
 	answer2 = CANCEL,
@@ -19,7 +19,7 @@ local Stat = CreateFrame("Frame", "DuffedUIStatFriends")
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
-Stat.Option = C.datatext.friends
+Stat.Option = C["datatext"].friends
 Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 G.DataText.Friends = Stat
@@ -42,7 +42,7 @@ local menuList = {
 			{ text = "|cffFF0000"..AFK.."|r", notCheckable=true, func = function() if not IsChatAFK() then SendChatMessage("", "AFK") end end },
 		},
 	},
-	{ text = BN_BROADCAST_TOOLTIP, notCheckable=true, func = function() D.ShowPopup("TUKUI_SET_BN_BROADCAST") end },
+	{ text = BN_BROADCAST_TOOLTIP, notCheckable=true, func = function() D.ShowPopup("DUFFEDUI_SET_BN_BROADCAST") end },
 }
 
 local function GetTableIndex(table, fieldIndex, value)
@@ -61,7 +61,7 @@ local function inviteClick(self, arg1, arg2, checked)
 	end
 end
 
-local function whisperClick(self,name,bnet)
+local function whisperClick(self, name, bnet)
 	menuFrame:Hide()
 	if bnet then
 		ChatFrame_SendSmartTell(name)

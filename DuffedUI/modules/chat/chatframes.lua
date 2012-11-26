@@ -2,7 +2,7 @@ local D, C, L, G = unpack(select(2, ...))
 if C["chat"].enable ~= true then return end
 
 -----------------------------------------------------------------------
--- SETUP DuffedUI CHATS
+-- SETUP TUKUI CHATS
 -----------------------------------------------------------------------
 
 local DuffedUIChat = CreateFrame("Frame", "DuffedUIChat")
@@ -68,7 +68,7 @@ local function UpdateEditBoxColor(self)
 		if ( type == "CHANNEL" ) then
 			local id = GetChannelName(self:GetAttribute("channelTarget"))
 			if id == 0 then
-				bd:SetBackdropBorderColor(unpack(C.media.bordercolor))
+				bd:SetBackdropBorderColor(unpack(C["media"].bordercolor))
 			else
 				bd:SetBackdropBorderColor(ChatTypeInfo[type..id].r,ChatTypeInfo[type..id].g,ChatTypeInfo[type..id].b)
 			end
@@ -96,7 +96,7 @@ local function SetChatStyle(frame)
 	tab:SetAlpha(1)
 	tab.SetAlpha = UIFrameFadeRemoveFrame
 
-	if not C.chat.background then
+	if not C["chat"].background then
 		-- hide text when setting chat
 		_G[chat.."TabText"]:Hide()
 		
@@ -106,20 +106,22 @@ local function SetChatStyle(frame)
 	end
 	
 	-- change tab font
-	_G[chat.."TabText"]:SetFont(C.media.font, 11)
+	_G[chat.."TabText"]:SetTextColor(unpack(C["media"].datatextcolor1))
+	_G[chat.."TabText"].SetTextColor = D.dummy
+	_G[chat.."TabText"]:SetFont(C["media"].font, 11)
 	
 	-- yeah baby
-	_G[chat]:SetClampRectInsets(0,0,0,0)
+	_G[chat]:SetClampRectInsets(0, 0, 0, 0)
 	
 	-- Removes crap from the bottom of the chatbox so it can go to the bottom of the screen.
 	_G[chat]:SetClampedToScreen(false)
 			
 	-- Stop the chat chat from fading out
-	_G[chat]:SetFading(false)
+	_G[chat]:SetFading(C["chat"].fading)
 	
 	-- set min height/width to original tukui size
-	_G[chat]:SetMinResize(371,111)
-	_G[chat]:SetMinResize(D.InfoLeftRightWidth + 1,111)
+	_G[chat]:SetMinResize(371, 114)
+	_G[chat]:SetMinResize(D.InfoLeftRightWidth + 1, 114)
 	
 	-- move the chat edit box
 	G.Chat.EditBox = _G[chat.."EditBox"]
@@ -201,7 +203,7 @@ local function SetChatStyle(frame)
 		CombatLogQuickButtonFrame_CustomProgressBar:ClearAllPoints()
 		CombatLogQuickButtonFrame_CustomProgressBar:SetPoint("TOPLEFT", CombatLogQuickButtonFrame_Custom, 2, -2)
 		CombatLogQuickButtonFrame_CustomProgressBar:SetPoint("BOTTOMRIGHT", CombatLogQuickButtonFrame_Custom, -2, 2)
-		CombatLogQuickButtonFrame_CustomProgressBar:SetStatusBarTexture(C.media.normTex)
+		CombatLogQuickButtonFrame_CustomProgressBar:SetStatusBarTexture(C["media"].normTex)
 	end
 
 	frame.isSkinned = true
@@ -258,17 +260,13 @@ for i=1, BNToastFrame:GetNumRegions() do
 		end
 	end
 end	
-BNToastFrame:SetTemplate()
-BNToastFrame:CreateShadow()
+BNToastFrame:SetTemplate("Transparent")
+BNToastFrame:CreateShadow("Default")
 
 -- reposition battle.net popup over chat #1
 BNToastFrame:HookScript("OnShow", function(self)
 	self:ClearAllPoints()
-	if C.chat.background and DuffedUIChatBackgroundLeft then
-		self:Point("BOTTOMLEFT", DuffedUIChatBackgroundLeft, "TOPLEFT", 0, 6)
-	else
-		self:Point("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, 6)
-	end
+	self:Point("TOPLEFT", DuffedUIBnetHolder, "TOPLEFT", 3, -3)
 end)
 
 -- reskin Toast Frame Close Button
@@ -293,12 +291,32 @@ D.SetDefaultChatPosition = function(frame)
 		
 		if id == 1 then
 			frame:ClearAllPoints()
-			frame:Point("BOTTOMLEFT", DuffedUIInfoLeft, "TOPLEFT", 0, 6)
+			if D.lowversion or C["actionbar"].layout == 2 then
+				frame:Point("BOTTOMLEFT", DuffedUIInfoLeft, "BOTTOMLEFT", 3, 27)
+			else
+				if C["chat"].background then
+					frame:Point("BOTTOMLEFT", DuffedUIChatBackgroundLeft, "BOTTOMLEFT", 3, 6)
+				else
+					frame:Point("BOTTOMLEFT", UIParent, "BOTTOMLEFT", 3, 6)
+				end
+			end
 		elseif id == 4 and name == LOOT then
 			if not frame.isDocked then
 				frame:ClearAllPoints()
-				frame:Point("BOTTOMRIGHT", DuffedUIInfoRight, "TOPRIGHT", 0, 6)
-				frame:SetJustifyH("RIGHT")
+				if D.lowversion or C["actionbar"].layout == 2 then
+					frame:Point("BOTTOMRIGHT", DuffedUIInfoRight, "BOTTOMRIGHT", -9, 27)
+				else
+					if C["chat"].background then
+						frame:Point("BOTTOMRIGHT", DuffedUIChatBackgroundRight, "BOTTOMRIGHT", -9, 6)
+					else
+						frame:Point("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -9, 6)
+					end
+				end
+				if C["chat"].textright then
+					frame:SetJustifyH("RIGHT")
+				else
+					frame:SetJustifyH("LEFT")
+				end
 			end
 		end
 		

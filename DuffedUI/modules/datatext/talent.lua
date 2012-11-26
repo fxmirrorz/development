@@ -1,6 +1,6 @@
 ﻿local D, C, L, G = unpack(select(2, ...))
 
-if C.datatext.talent and C.datatext.talent > 0 then
+if C["datatext"].talent and C["datatext"].talent > 0 then
 	local Stat = CreateFrame("Frame", "DuffedUIStatTalent")
 	Stat:EnableMouse(true)
 	Stat:SetFrameStrata("BACKGROUND")

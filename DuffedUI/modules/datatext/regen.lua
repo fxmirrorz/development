@@ -4,7 +4,7 @@ if not C["datatext"].regen or C["datatext"].regen == 0 then return end
 local Stat = CreateFrame("Frame", "DuffedUIStatRegen")
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
-Stat.Option = C.datatext.regen
+Stat.Option = C["datatext"].regen
 Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))
 G.DataText.Regen = Stat

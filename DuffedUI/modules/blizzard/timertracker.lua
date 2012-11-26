@@ -1,5 +1,3 @@
--- MOVE ME TO /SKINS
-
 local D, C, L, G = unpack(select(2, ...))
 
 local function SkinIt(bar)	
@@ -9,18 +7,18 @@ local function SkinIt(bar)
 	bar:Point("TOPLEFT", originalPoint, "TOPLEFT", 2, -2)
 	bar:Point("BOTTOMRIGHT", originalPoint, "BOTTOMRIGHT", -2, 2)
 		
-	for i=1, bar:GetNumRegions() do
+	for i = 1, bar:GetNumRegions() do
 		local region = select(i, bar:GetRegions())
 		if region:GetObjectType() == "Texture" then
 			region:SetTexture(nil)
 		elseif region:GetObjectType() == "FontString" then
 			region:SetFont(C["media"].font, 12, "THINOUTLINE")
-			region:SetShadowColor(0,0,0,0)
+			region:SetShadowColor(0, 0, 0, 0)
 		end
 	end
 	
 	bar:SetStatusBarTexture(C["media"].normTex)
-	bar:SetStatusBarColor(170/255, 10/255, 10/255)
+	bar:SetStatusBarColor(170 / 255, 10 / 255, 10 / 255)
 	
 	bar.backdrop = CreateFrame("Frame", nil, bar)
 	bar.backdrop:SetFrameLevel(0)

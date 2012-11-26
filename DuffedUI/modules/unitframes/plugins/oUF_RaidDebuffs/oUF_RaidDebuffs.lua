@@ -1,7 +1,7 @@
 local D, C, L, G = unpack(select(2, ...)) 
 -- yleaf (yaroot@gmail.com)
 
-if C.unitframes.enable ~= true or C.unitframes.raidunitdebuffwatch ~= true then return end
+if C["unitframes"].enable ~= true or C["unitframes"].raidunitdebuffwatch ~= true then return end
 
 local _, ns = ...
 local oUF = ns.oUF or oUF
@@ -16,11 +16,9 @@ end
 local debuff_data = {}
 addon.DebuffData = debuff_data
 
-
 addon.ShowDispelableDebuff = true
 addon.FilterDispellableDebuff = true
 addon.MatchBySpellName = true
-
 
 addon.priority = 10
 

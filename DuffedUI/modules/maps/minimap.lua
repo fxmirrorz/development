@@ -5,16 +5,20 @@ local D, C, L, G = unpack(select(2, ...))
 --------------------------------------------------------------------
 
 -- shitty map addon that a lot of peoples use.
-if (IsAddOnLoaded("SexyMap")) then return end
+if IsAddOnLoaded("SexyMap") then return end
 
 local DuffedUIMinimap = CreateFrame("Frame", "DuffedUIMinimap", DuffedUIPetBattleHider)
 DuffedUIMinimap:SetTemplate()
 DuffedUIMinimap:RegisterEvent("ADDON_LOADED")
-DuffedUIMinimap:Point("TOPRIGHT", UIParent, "TOPRIGHT", -24, -22)
+if C["auras"].bufftracker then
+	DuffedUIMinimap:Point("TOPRIGHT", UIParent, "TOPRIGHT", -35, -5)
+else
+	DuffedUIMinimap:Point("TOPRIGHT", UIParent, "TOPRIGHT", -5, -5)
+end
 DuffedUIMinimap:Size(144)
 DuffedUIMinimap:SetClampedToScreen(true)
 DuffedUIMinimap:SetMovable(true)
-DuffedUIMinimap.text = D.SetFontString(DuffedUIMinimap, C["media"].uffont, 12)
+DuffedUIMinimap.text = D.SetFontString(DuffedUIMinimap, C.media.uffont, 12)
 DuffedUIMinimap.text:SetPoint("CENTER")
 DuffedUIMinimap.text:SetText(L.move_minimap)
 G.Maps.Minimap = DuffedUIMinimap
@@ -177,7 +181,7 @@ end)
 -- Mouseover map, displaying zone and coords
 ----------------------------------------------------------------------------------------
 
-local m_zone = CreateFrame("Frame","DuffedUIMinimapZone",DuffedUIMinimap)
+local m_zone = CreateFrame("Frame", "DuffedUIMinimapZone", DuffedUIMinimap)
 m_zone:SetTemplate()
 m_zone:Size(0,20)
 m_zone:Point("TOPLEFT", DuffedUIMinimap, "TOPLEFT", 2,-2)
@@ -187,7 +191,7 @@ m_zone:Point("TOPRIGHT",DuffedUIMinimap,-2,-2)
 m_zone:SetAlpha(0)
 G.Maps.Minimap.Zone = m_zone
 
-local m_zone_text = m_zone:CreateFontString("DuffedUIMinimapZoneText","Overlay")
+local m_zone_text = m_zone:CreateFontString("DuffedUIMinimapZoneText", "Overlay")
 m_zone_text:SetFont(C["media"].font,12)
 m_zone_text:Point("TOP", 0, -1)
 m_zone_text:SetPoint("BOTTOM")
@@ -196,7 +200,7 @@ m_zone_text:Width(m_zone:GetWidth()-6)
 m_zone_text:SetAlpha(0)
 G.Maps.Minimap.Zone.Text = m_zone_text
 
-local m_coord = CreateFrame("Frame","DuffedUIMinimapCoord",DuffedUIMinimap)
+local m_coord = CreateFrame("Frame", "DuffedUIMinimapCoord", DuffedUIMinimap)
 m_coord:SetTemplate()
 m_coord:Size(40,20)
 m_coord:Point("BOTTOMLEFT", DuffedUIMinimap, "BOTTOMLEFT", 2,2)
@@ -205,21 +209,21 @@ m_coord:SetFrameStrata(Minimap:GetFrameStrata())
 m_coord:SetAlpha(0)
 G.Maps.Minimap.Coord = m_coord
 
-local m_coord_text = m_coord:CreateFontString("DuffedUIMinimapCoordText","Overlay")
+local m_coord_text = m_coord:CreateFontString("DuffedUIMinimapCoordText", "Overlay")
 m_coord_text:SetFont(C["media"].font,12)
-m_coord_text:Point("Center",-1,0)
+m_coord_text:Point("Center", -1, 0)
 m_coord_text:SetAlpha(0)
 m_coord_text:SetText("00,00")
 G.Maps.Minimap.Coord.Text = m_coord_text
 
-Minimap:SetScript("OnEnter",function()
+Minimap:SetScript("OnEnter", function()
 	m_zone:SetAlpha(1)
 	m_zone_text:SetAlpha(1)
 	m_coord:SetAlpha(1)
 	m_coord_text:SetAlpha(1)
 end)
 
-Minimap:SetScript("OnLeave",function()
+Minimap:SetScript("OnLeave", function()
 	m_zone:SetAlpha(0)
 	m_zone_text:SetAlpha(0)
 	m_coord:SetAlpha(0)
@@ -227,11 +231,11 @@ Minimap:SetScript("OnLeave",function()
 end)
  
 local ela = 0
-local coord_Update = function(self,t)
+local coord_Update = function(self, t)
 	ela = ela - t
 	if ela > 0 then return end
-	local x,y = GetPlayerMapPosition("player")
-	local xt,yt
+	local x, y = GetPlayerMapPosition("player")
+	local xt, yt
 	x = math.floor(100 * x)
 	y = math.floor(100 * y)
 	if x == 0 and y == 0 then
@@ -257,15 +261,15 @@ local zone_Update = function()
 	local pvp = GetZonePVPInfo()
 	m_zone_text:SetText(GetMinimapZoneText())
 	if pvp == "friendly" then
-		m_zone_text:SetTextColor(0.1, 1.0, 0.1)
+		m_zone_text:SetTextColor(.1, 1, .1)
 	elseif pvp == "sanctuary" then
-		m_zone_text:SetTextColor(0.41, 0.8, 0.94)
+		m_zone_text:SetTextColor(.41, .8, .94)
 	elseif pvp == "arena" or pvp == "hostile" then
-		m_zone_text:SetTextColor(1.0, 0.1, 0.1)
+		m_zone_text:SetTextColor(1, .1, .1)
 	elseif pvp == "contested" then
-		m_zone_text:SetTextColor(1.0, 0.7, 0.0)
+		m_zone_text:SetTextColor(1, .7, 0)
 	else
-		m_zone_text:SetTextColor(1.0, 1.0, 1.0)
+		m_zone_text:SetTextColor(1, 1, 1)
 	end
 end
  

@@ -9,7 +9,7 @@ if not C["loot"].lootframe == true then return end
 local mlItemName, mlAssignNickname, mlValue, mlPopupQuestion
 local ML_UNKNOWN = UNKNOWN
 
-D.CreatePopup["TUKUI_GIVEMASTERLOOT"] = {
+D.CreatePopup["DUFFEDUI_GIVEMASTERLOOT"] = {
 	answer1 = ACCEPT,
 	answer2 = CANCEL,
 	function1 = function() GiveMasterLoot(LootFrame.selectedSlot, mlValue) end,
@@ -19,7 +19,7 @@ local hexColors = {}
 for k, v in pairs(RAID_CLASS_COLORS) do
 	hexColors[k] = "|c" .. v.colorStr
 end
-hexColors["UNKNOWN"] = string.format("|cff%02x%02x%02x", 0.6*255, 0.6*255, 0.6*255)
+hexColors["UNKNOWN"] = string.format("|cff%02x%02x%02x", .6 * 255, .6 * 255, .6 * 255)
 
 local playerName = UnitName("player")
 local classesInRaid = {}
@@ -36,8 +36,8 @@ local function MasterLoot_GiveLoot(frame)
 		mlValue = frame.value
 		mlItemName = ITEM_QUALITY_COLORS[LootFrame.selectedQuality].hex..LootFrame.selectedItemName..FONT_COLOR_CODE_CLOSE
 		mlAssignNickname = frame:GetText()
-		D.CreatePopup.TUKUI_GIVEMASTERLOOD.question = string.format(CONFIRM_LOOT_DISTRIBUTION, mlItemName, mlAssignNickname)
-		D.ShowPopup("TUKUI_GIVEMASTERLOOT")
+		D.CreatePopup.DUFFEDUI_GIVEMASTERLOOT.question = string.format(CONFIRM_LOOT_DISTRIBUTION, mlItemName, mlAssignNickname)
+		D.ShowPopup("DUFFEDUI_GIVEMASTERLOOT")
 	else
 		GiveMasterLoot(LootFrame.selectedSlot, frame.value)
 	end
@@ -85,7 +85,7 @@ local function init()
 	info.notClickable = nil
 	UIDropDownMenu_AddButton(info)
 
-	if ( IsInRaid() ) then
+	if IsInRaid() then
 		wipe(classesInRaid)
 		for i = 1, MAX_RAID_MEMBERS do
 			candidate,lclass,className = GetMasterLootCandidate(slot,i)
@@ -111,7 +111,7 @@ local function init()
 		end
 	else
 		-- In a party
-		for i=1, MAX_PARTY_MEMBERS+1, 1 do
+		for i = 1, MAX_PARTY_MEMBERS + 1, 1 do
 			candidate,lclass,className = GetMasterLootCandidate(slot,i)
 			if candidate then
 				info.text = candidate
@@ -158,7 +158,7 @@ local function init()
 		UIDropDownMenu_AddButton(info)
 	end
 	for i = 1, MAX_RAID_MEMBERS do
-		candidate,lclass,className = GetMasterLootCandidate(slot,i)
+		candidate,lclass,className = GetMasterLootCandidate(slot, i)
 		if candidate and candidate == playerName then
 			info.colorCode = hexColors[className] or hexColors["UNKNOWN"]
 			info.isTitle = nil

@@ -46,11 +46,12 @@ C["media"] = {
 	["copyicon"] = [[Interface\AddOns\DuffedUI\medias\textures\copy]], -- copy icon
 	["blank"] = [[Interface\AddOns\DuffedUI\medias\textures\blank]], -- the main texture for all borders/panels
 	["buttonhover"] = [[Interface\AddOns\DuffedUI\medias\textures\button_hover]],
+	["duffed"] = [[Interface\AddOns\DuffedUI\medias\textures\duffed]],
 	
 	-- colors
-	["bordercolor"] = C["general"].bordercolor or { .5,.5,.5 }, -- border color of DuffedUI panels
-	["backdropcolor"] = C["general"].backdropcolor or { .1,.1,.1 }, -- background color of DuffedUI panels
-	["datatextcolor1"] = { 1, 1, 1 }, -- color of datatext title
+	["bordercolor"] = C["general"].bordercolor or { .125, .125, .125 }, -- border color of DuffedUI panels
+	["backdropcolor"] = C["general"].backdropcolor or { .05, .05, .05 }, -- background color of DuffedUI panels
+	["datatextcolor1"] = { .4, .4, .4 }, -- color of datatext title
 	["datatextcolor2"] = { 1, 1, 1 }, -- color of datatext result
 	
 	-- sound
@@ -67,7 +68,7 @@ if settings then
 	local media = settings.media
 	if media then
 		for option, value in pairs(media) do
-			C["media"][option] = value
+			C.media[option] = value
 		end
 	end
 end

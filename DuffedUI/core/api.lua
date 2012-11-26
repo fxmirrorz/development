@@ -1,4 +1,4 @@
--- Tukui API, see DOCS/API.txt for more informations
+-- DuffedUI API, see DOCS/API.txt for more informations
 -- Feel free to send us API suggestion at www.tukui.org/tickets
 
 local D, C, L, G = unpack(select(2, ...))
@@ -16,9 +16,9 @@ local inset = 0
 local noinset = C["media"].noinset
 
 -- pixel perfect script of custom ui Scale.
-local mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/C["general"].uiscale
+local mult = 768 / string.match(GetCVar("gxResolution"), "%d+x(%d+)")/C["general"].uiscale
 local Scale = function(x)
-    return mult*math.floor(x/mult+.5)
+    return mult*math.floor(x / mult + .5)
 end
 
 D.Scale = function(x) return Scale(x) end
@@ -114,56 +114,56 @@ local function SetTemplate(f, t, tex)
 		f.insettop:Point("TOPLEFT", f, "TOPLEFT", -1, 1)
 		f.insettop:Point("TOPRIGHT", f, "TOPRIGHT", 1, -1)
 		f.insettop:Height(1)
-		f.insettop:SetTexture(0,0,0)	
+		f.insettop:SetTexture(0, 0, 0)	
 		f.insettop:SetDrawLayer("BORDER", -7)
 		
 		f.insetbottom = f:CreateTexture(nil, "BORDER")
 		f.insetbottom:Point("BOTTOMLEFT", f, "BOTTOMLEFT", -1, -1)
 		f.insetbottom:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", 1, -1)
 		f.insetbottom:Height(1)
-		f.insetbottom:SetTexture(0,0,0)	
+		f.insetbottom:SetTexture(0, 0, 0)	
 		f.insetbottom:SetDrawLayer("BORDER", -7)
 		
 		f.insetleft = f:CreateTexture(nil, "BORDER")
 		f.insetleft:Point("TOPLEFT", f, "TOPLEFT", -1, 1)
 		f.insetleft:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 1, -1)
 		f.insetleft:Width(1)
-		f.insetleft:SetTexture(0,0,0)
+		f.insetleft:SetTexture(0, 0, 0)
 		f.insetleft:SetDrawLayer("BORDER", -7)
 		
 		f.insetright = f:CreateTexture(nil, "BORDER")
 		f.insetright:Point("TOPRIGHT", f, "TOPRIGHT", 1, 1)
 		f.insetright:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, -1)
 		f.insetright:Width(1)
-		f.insetright:SetTexture(0,0,0)	
+		f.insetright:SetTexture(0, 0, 0)	
 		f.insetright:SetDrawLayer("BORDER", -7)
 
 		f.insetinsidetop = f:CreateTexture(nil, "BORDER")
 		f.insetinsidetop:Point("TOPLEFT", f, "TOPLEFT", 1, -1)
 		f.insetinsidetop:Point("TOPRIGHT", f, "TOPRIGHT", -1, 1)
 		f.insetinsidetop:Height(1)
-		f.insetinsidetop:SetTexture(0,0,0)	
+		f.insetinsidetop:SetTexture(0, 0, 0)	
 		f.insetinsidetop:SetDrawLayer("BORDER", -7)
 		
 		f.insetinsidebottom = f:CreateTexture(nil, "BORDER")
 		f.insetinsidebottom:Point("BOTTOMLEFT", f, "BOTTOMLEFT", 1, 1)
 		f.insetinsidebottom:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", -1, 1)
 		f.insetinsidebottom:Height(1)
-		f.insetinsidebottom:SetTexture(0,0,0)	
+		f.insetinsidebottom:SetTexture(0, 0, 0)	
 		f.insetinsidebottom:SetDrawLayer("BORDER", -7)
 		
 		f.insetinsideleft = f:CreateTexture(nil, "BORDER")
 		f.insetinsideleft:Point("TOPLEFT", f, "TOPLEFT", 1, -1)
 		f.insetinsideleft:Point("BOTTOMLEFT", f, "BOTTOMLEFT", -1, 1)
 		f.insetinsideleft:Width(1)
-		f.insetinsideleft:SetTexture(0,0,0)
+		f.insetinsideleft:SetTexture(0, 0, 0)
 		f.insetinsideleft:SetDrawLayer("BORDER", -7)
 		
 		f.insetinsideright = f:CreateTexture(nil, "BORDER")
 		f.insetinsideright:Point("TOPRIGHT", f, "TOPRIGHT", -1, -1)
 		f.insetinsideright:Point("BOTTOMRIGHT", f, "BOTTOMRIGHT", 1, 1)
 		f.insetinsideright:Width(1)
-		f.insetinsideright:SetTexture(0,0,0)	
+		f.insetinsideright:SetTexture(0, 0, 0)	
 		f.insetinsideright:SetDrawLayer("BORDER", -7)
 
 		f.isInsetDone = true
@@ -187,7 +187,7 @@ local borders = {
 local function HideInsets(f)
 	for i, border in pairs(borders) do
 		if f[border] then
-			f[border]:SetTexture(0,0,0,0)
+			f[border]:SetTexture(0, 0, 0, 0)
 		end
 	end
 end
@@ -210,6 +210,16 @@ local function CreateBackdrop(f, t, tex)
 	f.backdrop = b
 end
 
+local function CreateLine(f, w, h)
+	f:SetHeight(Scale(h))
+	f:SetWidth(Scale(w))
+	f:SetFrameLevel(2)
+	f:SetFrameStrata("BACKGROUND")
+
+	f:SetBackdrop({ bgFile = C["media"].blank })
+	f:SetBackdropColor(unpack(C["media"].bordercolor))
+end
+
 local function CreateShadow(f, t)
 	if f.shadow then return end
 			
@@ -227,6 +237,18 @@ local function CreateShadow(f, t)
 	shadow:SetBackdropColor(0, 0, 0, 0)
 	shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
 	f.shadow = shadow
+end
+
+local function CreateOverlay(frame)
+	if frame.overlay then return end
+
+	local overlay = frame:CreateTexture(frame:GetName() and frame:GetName() .. "Overlay" or nil, "BORDER", frame)
+	overlay:ClearAllPoints()
+	overlay:Point("TOPLEFT", 2, -2)
+	overlay:Point("BOTTOMRIGHT", -2, 2)
+	overlay:SetTexture(C["media"].normTex)
+	overlay:SetVertexColor(0.05, 0.05, 0.05)
+	frame.overlay = overlay
 end
 
 local function Kill(object)
@@ -330,7 +352,7 @@ end
 
 local function SetModifiedBackdrop(self)
 	local color = RAID_CLASS_COLORS[D.myclass]
-	self:SetBackdropColor(color.r*.15, color.g*.15, color.b*.15)
+	self:SetBackdropColor(color.r * .15, color.g * .15, color.b * .15)
 	self:SetBackdropBorderColor(color.r, color.g, color.b)
 end
 
@@ -385,7 +407,7 @@ local function SkinIconButton(b, shrinkIcon)
 	end
 
 	if icon then
-		icon:SetTexCoord(.08,.88,.08,.88)
+		icon:SetTexCoord(.08, .88, .08, .88)
 
 		-- create a backdrop around the icon
 
@@ -640,7 +662,7 @@ local function SkinSlideBar(frame, height, movetext)
 		if(_G[frame:GetName() .. "Text"]) then _G[frame:GetName() .. "Text"]:Point("TOP", 0, 19) end
 	end
 
-	_G[frame:GetName()]:SetThumbTexture( [[Interface\AddOns\Tukui\medias\textures\blank.tga]] )
+	_G[frame:GetName()]:SetThumbTexture( [[Interface\AddOns\DuffedUI\medias\textures\blank.tga]] )
 	_G[frame:GetName()]:GetThumbTexture():SetVertexColor(unpack( C["media"].bordercolor))
 	if( frame:GetWidth() < frame:GetHeight() ) then
 		frame:Width(height)
@@ -653,11 +675,11 @@ end
 D.SkinSlideBar = SkinSlideBar -- for t14 and less addons/plugins
 
 ---------------------------------------------------
--- TUKUI API STOP HERE
+-- DuffedUI API STOP HERE
 ---------------------------------------------------
 
 ---------------------------------------------------
--- MERGE TUKUI API WITH WOW API
+-- MERGE DuffedUI API WITH WOW API
 ---------------------------------------------------
 
 local function addapi(object)
@@ -688,6 +710,8 @@ local function addapi(object)
 	if not object.SkinCloseButton then mt.SkinCloseButton = SkinCloseButton end
 	if not object.SkinSlideBar then mt.SkinSlideBar = SkinSlideBar end
 	if not object.HideInsets then mt.HideInsets = HideInsets end
+	if not object.CreateLine then mt.CreateLine = CreateLine end
+	if not object.CreateOverlay then mt.CreateOverlay = CreateOverlay end
 end
 
 local handled = {["Frame"] = true}

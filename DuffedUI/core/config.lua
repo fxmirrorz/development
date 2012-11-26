@@ -35,12 +35,12 @@ for group,options in pairs(setting) do
 				if C[group][option] == value then
 					setting[group][option] = nil	
 				else
-					count = count+1
+					count = count + 1
 					C[group][option] = value
 				end
 			end
 		end
-		-- keeps TukuiConfig clean and small
+		-- keeps DuffedUIConfig clean and small
 		if count == 0 then setting[group] = nil end
 	else
 		setting[group] = nil

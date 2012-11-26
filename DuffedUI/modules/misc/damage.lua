@@ -25,7 +25,7 @@ local function OnEvent(self, event, ...)
 			elseif eventType == "SPELL_DAMAGE" or eventType == "SPELL_PERIODIC_DAMAGE" then
 				local _, _, _, spellId, _, spellSchool, amount, _, _, _, _, _, critical = select(9, ...)
 				if eventType == "SPELL_PERIODIC_DAMAGE" then
-					if displaydot then self:AddMessage(amount, 151/255, 70/255, 194/255) end
+					if displaydot then self:AddMessage(amount, 151 / 255, 70 / 255, 194 / 255) end
 				else
 					self:AddMessage(amount, 1, 1, 0)
 				end
@@ -56,10 +56,10 @@ f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 f:SetScript("OnEvent",OnEvent)
 f:SetSize(200, 200)
 f:SetPoint("TOP", 0, -50)
-f:SetFont(C["media"].dmgfont,36,"OUTLINE")
-f:SetShadowColor(0,0,0,0)
+f:SetFont(C["media"].dmgfont, 36, "OUTLINE")
+f:SetShadowColor(0, 0, 0, 0)
 f:SetFading(true)
-f:SetFadeDuration(0.5)
+f:SetFadeDuration(.5)
 f:SetTimeVisible(1)
 f:SetMaxLines(64)
 f:SetSpacing(2)

@@ -11,8 +11,8 @@
 		A configuration guide (example) can be downloaded at:
 		(link to be updated with a new edit example)
 		
-		Don't forget to add in the .toc, in your edited Tukui 
-		(ex: GoogleUI) version: ## RequiredDeps: Tukui
+		Don't forget to add in the .toc, in your edited DuffedUI 
+		(ex: GoogleUI) version: ## RequiredDeps: DuffedUI
 
 		That's it! That's all!
 --]]
@@ -25,7 +25,7 @@ local settings = DuffedUIEditedDefaultConfig
 
 -- add our new options and update default
 for group, options in pairs(settings) do
-	-- create a new group of option if not found on Tukui
+	-- create a new group of option if not found on DuffedUI
 	if not C[group] then
 		C[group] = {}
 	end

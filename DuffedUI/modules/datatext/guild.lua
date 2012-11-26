@@ -9,7 +9,7 @@ local Stat = CreateFrame("Frame", "DuffedUIStatGuild")
 Stat:EnableMouse(true)
 Stat:SetFrameStrata("BACKGROUND")
 Stat:SetFrameLevel(3)
-Stat.Option = C.datatext.guild
+Stat.Option = C["datatext"].guild
 Stat.update = false
 Stat.Color1 = D.RGBToHex(unpack(C["media"].datatextcolor1))
 Stat.Color2 = D.RGBToHex(unpack(C["media"].datatextcolor2))

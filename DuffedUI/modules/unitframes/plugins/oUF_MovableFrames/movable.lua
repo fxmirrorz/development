@@ -1,6 +1,6 @@
 local D, C, L, G = unpack(select(2, ...)) 
 
-if C.unitframes.enable ~= true then return end
+if C["unitframes"].enable ~= true then return end
 
 local _NAME, _NS = ...
 local oUF = _NS.oUF or oUF
@@ -455,16 +455,16 @@ do
 		backdrop:EnableMouse(true)
 		backdrop:SetMovable(true)
 		backdrop:SetResizable(true)
-		backdrop:RegisterForDrag"LeftButton"
+		backdrop:RegisterForDrag("LeftButton")
 
 		local name = backdrop:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-		name:SetPoint"CENTER"
-		name:SetJustifyH"CENTER"
+		name:SetPoint("CENTER")
+		name:SetJustifyH("CENTER")
 		name:SetFont(C["media"].uffont, 12)
 		name:SetTextColor(1, 1, 1)
 
 		local scale = CreateFrame('Button', nil, backdrop)
-		scale:SetPoint'BOTTOMRIGHT'
+		scale:SetPoint('BOTTOMRIGHT')
 		scale:SetSize(16, 16)
 
 		scale:SetNormalTexture[[Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up]]

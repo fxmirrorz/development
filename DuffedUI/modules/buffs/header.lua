@@ -1,6 +1,6 @@
 local D, C, L, G = unpack(select(2, ...))
 
-if not C.auras.player then return end
+if not C["auras"].player then return end
 
 local frame = DuffedUIAuras
 local content = DuffedUIAuras.content
@@ -16,10 +16,10 @@ for _, frame in next, {
 	if D.lowversion then
 		wrap = 8
 	else
-		wrap = 12
+		wrap = 20
 	end
 	
-	if(frame == "DuffedUIAurasPlayerConsolidate") then
+	if frame == "DuffedUIAurasPlayerConsolidate" then
 		header = CreateFrame("Frame", frame, DuffedUIPetBattleHider, "SecureFrameTemplate")
 		header:SetAttribute("wrapAfter", 1)
 		header:SetAttribute("wrapYOffset", -35)
@@ -29,11 +29,11 @@ for _, frame in next, {
 		header:SetMovable(true)
 		header:SetAttribute("minHeight", 30)
 		header:SetAttribute("wrapAfter", wrap)
-		header:SetAttribute("wrapYOffset", -67.5)
+		header:SetAttribute("wrapYOffset", -50)
 		header:SetAttribute("xOffset", -35)
 		header:CreateBackdrop()
-		header.backdrop:SetBackdropBorderColor(1,0,0)
-		header.backdrop:FontString("text", C.media.uffont, 12)
+		header.backdrop:SetBackdropBorderColor(1, 0, 0)
+		header.backdrop:FontString("text", C["media"].uffont, 12)
 		header.backdrop.text:SetPoint("CENTER")
 		header.backdrop.text:SetText(L.move_buffs)
 		header.backdrop:SetAlpha(0)
@@ -57,12 +57,12 @@ local consolidate = DuffedUIAurasPlayerConsolidate
 G.Auras.Consolidate = consolidate
 
 local filter = 0
-if C.auras.consolidate then
+if C["auras"].consolidate then
 	filter = 1
 end
 
 -- set our buff header
-buffs:SetPoint("TOPRIGHT", UIParent, -184, -22)
+buffs:SetPoint("TOPRIGHT", Minimap, "TOPLEFT", -6, 2)
 buffs:SetAttribute("filter", "HELPFUL")
 buffs:SetAttribute("consolidateProxy", CreateFrame("Frame", buffs:GetName() .. "ProxyButton", buffs, "DuffedUIAurasProxyTemplate"))
 buffs:SetAttribute("consolidateHeader", consolidate)
@@ -114,9 +114,10 @@ consolidate:Hide()
 SecureHandlerSetFrameRef(proxy, "header", consolidate)
 
 -- set our debuff header
-debuffs:SetPoint("TOP", buffs, "BOTTOM", 0, -84)
+debuffs:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6, -1)
 debuffs:SetAttribute("filter", "HARMFUL")
 debuffs:Show()
+tinsert(D.AllowFrameMoving, DuffedUIAurasPlayerDebuffs)
 
 ---------------------------------------------------------
 -- WORKAROUND FIX FOR BUGGED SECURE AURA HEADER ON 4.3
@@ -133,7 +134,7 @@ local function WorkAround(self, event, unit)
 	while true do
 		local name, _, _, _, _, _, _, _, _, consolidate = UnitAura("player", i + 1)
 		if not name then break end
-		if not consolidate or not C.auras.consolidate then
+		if not consolidate or not C["auras"].consolidate then
 			num = num + 1
 		else
 			count = count + 1

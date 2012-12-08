@@ -28,9 +28,11 @@ local function LoadSkin()
 	MountJournal.MountDisplay.ModelFrame.RotateRightButton:SkinCloseButton()
 	MountJournal.MountDisplay.ModelFrame.RotateLeftButton.t:SetText("<")
 	MountJournal.MountDisplay.ModelFrame.RotateRightButton.t:SetText(">")
+	MountJournalSearchBox:SkinEditBox()
 	
 	for i = 1, #MountJournal.ListScrollFrame.buttons do
 		local b = _G["MountJournalListScrollFrameButton"..i]
+		local z = _G["PetJournalListScrollFrameButton"..i.."LevelBG"]
 		if not b.isSkinned then
 			-- reskin mounts icons
 			b:StripTextures()
@@ -49,6 +51,7 @@ local function LoadSkin()
 			b.backdrop:Point("BOTTOMRIGHT", b.icon, 2, -2)
 			b.backdrop:SetBackdropColor(0, 0, 0, 0)
 			
+			z:SetTexture(nil)
 			b.isSkinned = true
 		end
 	end
@@ -219,7 +222,7 @@ local function LoadSkin()
 	PetJournalTutorialButton:ClearAllPoints()
 	PetJournalTutorialButton:SetPoint("TOPLEFT", PetJournalParent, 0, 0)
 
-	PetJournalPetCardPetInfo.levelBG:Kill()
+	PetJournalPetCardPetInfo.levelBG:SetTexture(nil)
 	PetJournalPetCardPetInfoIcon:SetTexCoord(.1,.9,.1,.9)
 	PetJournalPetCardPetInfo:CreateBackdrop()
 	PetJournalPetCardPetInfo.backdrop:SetOutside(PetJournalPetCardPetInfoIcon)

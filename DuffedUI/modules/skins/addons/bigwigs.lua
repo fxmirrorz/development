@@ -175,6 +175,23 @@ local function registerStyle()
 	end
 end
 
+--[[f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(self, event, addon)
+	--if IsAddOnLoaded("Tukui_BigWigs") then return end
+	if addon == "BigWigs_Plugins" then
+		registerStyle()
+		local profile = BigWigs3DB["profileKeys"][D.myname.." - "..D.myrealm]
+		local path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Bars"]["profiles"][profile]
+		path.texture = C["media"].normTex
+		path.barStyle = "DuffedUI"
+		path.font = C["media"].font
+		
+		path = BigWigs3DB["namespaces"]["BigWigs_Plugins_Proximity"]["profiles"][profile]
+		path.font = C["media"].font
+		
+		self:UnregisterEvent("ADDON_LOADED")
+	end
+end)]]--
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(self, event, msg)
 	if event == "ADDON_LOADED" then

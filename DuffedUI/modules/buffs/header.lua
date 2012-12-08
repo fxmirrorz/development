@@ -16,7 +16,7 @@ for _, frame in next, {
 	if D.lowversion then
 		wrap = 8
 	else
-		wrap = 20
+		wrap = C["auras"].wrap
 	end
 	
 	if frame == "DuffedUIAurasPlayerConsolidate" then
@@ -114,7 +114,7 @@ consolidate:Hide()
 SecureHandlerSetFrameRef(proxy, "header", consolidate)
 
 -- set our debuff header
-debuffs:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6, -1)
+debuffs:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMLEFT", -6, -3)
 debuffs:SetAttribute("filter", "HARMFUL")
 debuffs:Show()
 tinsert(D.AllowFrameMoving, DuffedUIAurasPlayerDebuffs)

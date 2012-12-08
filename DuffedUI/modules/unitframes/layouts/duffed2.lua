@@ -96,16 +96,12 @@ local function Shared(self, unit)
 		
 		if C["unitframes"].percent then
 			local percHP
-			if C["general"].normalfont then
-				percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
-			else
-				percHP = D.SetFontString(health, C["media"].pixelfont, 20, "MONOCHROMEOUTLINE")
-			end
+			percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
 			percHP:SetTextColor(unpack(C["media"].datatextcolor1))
 			if unit == "player" then
-                percHP:SetPoint("LEFT", health, "RIGHT", 5, 0)
+                percHP:SetPoint("LEFT", health, "RIGHT", 20, 0)
 			elseif unit == "target" then
-				percHP:SetPoint("RIGHT", health, "LEFT", -5, 0)
+				percHP:SetPoint("RIGHT", health, "LEFT", -20, 0)
 			end
 			self:Tag(percHP, "[DuffedUI:perchp]")
 			self.percHP = percHP
@@ -210,7 +206,6 @@ local function Shared(self, unit)
 				
 				if C["unitframes"].portraitstyle == "MODEL" then	
 					local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pf)
-					portrait:SetFrameLevel(8)
 					portrait:Size(39)
 					portrait:Point("TOPLEFT", 0, 0)
 					portrait:Point("BOTTOMRIGHT", 0, 0)
@@ -230,34 +225,42 @@ local function Shared(self, unit)
 				-- Portrait Border
 				pf:CreateBackdrop()
 			else
-				portrait = self:CreateTexture(nil, "ARTWORK")
-				portrait:SetPoint("CENTER")
-				portrait:SetPoint("CENTER")
-				portrait:Size(39)
-				portrait:SetTexCoord(0.1,0.9,0.1,0.9)
+				local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(42)
 				if unit == "player" then
-					portrait:SetPoint("BOTTOMRIGHT", panel, "BOTTOMLEFT", -4, 2)
-				elseif unit == "target" then
-					portrait:SetPoint("BOTTOMLEFT", panel, "BOTTOMRIGHT", 4, 2)
+					pb:Point("BOTTOMLEFT", panel, "BOTTOMLEFT", -45, 0)
+				else
+					pb:Point("BOTTOMRIGHT", panel, "BOTTOMRIGHT", 45, 0)
 				end
 
-				-- Portrait Border
-				portrait:CreateBackdrop()
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
 				self.Portrait = portrait
 			end
 			
-			local AuraTracker = CreateFrame("Frame")
-			self.AuraTracker = AuraTracker
+			local AuraTracker = CreateFrame("Frame", nil, self)
+			AuraTracker:Size(45)
+			if unit == "player" then
+				AuraTracker:Point("BOTTOMRIGHT", pf, "BOTTOMLEFT", -2, -3)
+			else
+				AuraTracker:Point("BOTTOMLEFT", pf, "BOTTOMRIGHT", 2, -3)
+			end
 			
-			AuraTracker.icon = pf:CreateTexture(nil, "OVERLAY")
+			AuraTracker.icon = AuraTracker:CreateTexture(nil, "OVERLAY")
 			AuraTracker.icon:Point("TOPLEFT", 2, -2)
 			AuraTracker.icon:Point("BOTTOMRIGHT", -2, 2)
 			AuraTracker.icon:SetTexCoord(0.07,0.93,0.07,0.93)
 			
-			AuraTracker.text = D.SetFontString(pf, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
-			AuraTracker.text:SetPoint("CENTER")
+			AuraTracker.text = D.SetFontString(AuraTracker, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
+			AuraTracker.text:SetPoint("CENTER", AuraTracker, 0, 0)
 			AuraTracker:SetScript("OnUpdate", updateAuraTrackerTime)
+			
+			self.AuraTracker = AuraTracker
 		end
 		
 		if D.myclass == "PRIEST" and C["unitframes"].weakenedsoulbar then
@@ -369,8 +372,8 @@ local function Shared(self, unit)
 				Experience:SetStatusBarColor(0, 0.4, 1, .8)
 				Experience:SetBackdrop(backdrop)
 				Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Experience:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Experience:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Experience:SetFrameLevel(2)
 				Experience.Tooltip = true						
 				Experience.Rested = CreateFrame("StatusBar", nil, self)
@@ -397,8 +400,8 @@ local function Shared(self, unit)
 				Reputation:SetStatusBarTexture(normTex)
 				Reputation:SetBackdrop(backdrop)
 				Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Reputation:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Reputation:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Reputation:SetFrameLevel(2)
 				
 				-- border for the Reputation bar
@@ -1382,31 +1385,33 @@ local function Shared(self, unit)
 				
 				-- Portrait Border
 				pf:CreateBackdrop()
-			else
-				portrait = self:CreateTexture(nil, "ARTWORK")
-				portrait:SetPoint("CENTER")
-				portrait:SetPoint("CENTER")
-				portrait:SetHeight(39)
-				portrait:SetTexCoord(0.1,0.9,0.1,0.9)
-				portrait:SetPoint("BOTTOMRIGHT", panel, "BOTTOMLEFT", -4, 2)
 
-				-- Portrait Border
-				portrait:CreateBackdrop()
+				local AuraTracker = CreateFrame("Frame", nil, self)
+				AuraTracker:Size(45)
+				AuraTracker:Point("BOTTOMRIGHT", pf, "BOTTOMLEFT", -2, -3)
+				
+				AuraTracker.icon = AuraTracker:CreateTexture(nil, "OVERLAY")
+				AuraTracker.icon:Point("TOPLEFT", 2, -2)
+				AuraTracker.icon:Point("BOTTOMRIGHT", -2, 2)
+				AuraTracker.icon:SetTexCoord(0.07,0.93,0.07,0.93)
+				
+				AuraTracker.text = D.SetFontString(AuraTracker, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
+				AuraTracker.text:SetPoint("CENTER", AuraTracker, 0, 0)
+				AuraTracker:SetScript("OnUpdate", updateAuraTrackerTime)
+			else
+				local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(40)
+				pb:Point("BOTTOMLEFT", panel, "BOTTOMLEFT", -43, 0)
+
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
 				self.Portrait = portrait
 			end
-			
-			local AuraTracker = CreateFrame("Frame")
-			self.AuraTracker = AuraTracker
-			
-			AuraTracker.icon = pf:CreateTexture(nil, "OVERLAY")
-			AuraTracker.icon:Point("TOPLEFT", 2, -2)
-			AuraTracker.icon:Point("BOTTOMRIGHT", -2, 2)
-			AuraTracker.icon:SetTexCoord(0.07,0.93,0.07,0.93)
-			
-			AuraTracker.text = D.SetFontString(pf, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
-			AuraTracker.text:SetPoint("CENTER")
-			AuraTracker:SetScript("OnUpdate", updateAuraTrackerTime)
 		end
 	end
 	

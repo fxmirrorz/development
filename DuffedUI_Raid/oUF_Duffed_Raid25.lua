@@ -123,6 +123,19 @@ local function Shared(self, unit)
 	ReadyCheck:SetPoint('CENTER')
 	self.ReadyCheck = ReadyCheck
 	
+	local leader = self.Health:CreateTexture(nil, "OVERLAY")
+	leader:Height(12 * D.raidscale)
+	leader:Width(12 * D.raidscale)
+	leader:SetPoint("TOPLEFT", 0, 8)
+	self.Leader = leader
+	
+	local MasterLooter = self.Health:CreateTexture(nil, "OVERLAY")
+	MasterLooter:Height(12 * D.raidscale)
+	MasterLooter:Width(12 * D.raidscale)
+	self.MasterLooter = MasterLooter
+	self:RegisterEvent("PARTY_LEADER_CHANGED", D.MLAnchorUpdate)
+	self:RegisterEvent("PARTY_MEMBERS_CHANGED", D.MLAnchorUpdate)
+	
 	self.DebuffHighlightAlpha = 1
 	self.DebuffHighlightBackdrop = false
 	self.DebuffHighlightFilter = true

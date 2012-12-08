@@ -2,7 +2,7 @@ local D, C, L, G = unpack(select(2, ...))
 
 if D.client == "zhTW" then
 	L.UI_Outdated = "DuffedUI 版本已過期，請至 www.tukui.org 下載最新版"
-	L.UI_Talent_Change_Bug = "A blizzard bug has occured which is preventing you from changing your talents, this happen when you've inspected someone. Unfortunatly there is nothing we can do in this WoW Patch to fix it, please reload your ui and try again."
+	L.UI_Talent_Change_Bug = "一個由暴雪產生的故障已阻止你改變你當前的天賦,這發生在你使用觀察功能查看其他玩家角色裝備時.不幸的是在這個魔獸補丁中我們對修正它無能為力,請/reload你的Ui程式介面並且再次嘗試."
 	
 	-- helpframe 
 	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - 帮助" 
@@ -28,11 +28,11 @@ if D.client == "zhTW" then
 	L.Duffed_HELP_CONTENT9_LINE3 = "另外由衷感謝我的Beta版測試者:" 
 	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transform, Optional, Pixelfcuk, Shera, lefirez, jones7 和所有其他的測試者:)" 
 
-	L.Duffed_HELP_CONTENT8_TITLE = "內容準備中"  --內容準備中 
-	L.Duffed_HELP_CONTENT8_LINE1 = "" 
-	L.Duffed_HELP_CONTENT8_LINE2 = "" 
-	L.Duffed_HELP_CONTENT8_LINE3 = "" 
-	L.Duffed_HELP_CONTENT8_LINE4 = "" 
+	L.Duffed_HELP_CONTENT8_TITLE = "已知問題"
+	L.Duffed_HELP_CONTENT8_LINE1 = ""
+	L.Duffed_HELP_CONTENT8_LINE2 = "這裏你將找到一個DuffedUi已知問題的列表"
+	L.Duffed_HELP_CONTENT8_LINE3 = "問題:"
+	L.Duffed_HELP_CONTENT8_LINE4 = "- 裝備等級在人物角色面板顯示錯誤(由5.1補丁更新系統函數引起) \n- 滑鼠提示他人裝備等級估算錯誤."
 
 	L.Duffed_HELP_CONTENT7_TITLE = "內容準備中"   --內容準備中 
 	L.Duffed_HELP_CONTENT7_LINE1 = "" 
@@ -46,17 +46,17 @@ if D.client == "zhTW" then
 	L.Duffed_HELP_CONTENT6_LINE3 = "" 
 	L.Duffed_HELP_CONTENT6_LINE4 = "" 
 
-	L.Duffed_HELP_CONTENT5_TITLE = "內容準備中" 
-	L.Duffed_HELP_CONTENT5_LINE1 = "" 
-	L.Duffed_HELP_CONTENT5_LINE2 = "" 
-	L.Duffed_HELP_CONTENT5_LINE3 = "" 
-	L.Duffed_HELP_CONTENT5_LINE4 = "" 
+	L.Duffed_HELP_CONTENT5_TITLE = "iCD / sCD控件"
+	L.Duffed_HELP_CONTENT5_LINE1 = ""
+	L.Duffed_HELP_CONTENT5_LINE2 = "什麼是iCD和sCD設定?兩個名稱的意義都是<物品冷卻>(iCD)和<技能冷卻>(sCD)的縮寫.."
+	L.Duffed_HELP_CONTENT5_LINE3 = "使用<物品冷卻>將會啟用一個非常強力的插件功能,顯示你物品CD結束的脈衝動畫.這個脈衝效果將出現在你的螢幕中部."
+	L.Duffed_HELP_CONTENT5_LINE4 = "使用<技能冷卻>將會啟用一個非常強力的插件功能,顯示你重要技能的CD結束.這兩個插件功能使用技能白名單過濾,如果有需要添加的監視技能,請將技能的SpellID告訴我,我會後續添加."
 
-	L.Duffed_HELP_CONTENT4_TITLE = "Actionbars"
+	L.Duffed_HELP_CONTENT4_TITLE = "動作條"
 	L.Duffed_HELP_CONTENT4_LINE1 = ""
-	L.Duffed_HELP_CONTENT4_LINE2 = "In DuffedUI you have three different layouts for your actionbars. The layouts are:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
-	L.Duffed_HELP_CONTENT4_LINE3 = "For the layout with 2x12 bottombars you have to set the layout to 2 in the ingameConfig. The third layout can you activate if you set the option Enable lowres-layout on highres in the ingameConfig. Every layout has an button to hide one of the bottombars. Only the default layout has no one if the actionbarswap is active."
-	L.Duffed_HELP_CONTENT4_LINE4 = "If you have suggestions or problems with the layouts please use the forum." 
+	L.Duffed_HELP_CONTENT4_LINE2 = "在DuffedUi中,你將擁有3種不同的動作條佈局模式.模式為:\n\n1x24 & 1x12 底部動作條 and 2x12 右邊動作條\nx12 底部動作條, 2x6 分割動作條, 2x12 右邊動作條\n3x12 底部動作條, 2x12 右邊動作條"
+	L.Duffed_HELP_CONTENT4_LINE3 = "如果要使用 2x12 底部動作條佈局模式,你必須在遊戲內Tukui設置中設定//動作條佈局//模式為 2 . 第三種3x12佈局模式需要你在一般設定中去掉勾選//使用高解析度設定於低解析度//選項（目前這個佈局有bug,不推薦使用).每種佈局都有一個隱藏按鈕在底部動作條下(或者在左下方聊天框右下角).若你開啟了動作條1與動作條3互換位置的選項,在底部將缺少隱藏按鈕+號設置."
+	L.Duffed_HELP_CONTENT4_LINE4 = "如果你有這些佈局的建議或者問題請使用論壇反饋給我." 
 
 	L.Duffed_HELP_CONTENT3_TITLE = "特殊按鈕" 
 	L.Duffed_HELP_CONTENT3_LINE1 = "位於小地圖下方的一排按鈕將有各自獨立的功能." 
@@ -72,12 +72,12 @@ if D.client == "zhTW" then
 
 	L.Duffed_HELP_CONTENT1_TITLE = "快速指令" 
 	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => 打開這個幫助面板\n/resetui => 重置插件的所有描點位置為原狀\n/install => 重新安裝所有Duffed設置(當你的聊天框或者某個功能出現問題時)" 
-	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => 移動所有界面元素(頭像,任務追踪)\n/kb => 滑鼠,鼠標移動到動作條上進行熱鍵綁定\n/rl => 重載UI" 
-	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切換到治療佈局\n/dps => 切換到Dps佈局\n/tc => 打開Tukui遊戲內置控制台\n/ddbm apply => 應用特殊的 DBM-Skin(皮膚)" 
-	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 應用特殊的 BigWigs-Skin(皮膚)\n/am => 打開 Addonmanager(內置插件管理器)\n/version => 顯示插件版本號" 
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mduffedui => 移動所有界面元素(頭像,任務追踪)\n/kb => 滑鼠,鼠標移動到動作條上進行熱鍵綁定\n/rl => 重載UI" 
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切換到治療佈局\n/dps => 切換到Dps佈局\n/dc => 打開Tukui遊戲內置控制台\n/ddbm apply => 應用特殊的 DBM-Skin(皮膚)" 
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 應用特殊的 BigWigs-Skin(皮膚)\n/am => 打開 Addonmanager(內置插件管理器)\n/version => 顯示插件版本號\n/farmmode => Enable the farmmode" 
 	
-	L.chat_BATTLEGROUND_GET = "戰場"
-	L.chat_BATTLEGROUND_LEADER_GET = "戰場領袖"
+	L.chat_INSTANCE_CHAT = "I"
+	L.chat_INSTANCE_CHAT_LEADER = "IL"
 	L.chat_BN_WHISPER_GET = "密語"
 	L.chat_GUILD_GET = "公"
 	L.chat_OFFICER_GET = "官"
@@ -245,8 +245,8 @@ if D.client == "zhTW" then
 	
 	L.loot_fish = "漁獲"
 	L.loot_empty = "無戰利品"
-	L.loot_randomplayer = "Random Player"
-	L.loot_self = "Self Loot"
+	L.loot_randomplayer = "隨機隊伍玩家"
+	L.loot_self = "自我獲取"
  
 	L.chat_invalidtarget = "無效的目標"
  

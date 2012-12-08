@@ -2,8 +2,6 @@ local D, C, L, G = unpack(select(2, ...))
 
 local function LoadSkin()
 	EncounterJournal:StripTextures(true)
-	EncounterJournal:SetTemplate("Transparent")
-	EncounterJournal:CreateShadow("Default")
 	
 	EncounterJournal.backdrop = EncounterJournal:CreateTexture(nil, "BACKGROUND")
 	EncounterJournal.backdrop:SetDrawLayer("BACKGROUND", -7)

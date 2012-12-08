@@ -1,6 +1,6 @@
 local D, C, L, G = unpack(select(2, ...))
 
---[[if C["icd"].enable ~= true then return end
+if C["icd"].enable ~= true then return end
 
 D.ignoredspells = {
 	--GetSpellInfo(779),	-- Swipe
@@ -19,7 +19,14 @@ dicdAnchor:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 
 local dicd = CreateFrame("Frame")
 dicd:SetScript("OnEvent", function(self, event, ...) self[event](self, ...) end)
-dicd:CreateBackdrop("Transparent")
+dicd:SetBackdrop({
+	bgFile = C["media"].blank,
+	edgeFile = C["media"].blank,
+	tile = false, tileSize = 0, edgeSize = noscalemult,
+	insets = {left = -noscalemult, right = -noscalemult, top = -noscalemult, bottom = -noscalemult}
+})
+dicd:SetBackdropBorderColor(unpack(C["media"].bordercolor))
+dicd:SetBackdropColor(unpack(C["media"].backdropcolor))
 
 local dicdT = dicd:CreateTexture(nil, "ARTWORK")
 dicdT:SetTexCoord(0.1, 0.9, 0.1, 0.9)
@@ -189,4 +196,4 @@ SlashCmdList.PulseCD = function()
 	tinsert(animating, {"Interface\\Icons\\Inv_Misc_Tournaments_Banner_Human"})
 	dicd:SetScript("OnUpdate", OnUpdate)
 end
-SLASH_PulseCD1 = "/icd"]]--
+SLASH_PulseCD1 = "/icd"

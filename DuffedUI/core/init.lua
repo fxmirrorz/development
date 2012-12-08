@@ -86,6 +86,7 @@ D.Credits = {
 	"Haste",
 	"Hydra",
 	"Elv",
+	"Tukz",
 }
 
 D.DuffedCredits = {
@@ -94,7 +95,9 @@ D.DuffedCredits = {
 	"Pixelfcuk",
 	"Shera",
 	"lefirez",
+	"PATix",
 	"macgee",
+	"Roglash",
 	"loveran",
 	"transform",
 	"Kanestorm",
@@ -104,3 +107,5 @@ D.DuffedCredits = {
 	"Trisha",
 	"Zenglao",
 }
+
+ERR_NOT_IN_RAID = "";

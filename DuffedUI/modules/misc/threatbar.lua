@@ -1,5 +1,5 @@
 local D, C, L, G = unpack(select(2, ...))
-if not DuffedUIInfoRight or not oUFDuffedUI then return end
+if IsAddOnLoaded("Omen") or not DuffedUIInfoRight or not oUFDuffedUI then return end
 
 local aggroColors = {
 	[1] = {12 / 255, 151 / 255,  15 / 255},

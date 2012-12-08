@@ -121,26 +121,27 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(108194), -- Asphyxiate
 		},
 		player = {
-			CreateSpellEntry(59052), -- Freezing Fog +
-			CreateSpellEntry(51124), -- Killing Machine +
-			CreateSpellEntry(49016), -- Unholy Frenzy +
-			CreateSpellEntry(57330), -- Horn of Winter +
-			CreateSpellEntry(55233), -- Vampiric Blood +
-			CreateSpellEntry(114851), -- Blood Charge +
-			CreateSpellEntry(91342), -- Shadow Infusion +
-			CreateSpellEntry(49222), -- Bone sheild +
-			CreateSpellEntry(48792), -- Ice Bound Fortitude +
+			CreateSpellEntry(59052), -- Freezing Fog
+			CreateSpellEntry(51124), -- Killing Machine
+			CreateSpellEntry(49016), -- Unholy Frenzy
+			CreateSpellEntry(57330), -- Horn of Winter
+			CreateSpellEntry(55233), -- Vampiric Blood
+			CreateSpellEntry(114851), -- Blood Charge
+			CreateSpellEntry(91342), -- Shadow Infusion
+			CreateSpellEntry(49222), -- Bone sheild
+			CreateSpellEntry(48792), -- Ice Bound Fortitude
 			CreateSpellEntry(49028), -- Dancing Rune Weapon
-			CreateSpellEntry(51271), -- Pillar of Frost +
-			CreateSpellEntry(48707), -- Anti-Magic Shell +
-			CreateSpellEntry(115989), -- Unholy Blight +
-			CreateSpellEntry(108200), -- Remorseless Winter +
+			CreateSpellEntry(51271), -- Pillar of Frost
+			CreateSpellEntry(48707), -- Anti-Magic Shell
+			CreateSpellEntry(115989), -- Unholy Blight
+			CreateSpellEntry(108200), -- Remorseless Winter
+			CreateSpellEntry(51460), -- Runic Corruption
 		},
 		procs = {
-			CreateSpellEntry(53365), -- Unholy Strength +
-			CreateSpellEntry(77535), -- Blood Shield +
-			CreateSpellEntry(81340), -- Sudden Doom +
-			CreateSpellEntry(50421), -- Scent of Blood+
+			CreateSpellEntry(53365), -- Unholy Strength
+			CreateSpellEntry(77535), -- Blood Shield
+			CreateSpellEntry(81340), -- Sudden Doom
+			CreateSpellEntry(50421), -- Scent of Blood
 		}		
 	},
 	DRUID = { 
@@ -186,6 +187,8 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(16870), -- Clearcasting
 			CreateSpellEntry(127538), -- Savage Roar
 			CreateSpellEntry(108381), -- Dream of Cenarius
+			CreateSpellEntry(124974), -- Nature's Vigil
+			CreateSpellEntry(112071), -- Celestial Alignment
 		},
 		procs = {
 			CreateSpellEntry(48518), -- Eclipse Lunar
@@ -354,6 +357,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(84747), -- Deep Insight 
 			CreateSpellEntry(121471), -- Shadow Blades
 			CreateSpellEntry(74001), -- Combat Readiness
+			CreateSpellEntry(84617), -- Revealing Strike
 		},
 		procs = {
 			CreateSpellEntry(13877), -- Blade Flurry
@@ -371,13 +375,15 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(16166), -- Elemental Mastery
 			CreateSpellEntry(77661), -- Searing Flame
 		},
-			player = {
+		player = {
 			CreateSpellEntry(324), -- Lightning Shield
 			CreateSpellEntry(52127), -- Water Shield
 			CreateSpellEntry(974), -- Earth Shield
 			CreateSpellEntry(30823), -- Shamanistic Rage
 			CreateSpellEntry(61295), -- Riptide
 			CreateSpellEntry(53390), -- Tidal Waves Rank 1/2/3
+			CreateSpellEntry(79206), -- Spiritwalker's Grace
+			CreateSpellEntry(114049), -- Ascendance
 		},
 		procs = {
 			CreateSpellEntry(53817), -- Maelstrom Weapon
@@ -405,6 +411,7 @@ local CLASS_FILTERS = {
 			CreateSpellEntry(5484), -- Howl of Terror
 			CreateSpellEntry(74434), -- Soulburn
 			CreateSpellEntry(17962), -- Conflagrate
+			CreateSpellEntry(108686), -- Immolate (Area)
 		},
 		player = {
 			CreateSpellEntry(17941), -- Shadow Trance
@@ -1081,7 +1088,7 @@ if C["unitframes"].layout == 1 then
 	end
 	playerFrame:Point( "BOTTOMRIGHT", DuffedUIPlayer, "TOPRIGHT", 0, yOffset )
 elseif C["unitframes"].layout == 2 then
-	if D.myclass == "WARLOCK" or D.myclass == "DEATHKNIGHT" or D.myclass == "SHAMAN" or D.myclass == "MONK" or DuffedUIArcaneBar then
+	if D.myclass == "WARLOCK" or D.myclass == "DEATHKNIGHT" or D.myclass == "SHAMAN" or D.myclass == "MONK" or D.myclass == "PALADIN" or DuffedUIArcaneBar then
 		playerFrame:Point("BOTTOMLEFT", DuffedUIPlayer, "TOPLEFT", 2, 12)
 		playerFrame:Point("BOTTOMRIGHT", DuffedUIPlayer, "TOPRIGHT", -2, 12)
 	--[[elseif DuffedUIArcaneBar:IsShown() then

@@ -32,6 +32,7 @@ C["unitframes"] = {
 	["vengeancebar"] = false,									-- enable vengeancebar
 	["powerClasscolored"] = true,								-- enable classcolored power
 	["sComboenable"] = true,									-- enable combopoint display
+	["sComboenergybar"] = true,									-- enable energy bar for sCombo
 	["enemyhcolor"] = false,                            		-- enemy target (players) color by hostility, very useful for healer.
 	["auratimer"] = true,                               		-- enable timers on buffs/debuffs
 	["auratextscale"] = 11,                             		-- the font size of buffs/debuffs timers on unitframes
@@ -44,7 +45,7 @@ C["unitframes"] = {
 	["charportrait"] = true,	                           		-- do i really need to explain this?
 	["maintank"] = false,                               		-- enable maintank
 	["mainassist"] = false,     		                        -- enable mainassist
-	["unicolor"] = false,               		                -- enable unicolor theme
+	["unicolor"] = true,               		                	-- enable unicolor theme
 	["combatfeedback"] = true,                  		        -- enable combattext on player and target.
 	["playeraggro"] = true,                             		-- color player border to red if you have aggro on current target.
 	["healcomm"] = false,     		                        	-- enable healprediction support.
@@ -52,6 +53,7 @@ C["unitframes"] = {
 	["showfocustarget"] = true,             		            -- show focus target
 	["showstatuebar"] = true,                       		    -- show statue bar (Dependencies: class bar option)
 	["bordercolor"] = { .4, .4, .4 },                  			-- unit frames panel border color
+	["focusdebuffs"] = true,									-- enable focus debuffs
 
 	-- raid layout (if one of them is enabled)
 	["showrange"] = true,                               		-- show range opacity on raidframes
@@ -59,7 +61,7 @@ C["unitframes"] = {
 	["showsymbols"] = true,	                            		-- show symbol.
 	["aggro"] = true,                                   		-- show aggro on all raids layouts
 	["raidunitdebuffwatch"] = true,                     		-- track important spell to watch in pve for grid mode.
-	["gridhealthvertical"] = true,                     			-- enable vertical grow on health bar for grid mode.
+	["gridhealthvertical"] = false,                    			-- enable vertical grow on health bar for grid mode.
 	["gridscale"] = 1,                                  		-- set the healing grid scaling
 	["gridvertical"] = true,                            		-- grid group displayed vertically
 	["showraidpets"] = true,                            		-- show pets in raid unit frames
@@ -91,7 +93,7 @@ C["skins"] = {
 	["dbm"] = true,												-- enable dbm skin
 	["omen"] = true,											-- enable omen skin
 	["tinydps"] = true,											-- enable tinyDPS skin
-	["recount"] = true,
+	["calendarevent"] = false,									-- disable calendar event textures
 }
 
 C["classtimer"] = {
@@ -118,6 +120,7 @@ C["auras"] = {
 	["bufftracker"] = true,										-- enable bufftracker
 	["buffnotice"] = true,										-- enable buffnotice
 	["warning"] = true,											-- enable warning sound
+	["wrap"] = 18,												-- set wrap of buffs
 }
 
 C["actionbar"] = {
@@ -160,6 +163,7 @@ C["misc"] = {
 	["combatanimation"] = true,									-- enable combat animation
 	["flightpoint"] = true,										-- enable flightpoint list
 	["ilvlcharacter"] = true,									-- enable itemlevel display on charscreen
+	["loc"] = true,												-- disable loss of control
 }
 
 C["duffed"] = {

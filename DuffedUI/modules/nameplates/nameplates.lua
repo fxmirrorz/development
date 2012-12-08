@@ -143,6 +143,12 @@ local function CreateAuraIcon(parent)
 	button.count:SetShadowOffset(1.25, -1.25)
 	button.count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0, 0)
 
+	--[[if button:GetEffectiveScale() < 0.9 then
+		while button:GetEffectiveScale() < 1 do
+			button:SetScale(button:GetScale() + 0.01)
+		end
+	end]]--
+
 	return button
 end
 
@@ -246,6 +252,8 @@ end
 
 local function OnHide(frame)
 	frame.hp:SetStatusBarColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
+	frame.hp.name:SetTextColor(1, 1, 1)
+	frame.hp:SetScale(1)
 	frame.overlay:Hide()
 	frame.cb:Hide()
 	frame.unit = nil
@@ -316,14 +324,16 @@ local function UpdateObjects(frame)
 	frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor = frame.hp:GetStatusBarColor()
 	frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.25)
 	SetVirtualBorder(frame.hp, unpack(C["media"].bordercolor))
-	if C["nameplate"].enhancethreat == true then
-		frame.hp.name:SetTextColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
-	end
-
+	
 	if C["nameplate"].nameabbrev == true and C["nameplate"].debuffs ~= true then
 		frame.hp.name:SetText(Abbrev(frame.hp.oldname:GetText()))
 	else
 		frame.hp.name:SetText(frame.hp.oldname:GetText())
+	end
+
+	-- why the fuck does blizzard rescale "useless" npc nameplate to 0.4, its really hard to read ...
+	while frame.hp:GetEffectiveScale() < 1 do
+		frame.hp:SetScale(frame.hp:GetScale() + 0.01)
 	end
 
 	local level, elite, mylevel = tonumber(frame.hp.oldlevel:GetText()), frame.hp.elite:IsShown(), UnitLevel("player")
@@ -359,9 +369,10 @@ local function UpdateObjects(frame)
 	HideObjects(frame)
 end
 
-local function SkinObjects(frame)
+local function SkinObjects(frame, nameFrame)
 	local oldhp, cb = frame:GetChildren()
-	local threat, hpborder, overlay, oldname, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
+	local threat, hpborder, overlay, oldlevel, bossicon, raidicon, elite = frame:GetRegions()
+	local oldname = nameFrame:GetRegions()
 	local _, cbborder, cbshield, cbicon = cb:GetRegions()
 
 	frame.healthOriginal = oldhp
@@ -401,10 +412,14 @@ local function SkinObjects(frame)
 
 	hp.hpbg = hp:CreateTexture(nil, "BORDER")
 	hp.hpbg:SetAllPoints(hp)
-	hp.hpbg:SetTexture(1, 1, 1, 0.25)
+	hp.hpbg:SetTexture(0, 0, 0, .5)
 
 	hp:HookScript("OnShow", UpdateObjects)
 	frame.hp = hp
+	
+	if not frame.threat then
+		frame.threat = threat
+	end
 
 	cb:SetStatusBarTexture(C["media"].normTex)
 	CreateVirtualFrame(cb)
@@ -474,11 +489,12 @@ local badR, badG, badB = unpack(C["nameplate"].badcolor)
 local transitionR, transitionG, transitionB = unpack(C["nameplate"].transitioncolor)
 local function UpdateThreat(frame, elapsed)
 	frame.hp:Show()
-	if frame.hasClass == true then return end
+	Colorize(frame)
+	if frame.hasClass or frame.isTagged then return end
 
 	if C["nameplate"].enhancethreat ~= true then
-		if frame.region:IsShown() then
-			local _, val = frame.region:GetVertexColor()
+		if frame.threat:IsShown() then
+			local _, val = frame.threat:GetVertexColor()
 			if val > 0.7 then
 				SetVirtualBorder(frame.hp, transitionR, transitionG, transitionB)
 			else
@@ -488,9 +504,10 @@ local function UpdateThreat(frame, elapsed)
 			SetVirtualBorder(frame.hp, unpack(C["media"].bordercolor))
 		end
 	else
-		if not frame.region:IsShown() then
+		if not frame.threat:IsShown() then
 			if InCombatLockdown() and frame.isFriendly ~= true then
-				if Role == "Tank" then
+				-- No Threat
+				if D.Role == "Tank" then
 					frame.hp:SetStatusBarColor(badR, badG, badB)
 					frame.hp.hpbg:SetTexture(badR, badG, badB, 0.25)
 				else
@@ -498,13 +515,16 @@ local function UpdateThreat(frame, elapsed)
 					frame.hp.hpbg:SetTexture(goodR, goodG, goodB, 0.25)
 				end
 			else
+				-- Set colors to their original, not in combat
 				frame.hp:SetStatusBarColor(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor)
 				frame.hp.hpbg:SetTexture(frame.hp.rcolor, frame.hp.gcolor, frame.hp.bcolor, 0.25)
 			end
 		else
-			local r, g, b = frame.region:GetVertexColor()
+			-- Ok we either have threat or we're losing/gaining it
+			local r, g, b = frame.threat:GetVertexColor()
 			if g + b == 0 then
-				if Role == "Tank" then
+				-- Have Threat
+				if D.Role == "Tank" then
 					frame.hp:SetStatusBarColor(goodR, goodG, goodB)
 					frame.hp.hpbg:SetTexture(goodR, goodG, goodB, 0.25)
 				else
@@ -512,6 +532,7 @@ local function UpdateThreat(frame, elapsed)
 					frame.hp.hpbg:SetTexture(badR, badG, badB, 0.25)
 				end
 			else
+				-- Losing/Gaining Threat
 				frame.hp:SetStatusBarColor(transitionR, transitionG, transitionB)
 				frame.hp.hpbg:SetTexture(transitionR, transitionG, transitionB, 0.25)
 			end
@@ -538,7 +559,7 @@ local function HideDrunkenText(frame, ...)
 end
 
 local function AdjustNameLevel(frame, ...)
-	if UnitName("target") == frame.hp.name:GetText() and frame:GetAlpha() == 1 then
+	if UnitName("target") == frame.hp.name:GetText() and frame:GetParent():GetAlpha() == 1 then
 		frame.hp.name:SetDrawLayer("OVERLAY")
 	else
 		frame.hp.name:SetDrawLayer("BORDER")
@@ -571,7 +592,7 @@ local function ShowHealth(frame, ...)
 end
 
 local function CheckUnit_Guid(frame, ...)
-	if UnitExists("target") and frame:GetAlpha() == 1 and UnitName("target") == frame.hp.name:GetText() then
+	if UnitExists("target") and frame:GetParent():GetAlpha() == 1 and UnitName("target") == frame.hp.name:GetText() then
 		frame.guid = UnitGUID("target")
 		frame.unit = "target"
 		OnAura(frame, "target")
@@ -598,7 +619,7 @@ end
 
 local function ForEachPlate(functionToRun, ...)
 	for frame in pairs(frames) do
-		if frame:IsShown() then
+		if frame and frame:IsShown() then
 			functionToRun(frame, ...)
 		end
 	end
@@ -608,11 +629,10 @@ local select = select
 local function HookFrames(...)
 	for index = 1, select("#", ...) do
 		local frame = select(index, ...)
-		local region = frame:GetRegions()
-
-		if not frames[frame] and (frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d")) and region and region:GetObjectType() == "Texture" then
-			SkinObjects(frame)
-			frame.region = region
+		
+		if frame:GetName() and not frame.isSkinned and frame:GetName():find("NamePlate%d") then
+			local child1, child2 = frame:GetChildren()
+			SkinObjects(child1, child2)
 			frame.isSkinned = true
 		end
 	end
@@ -625,7 +645,9 @@ NamePlates:SetScript("OnUpdate", function(self, elapsed)
 	end
 
 	if self.elapsed and self.elapsed > 0.2 then
-		ForEachPlate(UpdateThreat, self.elapsed)
+		--if C["nameplate"].enhancethreat then
+			ForEachPlate(UpdateThreat, self.elapsed)
+		--end
 		ForEachPlate(AdjustNameLevel)
 		self.elapsed = 0
 	else

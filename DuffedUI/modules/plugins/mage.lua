@@ -11,7 +11,7 @@ local spells = (UnitFactionGroup("player") == "Horde") and {
 	[6] = {35715,35717}, -- Shattrath
 	[7] = {49358,49361}, -- Stonard
 	[8] = {88342,88345}, -- Tol Barad
-	[9] = {132621,132620}, -- Vale of Eternal Blossoms
+	[9] = {132627,132626}, -- Vale of Eternal Blossoms
 } or { -- ALLIANCE
 	[1] = {53140,53142}, -- Dalaran
 	[2] = {3561,10059}, -- Stormwind
@@ -25,7 +25,7 @@ local spells = (UnitFactionGroup("player") == "Horde") and {
 };
  
 local f = CreateFrame("Frame", "DuffedUITeleportMenu", UIParent)
-f:Size(DuffedUIMinimap:GetWidth(),(#spells+1)*21+3)
+f:Size(DuffedUIMinimap:GetWidth(),(#spells + 1) * 21 + 3)
 f:SetPoint("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 0, -3)
 f:SetFrameStrata("HIGH")
 f:CreateShadow("Default")
@@ -40,26 +40,26 @@ l:SetFont(C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
 l:SetPoint("CENTER", r, "CENTER")
 r:SetFrameStrata("HIGH")
  
-for i,spell in pairs(spells) do
+for i, spell in pairs(spells) do
 	local teleport = GetSpellInfo(spell[1])
  
 	local b = CreateFrame("Button", nil, f, "SecureActionButtonTemplate")
 	b:Size(DuffedUIMinimap:GetWidth() - 4, 20)
-	b:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -(i*21) - 2)
+	b:SetPoint("TOPLEFT", f, "TOPLEFT", 2, -(i * 21) - 2)
 	b:SetFrameStrata("HIGH")
 	b:SetTemplate("Transparent")
 	b:CreateBackdrop()
  
 	local l = b:CreateFontString(nil,"OVERLAY")
 	l:SetFont(C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
-	l:SetText(string.sub(teleport, string.find(teleport,":")+1))
+	l:SetText(string.sub(teleport, string.find(teleport,":") + 1))
 	b:SetFontString(l)
  
 	b:RegisterForClicks("LeftButtonDown", "RightButtonDown")
-	b:SetAttribute("type1","spell")
-	b:SetAttribute("spell1",teleport)
-	b:SetAttribute("type2","spell")
-	b:SetAttribute("spell2",GetSpellInfo(spell[2]))
+	b:SetAttribute("type1", "spell")
+	b:SetAttribute("spell1", teleport)
+	b:SetAttribute("type2", "spell")
+	b:SetAttribute("spell2", GetSpellInfo(spell[2]))
 	
 	b:HookScript("OnEnter", function(self)
 		local r,g,b = unpack(C["media"].datatextcolor1)

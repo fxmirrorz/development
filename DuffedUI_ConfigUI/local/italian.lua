@@ -19,6 +19,7 @@
 	DuffedUIConfigUILocalization.miscsesset2 = "Set set for second spec (must be an value between 1 - 10)"
 	DuffedUIConfigUILocalization.miscgold = "Enable shorten golddisplay in chat"
 	DuffedUIConfigUILocalization.miscchatalert = "Enable Chatalert"
+	DuffedUIConfigUILocalization.miscloc = "Disable Loss of Control for actionbars (added 5.1 from Blizzard)"
 
 	-- skins
 	DuffedUIConfigUILocalization.skins = "Skins"
@@ -28,6 +29,7 @@
 	DuffedUIConfigUILocalization.skinsomen = "Enable Omen-Skin"
 	DuffedUIConfigUILocalization.skinstinydps = "Enable TinyDPS-Skin"
 	DuffedUIConfigUILocalization.skinsblizzardreskin = "Reskin Blizzard frames to match DuffedUI"
+	DuffedUIConfigUILocalization.skinscalendarevent = "Disable calendar event textures"
 
 	-- classtimer
 	DuffedUIConfigUILocalization.classtimer = "Classtimer"
@@ -44,7 +46,7 @@
 	DuffedUIConfigUILocalization.duffedbossicons = "Enable numbers instead of bossicons on instancemap"
 	DuffedUIConfigUILocalization.duffeddrinkannouncement = "Enable Drinkannouncement"
 	DuffedUIConfigUILocalization.duffedsayinterrupt = "Enable Interruptannouncement"
-	DuffedUIConfigUILocalization.duffedannouncechannel = "Set channel for announcement (|cffC41F3BSAY|r, |cffC41F3BPARTY|r or |cffC41F3BRAID|r)"
+	DuffedUIConfigUILocalization.duffedannouncechannel = "Set channel for announcement (|cffC41F3BSAY|r, |cffC41F3BPARTY|r, |cffC41F3BRAID|r or |cffC41F3BINSTANCE|r)"
 	DuffedUIConfigUILocalization.duffeddispelannouncement = "Enable Dispelannouncement"
 
 	-- general
@@ -143,8 +145,10 @@
 	DuffedUIConfigUILocalization.unitframesbuffrows = "Set buffrows"
 	DuffedUIConfigUILocalization.unitframesdebuffrows = "Set debuffrows"
 	DuffedUIConfigUILocalization.unitframesvengeancebar = "Enable vengeancebar instead of threatbar"
-	DuffedUIConfigUILocalization.unitframespowerClassColored = "Enable classcolored power bar"
+	DuffedUIConfigUILocalization.unitframespowerClasscolored = "Enable classcolored power bar"
+	DuffedUIConfigUILocalization.unitframesfocusdebuffs = "Enable focus debuffs"
 	DuffedUIConfigUILocalization.unitframessComboenable = "Enable sCombo-Plugin"
+	DuffedUIConfigUILocalization.unitframessComboenergybar = "enable energy bar for sCombo"
 	DuffedUIConfigUILocalization.unitframesenemyhcolor = "Color enemy health bar by hostility (for PVP)"
 	DuffedUIConfigUILocalization.unitframesauratimer = "Enable timer on auras"
 	DuffedUIConfigUILocalization.unitframesauratextscale = "Aura text scale on auras"
@@ -236,7 +240,7 @@
 	DuffedUIConfigUILocalization.actionbarshapeshiftmouseover = "Enable mouseover for Shapeshiftbar"
 	DuffedUIConfigUILocalization.actionbarverticalshapeshift = "Enable vertical Shapeshiftbar"
 	DuffedUIConfigUILocalization.actionbarborderhighlight = "Enable prochighlight from DuffedUI (default = disabled)"
-	DuffedUIConfigUILocalization.actionbarlayout = "Set actionbarlayout (default = 1)"
+	DuffedUIConfigUILocalization.actionbarlayout = "Set actionbarlayout (1 or 2, default = 1)"
 	DuffedUIConfigUILocalization.actionbarpetbarhorizontal = "Set petbar horizontal"
 	 
 	-- cooldowns
@@ -278,6 +282,7 @@
 	DuffedUIConfigUILocalization.aurasbuffnotice = "Enable BuffNotice"
 	DuffedUIConfigUILocalization.auraswarning = "Enable warningsound for BuffNotice"
 	DuffedUIConfigUILocalization.aurasbufftracker = "Enable Bufftrackerplugin"
+	DuffedUIConfigUILocalization.auraswrap = "Set wrap for buffs (default = 18)"
 
 	-- buttons
 	DuffedUIConfigUILocalization.option_button_reset = "Reset"

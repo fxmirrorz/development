@@ -7,7 +7,7 @@ local fontStyle = "THINOUTLINE"
 local texture = C["media"].normTex
 local size = D.Scale(C["scd"].size)
 local spacing = D.Scale(C["scd"].spacing)
-local anchor = {"BOTTOM", UIParent, "BOTTOM", 0, D.Scale(360)}
+local anchor = {"BOTTOM", UIParent, "BOTTOM", 0, D.Scale(325)}
 local color = {1, 1, 0, 1}
 local fade = C["scd"].fade
 local direction = C["scd"].direction
@@ -87,20 +87,24 @@ spellCooldowns = {
 	["DRUID"] = {
 		49376, -- Feral Charge - Cat
 		16979, -- Feral Charge - Bear
-		20484, -- 48477, -- Rebirth
-		1850, -- 33357, -- Dash
-		5209,   -- Challenging Roar
+		20484, -- Rebirth
+		1850, -- Dash
+		5209, -- Challenging Roar
 		22842, -- Frenzied Regeneration
-		740, -- 48447, -- Tranquility
-		5217, -- 50213, -- Tiger's Fury
-		16689, -- 53312, -- Nature's Grasp
-		48505, -- 53201, -- Starfall
+		740, -- Tranquility
+		5217, -- Tiger's Fury
+		16689, -- Nature's Grasp
+		48505, -- Starfall
 		33831, -- Force of Nature
-		50516, -- 61384, -- Typhoon
+		50516, -- Typhoon
 		50334, -- Berserk
 		61336, -- Survival Instincts
 		17116, -- Nature's Swiftness
 		77764, -- Stampeding Roar
+		124974, -- Nature's Vigil
+		112071, -- Celestial Alignment
+		110621, -- Mirror Images
+		29166, -- Innervate
 	},
 	["MAGE"] = {
 		12472, -- Icy Veins
@@ -167,6 +171,7 @@ spellCooldowns = {
 		120451, -- Flames of Xoroth
 		80240, -- Havoc
 		108416, -- Sacrificial Pact
+		132409, -- Spell Lock
 	},
 	["PALADIN"] = {
 		498,   -- Divine Protection

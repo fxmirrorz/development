@@ -113,16 +113,12 @@ local function Shared(self, unit)
 		
 		if C["unitframes"].percent then
 			local percHP
-			if C["general"].normalfont then
-				percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
-			else
-				percHP = D.SetFontString(health, C["media"].pixelfont, 20, "MONOCHROMEOUTLINE")
-			end
+			percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
 			percHP:SetTextColor(unpack(C["media"].datatextcolor1))
 			if unit == "player" then
-                percHP:SetPoint("LEFT", health, "RIGHT", 10, -10)
+                percHP:SetPoint("LEFT", health, "RIGHT", 25, -10)
 			elseif unit == "target" then
-				percHP:SetPoint("RIGHT", health, "LEFT", -10, -10)
+				percHP:SetPoint("RIGHT", health, "LEFT", -25, -10)
 			end
 			self:Tag(percHP, "[DuffedUI:perchp]")
 			self.percHP = percHP
@@ -294,8 +290,8 @@ local function Shared(self, unit)
 				Experience:SetStatusBarColor(0, 0.4, 1, .8)
 				Experience:SetBackdrop(backdrop)
 				Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Experience:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Experience:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Experience:SetFrameLevel(2)
 				Experience.Tooltip = true						
 				Experience.Rested = CreateFrame("StatusBar", nil, self)
@@ -329,8 +325,8 @@ local function Shared(self, unit)
 				Reputation:SetStatusBarTexture(normTex)
 				Reputation:SetBackdrop(backdrop)
 				Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Reputation:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Reputation:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Reputation:SetFrameLevel(2)
 				
 				-- border for the Reputation bar
@@ -651,7 +647,7 @@ local function Shared(self, unit)
 				if D.myclass == "MONK" then
 					local hb = CreateFrame("Frame", "DuffedUIHarmony", health)
 					hb:Point("TOP", power, "BOTTOM", 0, -1)
-					hb:Size(150, 5)
+					hb:Size(155, 5)
 					hb:SetBackdrop(backdrop)
 					hb:SetBackdropColor(0, 0, 0)
 					hb:SetBackdropBorderColor(0, 0, 0)	
@@ -662,7 +658,7 @@ local function Shared(self, unit)
 						hb[i]:SetStatusBarTexture(C["media"].normTex)
 						
 						if i == 1 then
-							hb[i]:Width(150 / 5)
+							hb[i]:Width(155 / 5)
 							hb[i]:SetPoint("LEFT", hb, "LEFT", 0, 0)
 						else
 							hb[i]:Width((150 / 5))
@@ -1376,12 +1372,12 @@ local function Shared(self, unit)
 			local debuffs = CreateFrame("Frame", nil, self)
 			debuffs:SetHeight(26)
 			debuffs:SetWidth(200)
-			debuffs:Point('LEFT', self, 'RIGHT', 4, 6)
-			debuffs.size = 20
-			debuffs.num = 8
+			debuffs:Point("RIGHT", self, "LEFT", -4, 6)
+			debuffs.size = 21
+			debuffs.num = 4
 			debuffs.spacing = 2
-			debuffs.initialAnchor = 'LEFT'
-			debuffs["growth-x"] = "RIGHT"
+			debuffs.initialAnchor = "RIGHT"
+			debuffs["growth-x"] = "LEFT"
 			debuffs.PostCreateIcon = D.PostCreateAura
 			debuffs.PostUpdateIcon = D.PostUpdateAura
 			self.Debuffs = debuffs
@@ -1494,7 +1490,7 @@ local function Shared(self, unit)
 		Name:SetShadowOffset(1.25, -1.25)
 		
 		self:Tag(Name, '[DuffedUI:getnamecolor][DuffedUI:nameshort]')
-		self.Name = Name		
+		self.Name = Name
 	end
 
 	------------------------------------------------------------------------
@@ -1661,20 +1657,10 @@ local function Shared(self, unit)
 				
 		-- trinket feature via trinket plugin
 		if (C["unitframes"].arena) and (unit and unit:find('arena%d')) then
-			local Trinketbg = CreateFrame("Frame", nil, self)
-			Trinketbg:SetHeight(26)
-			Trinketbg:SetWidth(26)
-			Trinketbg:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, 2)				
-			Trinketbg:SetTemplate("Default")
-			Trinketbg:CreateShadow("Default")
-			Trinketbg:SetFrameLevel(0)
-			self.Trinketbg = Trinketbg
-			
-			local Trinket = CreateFrame("Frame", nil, Trinketbg)
-			Trinket:SetAllPoints(Trinketbg)
-			Trinket:SetPoint("TOPLEFT", Trinketbg, D.Scale(2), D.Scale(-2))
-			Trinket:SetPoint("BOTTOMRIGHT", Trinketbg, D.Scale(-2), D.Scale(2))
-			Trinket:SetFrameLevel(1)
+			local Trinket = CreateFrame("Frame", nil, self)
+			Trinket:Size(26)
+			Trinket:SetPoint("TOPRIGHT", self, "TOPLEFT", -5, 2)
+			Trinket:CreateBackdrop("Default")
 			Trinket.trinketUseAnnounce = true
 			self.Trinket = Trinket
 		end

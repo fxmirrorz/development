@@ -100,16 +100,12 @@ local function Shared(self, unit)
 
 		if C["unitframes"].percent then
 			local percHP
-			if C["general"].normalfont then
-				percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
-			else
-				percHP = D.SetFontString(health, C["media"].pixelfont, 20, "MONOCHROMEOUTLINE")
-			end
+			percHP = D.SetFontString(health, C["media"].font, 20, "THINOUTLINE")
 			percHP:SetTextColor(unpack(C["media"].datatextcolor1))
 			if unit == "player" then
-                percHP:SetPoint("LEFT", health, "RIGHT", 5, 0)
+                percHP:SetPoint("LEFT", health, "RIGHT", 20, 0)
 			elseif unit == "target" then
-				percHP:SetPoint("RIGHT", health, "LEFT", -5, 0)
+				percHP:SetPoint("RIGHT", health, "LEFT", -20, 0)
 			end
 			self:Tag(percHP, "[DuffedUI:perchp]")
 			self.percHP = percHP
@@ -209,20 +205,20 @@ local function Shared(self, unit)
 				
 				self.Portrait = portrait
 			else
-				portrait = self:CreateTexture(nil, "ARTWORK")
-				portrait:SetPoint("CENTER")
-				portrait:SetPoint("CENTER")
-				portrait:SetHeight(35)
-				portrait:SetWidth(33)
-				portrait:SetTexCoord(0.1,0.9,0.1,0.9)
+				local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(47)
 				if unit == "player" then
-					portrait:SetPoint("TOPLEFT", health, "TOPLEFT", -34,0)
-				elseif unit == "target" then
-					portrait:SetPoint("TOPRIGHT", health, "TOPRIGHT", 34,0)
+					pb:Point("BOTTOMLEFT", power, "BOTTOMLEFT", -51, -2)
+				else
+					pb:Point("BOTTOMRIGHT", power, "BOTTOMRIGHT", 51, -2)
 				end
 
-				-- Portrait Border
-				portrait:CreateBackdrop()
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
 				self.Portrait = portrait
 			end
@@ -336,8 +332,8 @@ local function Shared(self, unit)
 				Experience:SetStatusBarColor(0, 0.4, 1, .8)
 				Experience:SetBackdrop(backdrop)
 				Experience:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Experience:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Experience:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Experience:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Experience:SetFrameLevel(2)
 				Experience.Tooltip = true						
 				Experience.Rested = CreateFrame("StatusBar", nil, self)
@@ -364,8 +360,8 @@ local function Shared(self, unit)
 				Reputation:SetStatusBarTexture(normTex)
 				Reputation:SetBackdrop(backdrop)
 				Reputation:SetBackdropColor(unpack(C["media"].backdropcolor))
-				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() - 4), D.Scale(5))
-				Reputation:Point("TOP", DuffedUIMinimapStatsRight, "BOTTOM", -36, -24)
+				Reputation:Size(D.Scale(DuffedUIMinimap:GetWidth() + 27), D.Scale(5))
+				Reputation:Point("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 2, -4)
 				Reputation:SetFrameLevel(2)
 				
 				-- border for the Reputation bar
@@ -1104,17 +1100,16 @@ local function Shared(self, unit)
 				
 				self.Portrait = portrait
 			else
-				portrait = self:CreateTexture(nil, "ARTWORK")
-				portrait:SetPoint("CENTER")
-				portrait:SetPoint("CENTER")
-				portrait:SetHeight(35)
-				portrait:SetWidth(33)
-				portrait:SetTexCoord(0.1,0.9,0.1,0.9)
-				portrait:Point("TOPLEFT", health, "TOPRIGHT", 7, 0)
-				portrait:Point("BOTTOMLEFT", power, "BOTTOMRIGHT", 7, 0)
+				local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(20)
+				pb:Point("BOTTOMRIGHT", power, "BOTTOMRIGHT", 24, -2)
 
-				-- Portrait Border
-				portrait:CreateBackdrop()
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
 				self.Portrait = portrait
 			end
@@ -1258,17 +1253,16 @@ local function Shared(self, unit)
 				
 				self.Portrait = portrait
 			else
-				portrait = self:CreateTexture(nil, "ARTWORK")
-				portrait:SetPoint("CENTER")
-				portrait:SetPoint("CENTER")
-				portrait:SetHeight(35)
-				portrait:SetWidth(33)
-				portrait:SetTexCoord(0.1,0.9,0.1,0.9)
-				portrait:Point("TOPRIGHT", health,"TOPLEFT",-7,0)
-				portrait:Point("BOTTOMRIGHT", power,"BOTTOMLEFT",-7,0)
+				local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(20)
+				pb:Point("BOTTOMLEFT", power, "BOTTOMLEFT", -24, -2)
 
-				-- Portrait Border
-				portrait:CreateBackdrop()
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
 				self.Portrait = portrait
 			end
@@ -1686,22 +1680,18 @@ local function Shared(self, unit)
 					
 					self.Portrait = portrait
 				else
-					portrait = self:CreateTexture(nil, "ARTWORK")
-					portrait:SetPoint("CENTER")
-					portrait:SetPoint("CENTER")
-					portrait:SetHeight(35)
-					portrait:SetWidth(33)
-					portrait:SetTexCoord(0.1,0.9,0.1,0.9)
-					if unit == "player" then
-						portrait:SetPoint("TOPLEFT", health, "TOPLEFT", -34,0)
-					elseif unit == "target" then
-						portrait:SetPoint("TOPRIGHT", health, "TOPRIGHT", 34,0)
-					end
+					local pb = CreateFrame("Frame", self:GetName().."_PortraitBorder", self)
+				pb:SetTemplate("Default")
+				pb:Size(42)
+				pb:Point("BOTTOMLEFT", power, "BOTTOMLEFT", -46, -2)
 
-					-- Portrait Border
-					portrait:CreateBackdrop()
+				local portrait = CreateFrame("PlayerModel", self:GetName().."_Portrait", pb)
+				portrait:Point("TOPLEFT", 2, -2)
+				portrait:Point("BOTTOMRIGHT", -2, 2)
+				portrait:SetHeight(35)
+				portrait:SetWidth(35)
 
-					self.Portrait = portrait
+				self.Portrait = portrait
 				end
 			end
 			

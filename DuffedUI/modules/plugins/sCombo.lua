@@ -70,14 +70,13 @@ for i = 1, 5 do
 end
 
 -- energy bar
-if not C["misc"].sComboenergybar or not C["unitframes"].enable then return end
-local sPowerBG = CreateFrame("Frame", "sPowerBG", G.UnitFrames.Target)
+if not C["unitframes"].sComboenergybar or not C["unitframes"].enable then return end
+local sPowerBG = CreateFrame("Frame", "sPowerBG", DuffedUITarget)
 sPowerBG:Size((Options.comboWidth * 5) + (Options.spacing * 5) - Options.spacing, Options.comboHeight)
-sPowerBG:SetPoint("TOPLEFT", sAnchor, "BOTTOMLEFT", 0, -(Options.comboHeight+6))
+sPowerBG:SetPoint("TOPLEFT", sAnchor, "BOTTOMLEFT", 0, -(Options.comboHeight + 6))
 sPowerBG:SetTemplate("Transparent")
-sPowerBG:CreateBackdrop()
 sPowerBG:CreateShadow("Default")
-local sPowerStatus = CreateFrame("StatusBar", "sPowerStatus", G.UnitFrames.Target)
+local sPowerStatus = CreateFrame("StatusBar", "sPowerStatus", DuffedUITarget)
 sPowerStatus:SetStatusBarTexture(C["media"].normTex)
 sPowerStatus:SetFrameLevel(6)
 sPowerStatus:Point("TOPLEFT", sPowerBG, "TOPLEFT", 2, -2)
@@ -87,7 +86,7 @@ sPowerStatus.t:SetPoint("CENTER")
 sPowerStatus.t:SetFont(C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
 sPowerStatus.t:SetShadowOffset(0.5, -0.5)
 sPowerStatus.t:SetShadowColor(0,0,0)
-local color = RAID_CLASS_COLORS[T.myclass]
+local color = RAID_CLASS_COLORS[D.myclass]
 sPowerStatus:SetStatusBarColor(color.r, color.g, color.b)
 local t = 0
 sPowerStatus:SetScript("OnUpdate", function(self, elapsed)

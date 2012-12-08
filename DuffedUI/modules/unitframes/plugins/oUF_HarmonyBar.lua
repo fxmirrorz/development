@@ -15,7 +15,7 @@ local Colors = {
 }
 
 local function Update(self, event, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= 'LIGHT_FORCE')) then return end
+	if(self.unit ~= unit and (powerType and (powerType ~= 'CHI' and powerType ~= 'DARK_FORCE'))) then return end
 	
 	local hb = self.HarmonyBar
 	
@@ -26,8 +26,8 @@ local function Update(self, event, unit, powerType)
 	local spacing = select(4, hb[4]:GetPoint())
 	local w = hb:GetWidth()
 	local s = 0
-	local light = UnitPower("player", SPELL_POWER_LIGHT_FORCE)
-	local maxChi = UnitPowerMax("player", SPELL_POWER_LIGHT_FORCE)
+	local light = UnitPower("player", SPELL_POWER_CHI)
+	local maxChi = UnitPowerMax("player", SPELL_POWER_CHI)
 	
 	if hb.maxChi ~= maxChi then
 		if maxChi == 4 then
@@ -66,7 +66,7 @@ local Path = function(self, ...)
 end
 
 local ForceUpdate = function(element)
-	return Path(element.__owner, 'ForceUpdate', element.__owner.unit, 'LIGHT_FORCE')
+	return Path(element.__owner, 'ForceUpdate', element.__owner.unit, 'CHI')
 end
 
 local function Enable(self, unit)

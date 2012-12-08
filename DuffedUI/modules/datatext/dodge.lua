@@ -20,7 +20,7 @@ local function Update(self, t)
 	int = int - t
 	if int > 0 then return end
 
-	Text:SetFormattedText(displayFloat, D.panelcolor..STAT_DODGE..": ", GetDodgeChance())
+	Text:SetFormattedText(displayFloat, STAT_DODGE..": ", GetDodgeChance())
 
 	self:SetAllPoints(Text)
 

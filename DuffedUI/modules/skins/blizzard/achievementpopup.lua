@@ -1,23 +1,5 @@
 local D, C, L, G = unpack(select(2, ...))
 
---[[
-	-- for testing them
-	SlashCmdList.TEST_ACHIEVEMENT = function()
-		PlaySound("LFG_Rewards")
-		AchievementFrame_LoadUI()
-		AchievementAlertFrame_ShowAlert(5780)
-		AchievementAlertFrame_ShowAlert(5000)
-		GuildChallengeAlertFrame_ShowAlert(3, 2, 5)
-		ChallengeModeAlertFrame_ShowAlert()
-		CriteriaAlertFrame_GetAlertFrame()
-		AlertFrame_AnimateIn(CriteriaAlertFrame1)
-		AlertFrame_AnimateIn(DungeonCompletionAlertFrame1)
-		AlertFrame_AnimateIn(ScenarioAlertFrame1)
-		AlertFrame_FixAnchors()
-	end
-	SLASH_TEST_ACHIEVEMENT1 = "/testalerts"
---]]
-
 local function LoadSkin()
 	local function SkinAchievePopUp()
 		for i = 1, MAX_ACHIEVEMENT_ALERTS do
@@ -75,7 +57,7 @@ local function LoadSkin()
 				frame.heroicIcon:Hide()
 
 				if not frame.backdrop then
-					frame:CreateBackdrop("Default")
+					frame:CreateBackdrop("Transparent")
 					frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 16, -6)
 					frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -20, 6)
 				end
@@ -128,7 +110,7 @@ local function LoadSkin()
 			frame.SetAlpha = D.dummy
 
 			if not frame.backdrop then
-				frame:CreateBackdrop("Default")
+				frame:CreateBackdrop("Transparent")
 				frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", -2, -6)
 				frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 6)
 			end
@@ -165,7 +147,7 @@ local function LoadSkin()
 			frame.SetAlpha = D.dummy
 
 			if not frame.backdrop then
-				frame:CreateBackdrop("Default")
+				frame:CreateBackdrop("Transparent")
 				frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 19, -6)
 				frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -22, 6)
 			end
@@ -210,7 +192,7 @@ local function LoadSkin()
 			frame.SetAlpha = D.dummy
 
 			if not frame.backdrop then
-				frame:CreateBackdrop("Default")
+				frame:CreateBackdrop("Transparent")
 				frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 4, 4)
 				frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -7, 6)
 			end
@@ -254,7 +236,7 @@ local function LoadSkin()
 				frame.SetAlpha = D.dummy
 
 				if not frame.backdrop then
-					frame:CreateBackdrop("Default")
+					frame:CreateBackdrop("Transparent")
 					frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", -2, -6)
 					frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -2, 6)
 				end
@@ -305,7 +287,7 @@ local function LoadSkin()
 				end
 
 				if not frame.backdrop then
-					frame:CreateBackdrop("Default")
+					frame:CreateBackdrop("Transparent")
 					frame.backdrop:SetPoint('TOPLEFT', frame.Icon.b, 'TOPLEFT', -4, 4)
 					frame.backdrop:SetPoint('BOTTOMRIGHT', frame.Icon.b, 'BOTTOMRIGHT', 180, -4)
 				end
@@ -335,7 +317,7 @@ local function LoadSkin()
 				end
 
 				if not frame.backdrop then
-					frame:CreateBackdrop("Default")
+					frame:CreateBackdrop("Transparent")
 					frame.backdrop:SetPoint('TOPLEFT', frame.Icon.b, 'TOPLEFT', -4, 4)
 					frame.backdrop:SetPoint('BOTTOMRIGHT', frame.Icon.b, 'BOTTOMRIGHT', 180, -4)
 				end

@@ -6,7 +6,9 @@ local function Update(self, event, ...)
 	if not C["duffed"].sayinterrupt then return end
 	
 	if event == "COMBAT_LOG_EVENT_UNFILTERED" then
-		if IsInRaid("player") then
+		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+			channel = "INSTANCE_CHAT"
+		elseif IsInRaid("player") then
 			channel = C["duffed"].announcechannel
 		elseif IsInGroup("player") then
 			channel = C["duffed"].announcechannel

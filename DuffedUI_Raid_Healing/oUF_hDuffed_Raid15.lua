@@ -99,7 +99,7 @@ local function Shared(self, unit)
     local leader = health:CreateTexture(nil, "OVERLAY")
     leader:Height(12 * D.raidscale)
     leader:Width(12 * D.raidscale)
-    leader:Point("TOPLEFT", 0, 6)
+    leader:Point("TOPLEFT", 0, 8)
 	self.Leader = leader
 	
     local LFDRole = health:CreateTexture(nil, "OVERLAY")

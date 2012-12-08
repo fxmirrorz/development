@@ -58,7 +58,5 @@ DuffedUIOnLogon:SetScript("OnEvent", function(self, event)
 		button:SetAttribute("showgrid", 1)
 		ActionButton_ShowGrid(button)
 	end
-	ActionButton_HideGrid = D.dummy
-	ActionButton_ShowGrid = D.dummy
 end)
 G.ActionBars.EnterWorld = DuffedUIOnLogon

@@ -13,7 +13,7 @@ local bag_bars = 0
 -- hide bags options in default interface
 InterfaceOptionsDisplayPanelShowFreeBagSpace:Hide()
 
-Stuffing = CreateFrame ("Frame", nil, UIParent)
+local Stuffing = CreateFrame ("Frame", "Stuffing", UIParent)
 Stuffing:RegisterEvent("ADDON_LOADED")
 Stuffing:RegisterEvent("PLAYER_ENTERING_WORLD")
 Stuffing:SetScript("OnEvent", function(this, event, ...)
@@ -106,7 +106,7 @@ local QUEST_ITEM_STRING = nil
 
 function Stuffing:SlotUpdate(b)
 	-- only update cooldown on a slot update if bag are show, else it's useless
-	if (b.Cooldown and (TukuiBags and TukuiBags:IsShown()) or (TukuiBank and TukuiBank:IsShown())) then
+	if (b.Cooldown and (DufUIBags and DufUIBags:IsShown()) or (DufUIBank and DufUIBank:IsShown())) then
 		local cd_start, cd_finish, cd_enable = GetContainerItemCooldown(b.bag, b.slot)
 		CooldownFrame_SetTimer(b.Cooldown, cd_start, cd_finish, cd_enable)
 	end
@@ -127,7 +127,7 @@ function Stuffing:SlotUpdate(b)
 	
 	-- reset
 	if not b.frame.lock then
-		b.frame:SetBackdropBorderColor(unpack(C.media.bordercolor))
+		b.frame:SetBackdropBorderColor(unpack(C["media"].bordercolor))
 	end
 	
 	b.frame.questIcon:Hide()
@@ -209,11 +209,11 @@ function Stuffing:BagFrameSlotNew (slot, p)
 		ret.slot = slot
 		slot = slot - 4
 		tpl = "BankItemButtonBagTemplate"
-		ret.frame = CreateFrame("CheckButton", "TukuiBankBag" .. slot, p, tpl)
+		ret.frame = CreateFrame("CheckButton", "DufUIBankBag" .. slot, p, tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		local icon = _G["TukuiBankBag" .. slot .. "IconTexture"]
-		local border = _G["TukuiBankBag" .. slot .. "NormalTexture"]
+		local icon = _G["DufUIBankBag" .. slot .. "IconTexture"]
+		local border = _G["DufUIBankBag" .. slot .. "NormalTexture"]
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		icon:Point("TOPLEFT", 2, -2)
@@ -230,11 +230,11 @@ function Stuffing:BagFrameSlotNew (slot, p)
 		end
 	else
 		tpl = "BagSlotButtonTemplate"
-		ret.frame = CreateFrame("CheckButton", "TukuiBackBag" .. slot .. "Slot", p, tpl)
+		ret.frame = CreateFrame("CheckButton", "DufUIBackBag" .. slot .. "Slot", p, tpl)
 		ret.frame:StyleButton()
 		ret.frame:SetTemplate("Default")
-		local icon = _G["TukuiBackBag" .. slot .. "SlotIconTexture"]
-		local border = _G["TukuiBackBag" .. slot .. "SlotNormalTexture"]
+		local icon = _G["DufUIBackBag" .. slot .. "SlotIconTexture"]
+		local border = _G["DufUIBackBag" .. slot .. "SlotNormalTexture"]
 		icon:SetTexCoord(.08, .92, .08, .92)
 		icon:ClearAllPoints()
 		icon:Point("TOPLEFT", 2, -2)
@@ -285,7 +285,7 @@ function Stuffing:SlotNew (bag, slot)
 	end
 
 	if not ret.frame then
-		ret.frame = CreateFrame("Button", "TukuiBag_" .. bag .. "_" .. slot, self.bags[bag], tpl)
+		ret.frame = CreateFrame("Button", "DufUIBag_" .. bag .. "_" .. slot, self.bags[bag], tpl)
 		ret.frame:SetTemplate()
 		ret.frame:Height(31)
 		ret.frame:Width(31)
@@ -402,7 +402,7 @@ Stuffing_DDMenu.HideMenu = function()
 end
 
 function Stuffing:CreateBagFrame(w)
-	local n = "Tukui"  .. w
+	local n = "DufUI"  .. w
 	local f = CreateFrame ("Frame", n, UIParent)
 	G.Bags[w] = f
 	f:EnableMouse(1)
@@ -437,7 +437,7 @@ function Stuffing:CreateBagFrame(w)
 	f.b_close:Height(32)
 	f.b_close:Point("TOPRIGHT", -1, -3)
 	f.b_close:SetScript("OnClick", function(self, btn)
-		if self:GetParent():GetName() == "TukuiBags" and btn == "RightButton" then
+		if self:GetParent():GetName() == "DufUIBags" and btn == "RightButton" then
 			if Stuffing_DDMenu.initialize ~= Stuffing.Menu then
 				CloseDropDownMenus()
 				Stuffing_DDMenu.initialize = Stuffing.Menu
@@ -460,6 +460,36 @@ function Stuffing:CreateBagFrame(w)
 	fb:SetFrameStrata("HIGH")
 	f.bags_frame = fb
 
+	if w == "Bank" then
+		local cnt, full = GetNumBankSlots()
+		purchaseBagButton = CreateFrame("Button", nil, DufUIBank)
+		purchaseBagButton:Size(150, 15)
+		purchaseBagButton:Point("TOP", DufUIBank, "TOP", 0, -4)
+		purchaseBagButton:SetTemplate("Default")
+		purchaseBagButton.Text = D.SetFontString(purchaseBagButton, C["media"].font, C["datatext"].fontsize, "THINOUTLINE")
+		purchaseBagButton.Text:Point("CENTER", purchaseBagButton, "CENTER", 0, 0)
+
+		if full then
+			purchaseBagButton.Text:SetText("No Slots available")
+		else
+			purchaseBagButton.Text:SetText("Buy Bankslot ("..GetBankSlotCost() / 10000 .."Gold)")
+		end
+
+		purchaseBagButton:SetScript("OnEnter", D.SetModifiedBackdrop)
+		purchaseBagButton:SetScript("OnLeave", D.SetOriginalBackdrop)
+		purchaseBagButton:SetScript("OnClick", function()
+			local cnt, full = GetNumBankSlots()
+
+			if full then
+				print("No Slots")
+				return
+			end
+
+			PurchaseSlot()
+			print(string.format(L.bags_costs, GetBankSlotCost() / 10000))
+		end)
+	end
+	
 	return f
 end
 
@@ -829,7 +859,7 @@ function Stuffing:ADDON_LOADED(addon)
 
 	self:InitBags()
 	
-	tinsert(UISpecialFrames,"TukuiBags")
+	tinsert(UISpecialFrames,"DufUIBags")
 
 	ToggleBackpack = Stuffing_Toggle
 	ToggleBag = Stuffing_ToggleBag

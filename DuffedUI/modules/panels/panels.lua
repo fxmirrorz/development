@@ -152,7 +152,7 @@ if C["chat"].background then
 	local tabsbgleft = CreateFrame("Frame", "DuffedUITabsLeftBackground", UIParent)
 	tabsbgleft:SetTemplate()
 	tabsbgleft:Size((D.InfoLeftRightWidth - 40), 20)
-	tabsbgleft:Point("TOP", chatleftbg, "TOP", -22, -4)
+	tabsbgleft:Point("TOPLEFT", chatleftbg, "TOPLEFT", 4, -4)
 	tabsbgleft:SetFrameLevel(2)
 	tabsbgleft:SetFrameStrata("BACKGROUND")
 	G.Panels.LeftChatTabsBackground = tabsbgleft
@@ -161,7 +161,7 @@ if C["chat"].background then
 	local tabsbgright = CreateFrame("Frame", "DuffedUITabsRightBackground", UIParent)
 	tabsbgright:SetTemplate()
 	tabsbgright:Size((D.InfoLeftRightWidth - 20), 20)
-	tabsbgright:Point("TOP", chatrightbg, "TOP", -12, -4)
+	tabsbgright:Point("TOPLEFT", chatrightbg, "TOPLEFT", 4, -4)
 	tabsbgright:SetFrameLevel(2)
 	tabsbgright:SetFrameStrata("BACKGROUND")
 	G.Panels.RightChatTabsBackground = tabsbgright

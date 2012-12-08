@@ -85,22 +85,18 @@ if C["datatext"].smf and C["datatext"].smf > 0 then
 	end
 
 	Stat:SetScript("OnEnter", function(self)
-		-- if not InCombatLockdown() then
+		if not InCombatLockdown() then
 			self.tooltip = true
 			local bandwidth = GetAvailableBandwidth()
 			local anchor, panel, xoff, yoff = D.DataTextTooltipAnchor(Text)
-			local _, _, latencyHome, latencyWorld = GetNetStats()
+			local bw_in, bw_out, latencyHome, latencyWorld = GetNetStats()
+			ms_combined = latencyHome + latencyWorld
 			if panel == DuffedUIMinimapStatsLeft or panel == DuffedUIMinimapStatsRight then
 				GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 			else
 				GameTooltip:SetOwner(self, anchor, xoff, yoff)
 			end
 			GameTooltip:ClearLines()
-			if bandwidth ~= 0 then
-				GameTooltip:AddDoubleLine(L.datatext_bandwidth , string.format(bandwidthString, bandwidth),0.69, 0.31, 0.31,0.84, 0.75, 0.65)
-				GameTooltip:AddDoubleLine(L.datatext_download , string.format(percentageString, GetDownloadedPercentage() *100),0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
-				GameTooltip:AddLine(" ")
-			end
 			local totalMemory = UpdateMemory()
 			GameTooltip:AddDoubleLine(L.datatext_totalmemusage, formatMem(totalMemory), 0.69, 0.31, 0.31,0.84, 0.75, 0.65)
 			GameTooltip:AddLine(" ")
@@ -112,10 +108,19 @@ if C["datatext"].smf and C["datatext"].smf > 0 then
 				end						
 			end
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddDoubleLine("World Latency:",latencyHome, 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
-			GameTooltip:AddDoubleLine("World Latency:",latencyWorld, 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+			if bandwidth ~= 0 then
+				GameTooltip:AddDoubleLine(L.datatext_bandwidth , string.format(bandwidthString, bandwidth),0.69, 0.31, 0.31,0.84, 0.75, 0.65)
+				GameTooltip:AddDoubleLine(L.datatext_download , string.format(percentageString, GetDownloadedPercentage() *100),0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+				GameTooltip:AddLine(" ")
+			end
+			GameTooltip:AddDoubleLine("Home Latency:", latencyHome.." "..MILLISECONDS_ABBR, 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+			GameTooltip:AddDoubleLine("World Latency:", latencyWorld.." "..MILLISECONDS_ABBR, 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+			GameTooltip:AddDoubleLine("Global Latency:", ms_combined.." "..MILLISECONDS_ABBR, 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+			GameTooltip:AddLine(" ")
+			GameTooltip:AddDoubleLine("Incoming", string.format( "%.4f", bw_in ) .. " kb/s", 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
+			GameTooltip:AddDoubleLine("Outgoing", string.format( "%.4f", bw_out ) .. " kb/s", 0.69, 0.31, 0.31, 0.84, 0.75, 0.65)
 			GameTooltip:Show()
-		-- end
+		end
 	end)
 
 	Stat:SetScript("OnMouseDown", function(self, btn) if(btn == "LeftButton") then ToggleFrame(PVPFrame) else collectgarbage("collect")	end	end)

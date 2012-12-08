@@ -55,10 +55,32 @@ local function AutoGear(set1, set2)
 	end
 end
 
+local function SpecSwitcherSpamFilter(self, event, msg, ...)
+	if strfind(msg, string.gsub(ERR_LEARN_ABILITY_S:gsub('%.', '%.'), '%%s', '(.*)')) then
+		return true
+	elseif strfind(msg, string.gsub(ERR_LEARN_SPELL_S:gsub('%.', '%.'), '%%s', '(.*)')) then
+		return true
+	elseif strfind(msg, string.gsub(ERR_SPELL_UNLEARNED_S:gsub('%.', '%.'), '%%s', '(.*)')) then
+		return true
+	elseif strfind(msg, string.gsub(ERR_LEARN_PASSIVE_S:gsub('%.', '%.'), '%%s', '(.*)')) then
+		return true
+	end
+    
+	return false, msg, ...
+end
+
+function EnableSpecSwitcherSpamFilter()
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_SYSTEM", SpecSwitcherSpamFilter)
+end
+
+function DisableSpecSwitcherSpamFilter()
+	ChatFrame_RemoveMessageEventFilter("CHAT_MSG_SYSTEM", SpecSwitcherSpamFilter)
+end
+
 -- Spec
 local spec = CreateFrame("Button", "DuffedUI_Spechelper", UIParent)
-spec:Size(100, 20)
-if C["chat"].background then spec:SetPoint("RIGHT", DuffedUIButtonCF4, "LEFT", -2, 0) else spec:SetPoint("BOTTOMRIGHT", ChatFrame4, "TOPRIGHT", -3, 0) end
+spec:Size(DuffedUIMinimap:GetWidth(), 19)
+spec:SetPoint("TOPLEFT", DuffedUIMinimapStatsLeft, "BOTTOMLEFT", 0, -13)
 spec:SetTemplate("Default")
 
 -- Text
@@ -111,21 +133,70 @@ spec:SetScript("OnClick", function(self)
 	else
 		if i == 1 then SetActiveSpecGroup(2) end
 		if i == 2 then SetActiveSpecGroup(1) end
+		EnableSpecSwitcherSpamFilter()
 	end
 end)
+
+D.CreateBtn("MB_reload", DuffedUIMinimap, 19, 19, "Reloads the entire UI", "R")
+MB_reload:Point("TOPLEFT", spec, "BOTTOMLEFT", 0, -2)
+MB_reload:SetFrameLevel(10)
+MB_reload:CreateShadow("Default")
+MB_reload:SetAttribute("macrotext1", "/rl")
+
+D.CreateBtn("MB_heal", MB_reload, 19, 19, "Switch to heal-layout", "H")
+MB_heal:Point("LEFT", MB_reload, "RIGHT", 2, 0)
+MB_heal:SetFrameLevel(10)
+MB_heal:CreateShadow("Default")
+MB_heal:SetAttribute("macrotext1", "/heal")
+
+D.CreateBtn("MB_dps", MB_reload, 19, 19, "Switch to dps-layout", "D")
+MB_dps:Point("LEFT", MB_heal, "RIGHT", 2, 0)
+MB_dps:SetFrameLevel(10)
+MB_dps:CreateShadow("Default")
+MB_dps:SetAttribute("macrotext1", "/dps")
+
+D.CreateBtn("MB_am", MB_reload, 19, 19, "Open Addonmanager", "A")
+MB_am:Point("LEFT", MB_dps, "RIGHT", 2, 0)
+MB_am:SetFrameLevel(10)
+MB_am:CreateShadow("Default")
+if IsAddOnLoaded("AuctionMaster") then MB_am:SetAttribute("macrotext1", "/ap") else MB_am:SetAttribute("macrotext1", "/am") end
+
+D.CreateBtn("MB_mui", MB_reload, 19, 19, "Move the frames", "M")
+MB_mui:Point("LEFT", MB_am, "RIGHT", 2, 0)
+MB_mui:SetFrameLevel(10)
+MB_mui:CreateShadow("Default")
+MB_mui:SetAttribute("macrotext1", "/moveui")
+
+D.CreateBtn("MB_config", MB_reload, 19, 19, "DuffedUI Config", "C")
+MB_config:Point("LEFT", MB_mui, "RIGHT", 2, 0)
+MB_config:SetFrameLevel(10)
+MB_config:CreateShadow("Default")
+MB_config:SetAttribute("macrotext1", "/dc")
+
+D.CreateBtn("MB_binds", MB_reload, 19, 19, "Set your keybindings", "K")
+MB_binds:Point("LEFT", MB_config, "RIGHT", 2, 0)
+MB_binds:SetFrameLevel(10)
+MB_binds:CreateShadow("Default")
+MB_binds:SetAttribute("macrotext1", "/kb")
+
+D.CreateBtn("MB_help", MB_reload, 28, 19, "Open the Helpframe for DuffedUI", "Help")
+MB_help:Point("LEFT", MB_binds, "RIGHT", 2, 0)
+MB_help:SetFrameLevel(10)
+MB_help:CreateShadow("Default")
+MB_help:SetAttribute("macrotext1", "/dhelp")
 	
 if Enablegear == true then
-	local gearSets = CreateFrame("Frame", nil, spec)	
+	local gearSets = CreateFrame("Frame", nil, MB_help)	
 	for i = 1, 10 do
-			gearSets[i] = CreateFrame("Button", nil, spec)
-			gearSets[i]:Size(20, 20)
-			gearSets[i]:SetPoint("RIGHT", spec, "LEFT", -2, 0)
+			gearSets[i] = CreateFrame("Button", nil, MB_help)
+			gearSets[i]:Size(19, 19)
+			gearSets[i]:SetPoint("CENTER", MB_help, "CENTER", 0, 0)
 			gearSets[i]:SetTemplate("Default")
 
 			if i == 1 then
-				gearSets[i]:Point("RIGHT", spec, "LEFT", -2, 0)
+				gearSets[i]:Point("TOPRIGHT", MB_help, "BOTTOMRIGHT", 0, -2)
 			else
-				gearSets[i]:SetPoint("RIGHT", gearSets[i-1], "LEFT", -2, 0)
+				gearSets[i]:SetPoint("BOTTOMRIGHT", gearSets[i-1], "BOTTOMLEFT", -2, 0)
 			end
 			gearSets[i].texture = gearSets[i]:CreateTexture(nil, "BORDER")
 			gearSets[i].texture:SetTexCoord(.08, .92, .08, .92)
@@ -186,3 +257,22 @@ if Enablegear == true then
 		gearsetfunc:SetScript("OnEvent", OnEvent)
 	end
 end
+
+-- toggle button
+D.CreateBtn("toggle", spec, 29, 19, "Toggle", "+")
+toggle:Point("LEFT", spec, "RIGHT", 2, 0)
+
+toggle:SetScript("OnEnter", function(self) self:SetBackdropBorderColor(unpack(hoverovercolor)) end)
+toggle:SetScript("OnLeave", function(self) self:SetBackdropBorderColor(unpack(C["media"].bordercolor)) end)
+
+toggle:SetScript("OnMouseDown", function(self)
+	if InCombatLockdown() then print(ERR_NOT_IN_COMBAT) return end
+
+	if MB_reload:IsShown() then	
+		MB_reload:Hide()
+		toggle:SetText(cp.."+|r")
+	else
+		MB_reload:Show()
+		toggle:SetText(cm.."-|r")
+	end
+end)

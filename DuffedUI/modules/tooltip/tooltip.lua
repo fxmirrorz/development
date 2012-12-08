@@ -45,7 +45,7 @@ if C["chat"].background and DuffedUIChatBackgroundRight then
 else
 	anchor:SetPoint("BOTTOMRIGHT", DuffedUIInfoRight)
 end
-anchor:SetTemplate("Default")
+anchor:SetTemplate("Transparent")
 anchor:SetBackdropBorderColor(1, 0, 0, 1)
 anchor:SetMovable(true)
 anchor.text = D.SetFontString(anchor, C["media"].uffont, 12)
@@ -108,9 +108,9 @@ local function UpdateTooltip(self)
 			self:ClearAllPoints()
 			self:SetPoint("BOTTOMLEFT", DuffedUITooltipAnchor, "TOPLEFT", 0, x)		
 		elseif point == "BOTTOMRIGHT" or point == "RIGHT" then
-			if DuffedUIBags and DuffedUIBags:IsShown() then
+			if DufUIBags and DufUIBags:IsShown() then
 				self:ClearAllPoints()
-				self:SetPoint("BOTTOMRIGHT", DuffedUIBags, "TOPRIGHT", 0, x)			
+				self:SetPoint("BOTTOMRIGHT", DufUIBags, "TOPRIGHT", 0, x)			
 			else
 				self:ClearAllPoints()
 				self:SetPoint("BOTTOMRIGHT", DuffedUITooltipAnchor, "TOPRIGHT", 0, x)

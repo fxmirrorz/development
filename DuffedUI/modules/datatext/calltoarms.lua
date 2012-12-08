@@ -87,7 +87,7 @@ if C["datatext"].calltoarms and C["datatext"].calltoarms > 0 then
 	end
 
 	local function OnEnter(self)
-		local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(Text)
+		local anchor, panel, xoff, yoff = D.DataTextTooltipAnchor(Text)
 		GameTooltip:SetOwner(panel, anchor, xoff, yoff)
 		GameTooltip:ClearLines()
 		GameTooltip:AddLine(BATTLEGROUND_HOLIDAY)
@@ -129,7 +129,7 @@ if C["datatext"].calltoarms and C["datatext"].calltoarms > 0 then
 	Stat:RegisterEvent("LFG_UPDATE_RANDOM_INFO")
 	Stat:RegisterEvent("PLAYER_ENTERING_WORLD")
 	Stat:SetScript("OnEvent", OnEvent)
-	Stat:SetScript("OnMouseDown", function() ToggleFrame(LFDParentFrame) end)
+	Stat:SetScript("OnMouseDown", function() PVEFrame_ToggleFrame() end)
 	Stat:SetScript("OnEnter", OnEnter)
 	Stat:SetScript("OnLeave", function() GameTooltip:Hide() end)
 end

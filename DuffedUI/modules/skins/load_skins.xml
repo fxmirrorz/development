@@ -2,7 +2,6 @@
 	<Script file="addons\bigwigs.lua" />
 	<Script file="addons\dbm.lua" />
 	<Script file="addons\omen.lua" />
-	<Script file="addons\recount.lua" />
 	<Script file="addons\tinyDPS.lua" />
 	<Script file="blizzard\achievement.lua" />
 	<Script file="blizzard\achievementpopup.lua" />
@@ -35,6 +34,7 @@
 	<Script file="blizzard\journal.lua" />
 	<Script file="blizzard\lfg.lua" />
 	<Script file="blizzard\loot.lua" />
+	<Script file="blizzard\losscontrol.lua" />
 	<Script file="blizzard\macro.lua" />
 	<Script file="blizzard\mail.lua" />
 	<Script file="blizzard\merchant.lua" />

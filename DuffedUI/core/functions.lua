@@ -297,6 +297,37 @@ D.CheckRole = function()
 	return role
 end
 
+local function CheckRole(self, event, unit)
+	local tree = GetSpecialization()
+	local role = tree and select(6, GetSpecializationInfo(tree))
+
+	if role == "TANK" then
+		D.Role = "Tank"
+	elseif role == "HEALER" then
+		D.Role = "Healer"
+	elseif role == "DAMAGER" then
+		local playerint = select(2, UnitStat("player", 4))
+		local playeragi = select(2, UnitStat("player", 2))
+		local base, posBuff, negBuff = UnitAttackPower("player")
+		local playerap = base + posBuff + negBuff
+
+		if (playerap > playerint) or (playeragi > playerint) then
+			D.Role = "Melee"
+		else
+			D.Role = "Caster"
+		end
+	end
+end
+local RoleUpdater = CreateFrame("Frame")
+RoleUpdater:RegisterEvent("PLAYER_ENTERING_WORLD")
+RoleUpdater:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+RoleUpdater:RegisterEvent("PLAYER_TALENT_UPDATE")
+RoleUpdater:RegisterEvent("CHARACTER_POINTS_CHANGED")
+RoleUpdater:RegisterEvent("UNIT_INVENTORY_CHANGED")
+RoleUpdater:RegisterEvent("UPDATE_BONUS_ACTIONBAR")
+RoleUpdater:SetScript("OnEvent", CheckRole)
+
+
 --Add time before calling a function
 --Usage D.Delay(seconds, functionToCall, ...)
 local waitTable = {}
@@ -709,7 +740,7 @@ D.PostNamePosition = function(self)
 	if C["unitframes"].layout == 1 then
 		self.Name:ClearAllPoints()
 		if (self.Power.value:GetText() and UnitIsEnemy("player", "target") and C["unitframes"].targetpowerpvponly == true) or (self.Power.value:GetText() and C["unitframes"].targetpowerpvponly == false) then
-			self.Name:SetPoint("CENTER", self.panel, "CENTER", 0, 0)
+			self.Name:SetPoint("LEFT", self.panel, "LEFT", 4, 0)
 		else
 			self.Power.value:SetAlpha(0)
 			self.Name:SetPoint("LEFT", self.panel, "LEFT", 4, 0)
@@ -794,6 +825,24 @@ D.PostUpdatePower = function(power, unit, min, max)
 	end
 	if self.Name then
 		if unit == "target" then D.PostNamePosition(self, power) end
+	end
+end
+
+function updateAuraTrackerTime(self, elapsed)
+	if (self.active) then
+		self.timeleft = self.timeleft - elapsed
+
+		if (self.timeleft <= 5) then
+			self.text:SetTextColor(1, 0, 0)
+		else
+			self.text:SetTextColor(1, 1, 1)
+		end
+		
+		if (self.timeleft <= 0) then
+			self.icon:SetTexture("")
+			self.text:SetText("")
+		end	
+		self.text:SetFormattedText("%.1f", self.timeleft)
 	end
 end
 
@@ -1161,7 +1210,7 @@ D.MLAnchorUpdate = function (self)
 	if self.Leader:IsShown() then
 		self.MasterLooter:SetPoint("TOPLEFT", 14, 8)
 	else
-		self.MasterLooter:SetPoint("TOPLEFT", 2, 8)
+		self.MasterLooter:SetPoint("TOPLEFT", 0, 8)
 	end
 end
 

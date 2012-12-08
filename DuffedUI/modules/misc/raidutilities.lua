@@ -105,7 +105,7 @@ local function CreateUtilities(self, event, addon)
 		CreateButton("DuffedUIRaidUtilityDisbandRaidButton", DuffedUIRaidUtility, "UIMenuButtonStretchTemplate", DuffedUIRaidUtility:GetWidth() * .95, D.Scale(21), "TOP", DuffedUIRaidUtility, "TOP", 0, D.Scale(-5), "Disband Group", nil)
 		DuffedUIRaidUtilityDisbandRaidButton:SetScript("OnMouseUp", function(self)
 			if CheckRaidStatus() then
-				D.ShowPopup("TUKUIDISBAND_RAID")
+				D.ShowPopup("DUFFEDUIDISBAND_RAID")
 			end
 		end)
 

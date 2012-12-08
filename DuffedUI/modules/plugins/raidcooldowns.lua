@@ -21,20 +21,21 @@ local show = {
 }
 
 local spells = {
-	[20484] = 600,	-- Rebirth
-	[740] = 180,	-- Tranq
-	[64843] = 180,	-- Divine Hymn
-	[20707] = 900,	-- Soulstone res
-	[64901] = 360,	-- Hymn of Hope
-	[29166] = 180,	-- Innervate
-	[31821] = 120,	-- Aura Mastery
-	[47788] = 180,	-- GS
-	[33206] = 180,	-- Pain Supp
-	[61999] = 600,	-- Raise Ally
-	[16190] = 180, -- Mana Tide
-	[98008] = 180, -- Spirit Link
-	[115176] = 180, -- Zen Meditation
-	[120668] = 300, -- Stormlash Totem
+	[20484] = 600,		-- Rebirth
+	[740] = 180,		-- Tranq
+	[64843] = 180,		-- Divine Hymn
+	[20707] = 600,		-- Soulstone res
+	[64901] = 360,		-- Hymn of Hope
+	[29166] = 180,		-- Innervate
+	[31821] = 120,		-- Aura Mastery
+	[47788] = 180,		-- GS
+	[33206] = 180,		-- Pain Supp
+	[61999] = 600,		-- Raise Ally
+	[16190] = 180, 		-- Mana Tide
+	[98008] = 180, 		-- Spirit Link
+	[115176] = 180, 	-- Zen Meditation
+	[120668] = 300, 	-- Stormlash Totem
+	[115310] = 180, 	--Revival
 }
 
 local filter = COMBATLOG_OBJECT_AFFILIATION_RAID + COMBATLOG_OBJECT_AFFILIATION_PARTY + COMBATLOG_OBJECT_AFFILIATION_MINE

@@ -47,6 +47,7 @@ C["media"] = {
 	["blank"] = [[Interface\AddOns\DuffedUI\medias\textures\blank]], -- the main texture for all borders/panels
 	["buttonhover"] = [[Interface\AddOns\DuffedUI\medias\textures\button_hover]],
 	["duffed"] = [[Interface\AddOns\DuffedUI\medias\textures\duffed]],
+	["largenodes"] = [[Interface\AddOns\DuffedUI\medias\textures\nodesLarge]],
 	
 	-- colors
 	["bordercolor"] = C["general"].bordercolor or { .125, .125, .125 }, -- border color of DuffedUI panels

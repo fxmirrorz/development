@@ -2,7 +2,7 @@ local D, C, L, G = unpack(select(2, ...))
 
 if D.client == "zhCN" then
 	L.UI_Outdated = "DuffedUI 版本已过期，请至 www.tukui.org 下载最新版"
-	L.UI_Talent_Change_Bug = "A blizzard bug has occured which is preventing you from changing your talents, this happen when you've inspected someone. Unfortunatly there is nothing we can do in this WoW Patch to fix it, please reload your ui and try again."
+	L.UI_Talent_Change_Bug = "一个由暴雪产生的故障已阻止你改变你当前的天赋,这发生在你使用观察功能查看其他玩家角色装备时.不幸的是在这个魔兽补丁中我们对修正它无能为力,请/reload你的插件界面并且再次尝试."
 	
 	-- helpframe
 	L.Duffed_HELP_HEADER = "|cffc41f3bDuffedUI|r - 帮助"
@@ -28,11 +28,11 @@ if D.client == "zhCN" then
 	L.Duffed_HELP_CONTENT9_LINE3 = "另外由衷感谢我的beta版本测试者:"
 	L.Duffed_HELP_CONTENT9_LINE4 = "Kanestorm, Juhawny, Elenarda, macgee, loveran, transform, Optional, Pixelfcuk, Shera, lefirez, jones7 还有其他所有的测试者 :)"
 
-	L.Duffed_HELP_CONTENT8_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT8_TITLE = "已知问题"
 	L.Duffed_HELP_CONTENT8_LINE1 = ""
-	L.Duffed_HELP_CONTENT8_LINE2 = ""
-	L.Duffed_HELP_CONTENT8_LINE3 = ""
-	L.Duffed_HELP_CONTENT8_LINE4 = ""
+	L.Duffed_HELP_CONTENT8_LINE2 = "这里你将找到一个DuffedUi已知问题的列表"
+	L.Duffed_HELP_CONTENT8_LINE3 = "问题:"
+	L.Duffed_HELP_CONTENT8_LINE4 = "- 装备等级在人物面板显示错误(由5.1补丁更新系统函数引起) \n- 鼠标提示他人装备等级估算错误."
 
 	L.Duffed_HELP_CONTENT7_TITLE = "即将到来"
 	L.Duffed_HELP_CONTENT7_LINE1 = ""
@@ -46,17 +46,17 @@ if D.client == "zhCN" then
 	L.Duffed_HELP_CONTENT6_LINE3 = ""
 	L.Duffed_HELP_CONTENT6_LINE4 = ""
 
-	L.Duffed_HELP_CONTENT5_TITLE = "即将到来"
+	L.Duffed_HELP_CONTENT5_TITLE = "iCD / sCD控件"
 	L.Duffed_HELP_CONTENT5_LINE1 = ""
-	L.Duffed_HELP_CONTENT5_LINE2 = ""
-	L.Duffed_HELP_CONTENT5_LINE3 = ""
-	L.Duffed_HELP_CONTENT5_LINE4 = ""
+	L.Duffed_HELP_CONTENT5_LINE2 = "什么是iCD和sCD设定?两个名称的意义都是<物品冷却>(iCD)和<技能冷却>(sCD)的缩写.."
+	L.Duffed_HELP_CONTENT5_LINE3 = "使用<物品冷却>将会启用一个非常强力的插件功能,显示你物品CD结束的脉冲动画.这个脉冲效果将出现在你的屏幕中部."
+	L.Duffed_HELP_CONTENT5_LINE4 = "使用<技能冷却>将会启用一个非常强力的插件功能,显示你重要技能的CD结束.这两个插件功能使用技能白名单过滤,如果有需要添加的监视技能,请将技能的SpellID告诉我,我会后续添加."
 
-	L.Duffed_HELP_CONTENT4_TITLE = "Actionbars"
+	L.Duffed_HELP_CONTENT4_TITLE = "动作条"
 	L.Duffed_HELP_CONTENT4_LINE1 = ""
-	L.Duffed_HELP_CONTENT4_LINE2 = "In DuffedUI you have three different layouts for your actionbars. The layouts are:\n\n1x24 & 1x12 bottombars and 2x12 rightbars\nx12 bottombars, 2x6 splitbars, 2x12 rightbars\n3x12 bottombars, 2x12 rightbars"
-	L.Duffed_HELP_CONTENT4_LINE3 = "For the layout with 2x12 bottombars you have to set the layout to 2 in the ingameConfig. The third layout can you activate if you set the option Enable lowres-layout on highres in the ingameConfig. Every layout has an button to hide one of the bottombars. Only the default layout has no one if the actionbarswap is active."
-	L.Duffed_HELP_CONTENT4_LINE4 = "If you have suggestions or problems with the layouts please use the forum."
+	L.Duffed_HELP_CONTENT4_LINE2 = "在DuffedUi中,你将拥有3种不同的动作条布局模式.模式为:\n\n1x24 & 1x12 底部动作条 and 2x12 右边动作条\nx12 底部动作条, 2x6 分割动作条, 2x12 右边动作条\n3x12 底部动作条, 2x12 右边动作条"
+	L.Duffed_HELP_CONTENT4_LINE3 = "如果要使用 2x12 底部动作条布局模式,你必须在游戏内Tukui设置中设定//动作条布局//模式为 2 . 第三种3x12布局模式需要你在一般设定中去掉勾选//使用高分辨率设定于低分辨率//选项.每种布局都有一个隐藏按钮在底部动作条下(或者在左下方聊天框右下角).若你开启了动作条1与动作条3互换位置的选项,在底部将缺少隐藏按钮+号设置."
+	L.Duffed_HELP_CONTENT4_LINE4 = "如果你有这些布局的建议或者问题请使用论坛反馈给我."
 
 	L.Duffed_HELP_CONTENT3_TITLE = "按钮"
 	L.Duffed_HELP_CONTENT3_LINE1 = "在小地图的下面你可以看到一排有自己独特功能的小按钮。"
@@ -72,13 +72,13 @@ if D.client == "zhCN" then
 
 	L.Duffed_HELP_CONTENT1_TITLE = "命令行"
 	L.Duffed_HELP_CONTENT1_LINE1 = "/dhelp => 打开帮主面板\n/resetui => 重置所有UI界面\n/install => 重新安装整个UI"
-	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mtukui => 移动界面内元素\n/kb => 设置按键\n/rl => 重载界面"
-	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切换到治疗界面\n/dps => 切换到DPS/坦克界面\n/tc => 打开游戏内设置\n/ddbm apply => 启用DBM皮肤"
-	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 启用BigWigs皮肤\n/am => 打开插件管理器\n/version => 显示插件版本"
+	L.Duffed_HELP_CONTENT1_LINE2 = "/moveui or /mduffedui => 移动界面内元素\n/kb => 设置按键\n/rl => 重载界面"
+	L.Duffed_HELP_CONTENT1_LINE3 = "/heal => 切换到治疗界面\n/dps => 切换到DPS/坦克界面\n/dc => 打开游戏内设置\n/ddbm apply => 启用DBM皮肤"
+	L.Duffed_HELP_CONTENT1_LINE4 = "/dbigwigs apply => 启用BigWigs皮肤\n/am => 打开插件管理器\n/version => 显示插件版本\n/farmmode => Enable the farmmode"
 	
 	-- localization for zhCN  by 风吹那啥凉（Popptise @DuffedUI forums)	
-	L.chat_BATTLEGROUND_GET = "战场"
-	L.chat_BATTLEGROUND_LEADER_GET = "战场领袖"
+	L.chat_INSTANCE_CHAT = "I"
+	L.chat_INSTANCE_CHAT_LEADER = "IL"
 	L.chat_BN_WHISPER_GET = "密语"
 	L.chat_GUILD_GET = "公"
 	L.chat_OFFICER_GET = "官"
@@ -171,7 +171,7 @@ if D.client == "zhCN" then
 	L.datatext_cta_allunavailable = "无法获取战斗的召唤信息."
 	L.datatext_cta_nodungeons = "目前没有可用的战斗的召唤地下城."
 	L.datatext_carts_controlled = "Carts Controlled:"
-	L.datatext_victory_points = "Victory Points:"
+	L.datatext_victory_points = "征服点数:"
 	L.datatext_orb_possessions = "Orb Possessions:"
 
 	L.Slots = {
@@ -244,10 +244,10 @@ if D.client == "zhCN" then
 	L.bags_stackend = "重新堆叠完成。"
 	L.bags_rightclick_search = "右击开始查找。"
 	
-	L.loot_fish = "Fishy loot" -- not sure for this now
-	L.loot_empty = "Empty slot" -- not sure for this now
-	L.loot_randomplayer = "Random Player"
-	L.loot_self = "Self Loot"
+	L.loot_fish = "渔获" -- not sure for this now
+	L.loot_empty = "无战利品" -- not sure for this now
+	L.loot_randomplayer = "随机队伍玩家Random Player"
+	L.loot_self = "自我获取"
 
 	L.chat_invalidtarget = "无效的目标"
 

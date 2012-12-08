@@ -17,8 +17,8 @@ tinsert(D.AllowFrameMoving, DuffedUIAchievementHolder)
 AlertFrame:SetParent(AchievementHolder)
 AlertFrame:SetPoint("TOP", AchievementHolder, 0, -30)
 
---[[
-	SlashCmdList.TEST_ACHIEVEMENT = function()
+
+	--[[SlashCmdList.TEST_ACHIEVEMENT = function()
 		PlaySound("LFG_Rewards")
 		AchievementFrame_LoadUI()
 		AchievementAlertFrame_ShowAlert(5780)
@@ -35,5 +35,4 @@ AlertFrame:SetPoint("TOP", AchievementHolder, 0, -30)
 		LootWonAlertFrame_ShowAlert(itemLink, -1, 1, 1)
 		AlertFrame_FixAnchors()
 	end
-	SLASH_TEST_ACHIEVEMENT1 = "/testalerts"
---]]
+	SLASH_TEST_ACHIEVEMENT1 = "/testalerts"]]--
